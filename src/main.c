@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/11/19 18:59:54 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/11/19 23:04:12 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int main() {
 	char *username;
 
 	username = getenv("USER");
-	username = ft_strjoin(username, ":", NO_FREE);
+	username = ft_strjoin(username, " ", NO_FREE);
 	username = ft_strjoin(username, "~", DO_FREE);
 	while (GLOBAL_WARMING_DONT_EXIST)
 	{
@@ -46,6 +46,6 @@ int main() {
 		add_history(input);
 	}
 	free(username);
-	rl_clear_history();
+	// rl_clear_history();
 	return (0);
 }
