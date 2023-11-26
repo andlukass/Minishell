@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/11/26 15:26:17 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/11/26 15:29:54 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ int main(int argc, char *argv[], char *env[]) {
 	get_username();
 	while (GLOBAL_WARMING_DONT_EXIST)
 	{
-		free(data->prompt);
 		get_prompt();
 		data->input = readline(data->prompt);
+		free(data->prompt);
 		if (data->input == NULL || strcmp(data->input, "exit") == 0)
 		{
 			printf("exit\n");
