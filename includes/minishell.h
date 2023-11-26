@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/11/26 14:01:00 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/11/26 15:35:59 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ typedef struct s_data{
 	char	*input;
 	char	*prompt;
 	char	*username;
-	int	test;
-} t_data;
+	int		test;
+}	t_data;
 
 t_data	*get_data(void);
 
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strjoin(char *s1, char *s2, int is_free);
-int	ft_strlen(const char *s);
+int		ft_strlen(const char *s);
 
 #endif

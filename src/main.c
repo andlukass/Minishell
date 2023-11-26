@@ -6,33 +6,31 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/11/26 15:29:54 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/11/26 15:32:33 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int received_sigint = 0;
-
-char *get_dir()
+char	*get_dir(void)
 {
-	char *home;
-	char *home_dir_name;
-	char *pwd;
-	char *occurrence;
+	char	*home;
+	char	*home_dir_name;
+	char	*pwd;
+	char	*occurrence;
 
 	home = getenv("HOME");
 	home_dir_name = ft_strrchr(home, '/') + 1;
 	pwd = getenv("PWD");
 	occurrence = strstr(pwd, home_dir_name);
 	occurrence = occurrence + strlen(home_dir_name);
-	return occurrence;
+	return (occurrence);
 }
 
-void	get_prompt()
+void	get_prompt(void)
 {
-	char **prompt;
-	char **username;
+	char	**prompt;
+	char	**username;
 
 	prompt = &get_data()->prompt;
 	username = &get_data()->username;
@@ -42,8 +40,8 @@ void	get_prompt()
 
 void	get_username(void)
 {
-	char **username;
-	char *env_user;
+	char	**username;
+	char	*env_user;
 
 	username = &get_data()->username;
 	env_user = getenv("USER");
@@ -65,11 +63,12 @@ void	signal_handler(int sig)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-	} 
+	}
 }
 
-int main(int argc, char *argv[], char *env[]) {
-	t_data *data;
+int	main(int argc, char *argv[], char *env[])
+{
+	t_data	*data;
 
 	(void)argv;
 	(void)env;
@@ -87,7 +86,7 @@ int main(int argc, char *argv[], char *env[]) {
 		if (data->input == NULL || strcmp(data->input, "exit") == 0)
 		{
 			printf("exit\n");
-			break;
+			break ;
 		}
 		add_history(data->input);
 	}
