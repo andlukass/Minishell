@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/11/26 16:28:39 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:10:11 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,20 @@
 # define DO_FREE 1
 # define NO_FREE 0
 
+typedef struct s_env{
+	char	*key;
+	char	*value;
+	struct s_env *next;
+}	t_env;
+
 typedef struct s_data{
 	char	*input;
 	char	*prompt;
 	char	*username;
-	int		test;
+	char	*path;
+	t_env	current_env;
 }	t_data;
+
 
 /**
  * @brief	Static struct accessible from any point of the code.
@@ -91,5 +99,10 @@ void	get_username(void);
  * @brief	Prints exit message, free what is needed and exit program.
  */
 void ft_exit(void);
+
+/**
+ * @brief	Prints whats was the input.
+ */
+void ft_echo(char *str);
 
 #endif
