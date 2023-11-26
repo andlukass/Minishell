@@ -6,12 +6,17 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/11/26 15:32:33 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/11/26 15:56:53 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+/**
+ * @brief	Compares home directory with the current PWD
+ * and returns the portion of the actual directory path 
+ * that is beyond the home directory.
+ */
 char	*get_dir(void)
 {
 	char	*home;
@@ -27,6 +32,11 @@ char	*get_dir(void)
 	return (occurrence);
 }
 
+/**
+ * @brief	Concatenates the username with the current directory
+ * and end the terminal stylization.
+ * The prompt is stored in the global data.
+ */
 void	get_prompt(void)
 {
 	char	**prompt;
@@ -38,6 +48,10 @@ void	get_prompt(void)
 	*prompt = ft_strjoin(*prompt, "]\033[0m ", DO_FREE);
 }
 
+/**
+ * @brief	Gets the username and initiates the terminal stylization.
+ * The username is stored in the global data.
+ */
 void	get_username(void)
 {
 	char	**username;
@@ -54,9 +68,11 @@ void	get_username(void)
 	*username = ft_strjoin(*username, "\033[1;93m[~", DO_FREE);
 }
 
+/**
+ * @brief	Capture CTRL C command and give the prompt back
+ */
 void	signal_handler(int sig)
 {
-	printf("sig: %d\n", sig);
 	if (sig == SIGINT)
 	{
 		printf("\n");
