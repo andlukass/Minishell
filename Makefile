@@ -3,9 +3,9 @@ RED := \033[31m
 END := \033[0m
 
 SRCS = src/main.c src/utils/ft_strjoin.c src/utils/ft_strlen.c \
-		src/utils/ft_strrchr.c
+		src/utils/ft_strrchr.c src/structs/data.c
 
-CFLAGS = -lreadline -Wall -Wextra -Werror
+CFLAGS = -lreadline #-Wall -Wextra -Werror
 
 NAME = minishell
 
@@ -22,5 +22,8 @@ fclean:	clean
 		@$(RM) $(NAME)
 
 re:		fclean all
+
+v: $(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --suppressions=readline.supp ./$(NAME)
 
 .PHONY:	all clean fclean re

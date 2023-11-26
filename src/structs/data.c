@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   data.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/19 18:54:01 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/11/26 12:22:00 by llopes-d         ###   ########.fr       */
+/*   Created: 2023/11/21 14:34:59 by llopes-d          #+#    #+#             */
+/*   Updated: 2023/11/21 16:02:39 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(const char *s)
-{
-	int	index;
+#include "../../includes/minishell.h"
 
-	if (!s)
-		return (0);
-	index = 0;
-	while ((s[index] != '\0'))
-		index++;
-	return (index);
+t_data	*get_data(void)
+{
+	static t_data	data;
+	return (&data);
 }
