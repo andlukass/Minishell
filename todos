@@ -6,6 +6,15 @@ OK • In interactive mode:
 	OK ◦ ctrl-D exits the shell.
 	OK ◦ ctrl-\ does nothing.
 
+	• Your shell must implement the following builtins:
+	◦ echo with option -n
+	◦ cd with only a relative or absolute path
+	OK ◦ pwd with no options
+	◦ export with no options
+	◦ unset with no options
+	◦ env with no options or arguments
+	OK ◦ exit with no options
+
 • Search and launch the right executable (based on the PATH variable or using a relative or an absolute path).
 • Avoid using more than one global variable to indicate a received signal. Consider the implications: this approach ensures that your signal handler will not access your main data structures.
 • Not interpret unclosed quotes or special characters which are not required by the
@@ -23,12 +32,3 @@ connected to the input of the next command via a pipe.
 should expand to their values.
 • Handle $? which should expand to the exit status of the most recently executed
 foreground pipeline.
-
-• Your shell must implement the following builtins:
-	◦ echo with option -n
-	◦ cd with only a relative or absolute path
-	◦ pwd with no options
-	◦ export with no options
-	◦ unset with no options
-	◦ env with no options or arguments
-	◦ exit with no options
