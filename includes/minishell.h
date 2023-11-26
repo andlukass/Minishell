@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/11/26 16:10:44 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/11/26 16:28:39 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ typedef struct s_data{
  */
 t_data	*get_data(void);
 
+
+
 /**
  * @param	s the string in which to search.
  * @param	c the char to search in 's'.
@@ -61,5 +63,33 @@ char	*ft_strjoin(char *s1, char *s2, int is_free);
  * @return	the size of 's'.
  */
 int		ft_strlen(const char *s);
+
+
+
+/**
+ * @brief	Compares home directory with the current PWD
+ * and returns the portion of the actual directory path 
+ * that is beyond the home directory.
+ */
+char	*get_dir(void);
+
+/**
+ * @brief	Concatenates the username with the current directory
+ * and end the terminal stylization.
+ * The prompt is stored in the global data.
+ */
+void	get_prompt(void);
+
+/**
+ * @brief	Gets the username and initiates the terminal stylization.
+ * The username is stored in the global data.
+ */
+void	get_username(void);
+
+
+/**
+ * @brief	Prints exit message, free what is needed and exit program.
+ */
+void ft_exit(void);
 
 #endif
