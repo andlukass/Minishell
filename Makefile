@@ -4,7 +4,7 @@ END := \033[0m
 
 SRCS = src/main.c src/utils/ft_strjoin.c src/utils/ft_strlen.c \
 		src/utils/ft_strrchr.c src/structs/data.c src/prompt/prompt.c \
-		src/builtins/exit.c src/builtins/echo.c
+		src/builtins/exit.c src/builtins/echo.c src/env/env.c
 
 CFLAGS = -lreadline #-Wall -Wextra -Werror
 

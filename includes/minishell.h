@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/11/26 18:10:11 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:25:28 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_data{
 	char	*prompt;
 	char	*username;
 	char	*path;
-	t_env	current_env;
+	t_env	*env;
 }	t_data;
 
 
@@ -104,5 +104,18 @@ void ft_exit(void);
  * @brief	Prints whats was the input.
  */
 void ft_echo(char *str);
+
+/**
+ * @brief	Copy then env to a linked list stored in the global data
+ */
+void get_env(char *env[]);
+/**
+ * @brief	Add a new t_env allocated node in a t_env stack
+ */
+void	add_next_node(t_env *new);
+/**
+ * @brief	Create a new allocated node for t_env
+ */
+t_env	*create_new_value(char *str);
 
 #endif

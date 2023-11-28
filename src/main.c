@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/11/26 19:41:05 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:26:54 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	main(int argc, char *argv[], char *env[])
 		return (write(1, "too many arguments", 1));
 	data = get_data();
 	get_username();
+	get_env(env);
 	while (GLOBAL_WARMING_DONT_EXIST)
 	{
 		get_prompt();
