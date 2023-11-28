@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/11/28 20:58:44 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/11/28 21:09:37 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 # define NO_FREE 0
 
 typedef struct s_env{
-	char	*key;
-	char	*value;
-	struct s_env *next;
+	char			*key;
+	char			*value;
+	struct s_env	*next;
 }	t_env;
 
 typedef struct s_data{
@@ -39,14 +39,11 @@ typedef struct s_data{
 	t_env	*env;
 }	t_data;
 
-
 /**
  * @brief	Static struct accessible from any point of the code.
  * @return	the adress of the static struct.
  */
 t_data	*get_data(void);
-
-
 
 /**
  * @param	s the string in which to search.
@@ -72,8 +69,6 @@ char	*ft_strjoin(char *s1, char *s2, int is_free);
  */
 int		ft_strlen(const char *s);
 
-
-
 /**
  * @brief	Compares home directory with the current PWD
  * and returns the portion of the actual directory path 
@@ -94,21 +89,20 @@ void	get_prompt(void);
  */
 void	get_username(void);
 
-
 /**
  * @brief	Prints exit message, free what is needed and exit program.
  */
-void ft_exit(void);
+void	ft_exit(void);
 
 /**
  * @brief	Prints whats was the input.
  */
-void ft_echo(char *str);
+void	ft_echo(char *str);
 
 /**
  * @brief	Copy then env to a linked list stored in the global data
  */
-void get_env(char *env[]);
+void	get_env(char *env[]);
 /**
  * @brief	Add a new t_env allocated node in a t_env stack
  */
@@ -120,7 +114,7 @@ t_env	*create_new_value(char *str);
 /**
  * @brief	Get a value in the t_env from a key received as parameter
  */
-char *get_env_value(char *key);
+char	*get_env_value(char *key);
 /**
  * @brief	Free all memory alocated by the t_env list
  */

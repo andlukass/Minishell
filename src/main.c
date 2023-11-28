@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/11/28 20:57:27 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/11/28 21:05:56 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	signal_handler(int sig)
 	}
 }
 
-void check_input(void)
+void	check_input(void)
 {
 	if (get_data()->input == NULL || !strcmp(get_data()->input, "exit"))
 		ft_exit();
