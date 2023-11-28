@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/11/28 20:25:28 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:58:44 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,13 @@ void	add_next_node(t_env *new);
  * @brief	Create a new allocated node for t_env
  */
 t_env	*create_new_value(char *str);
+/**
+ * @brief	Get a value in the t_env from a key received as parameter
+ */
+char *get_env_value(char *key);
+/**
+ * @brief	Free all memory alocated by the t_env list
+ */
+void	free_env(t_env *stack);
 
 #endif

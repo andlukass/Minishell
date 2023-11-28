@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:22:42 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/11/26 16:24:23 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:40:03 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ char	*get_dir(void)
 	char	*pwd;
 	char	*occurrence;
 
-	home = getenv("HOME");
+	home = get_env_value("HOME");
 	home_dir_name = ft_strrchr(home, '/') + 1;
-	pwd = getenv("PWD");
+	pwd = get_env_value("PWD");
 	occurrence = strstr(pwd, home_dir_name);
 	occurrence = occurrence + strlen(home_dir_name);
 	return (occurrence);
@@ -58,8 +58,7 @@ void	get_username(void)
 	char	*env_user;
 
 	username = &get_data()->username;
-	env_user = getenv("USER");
-	*username = NULL;
+	env_user = get_env_value("USER");
 	*username = ft_strjoin(" \033[1;96m", *username, NO_FREE);
 	*username = ft_strjoin(*username, env_user, DO_FREE);
 	*username = ft_strjoin(*username, "\033[0m", DO_FREE);

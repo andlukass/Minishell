@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/11/28 20:26:54 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:57:27 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void check_input(void)
 	if (get_data()->input == NULL || !strcmp(get_data()->input, "exit"))
 		ft_exit();
 	else if (!strcmp(get_data()->input, "pwd"))
-		printf("%s\n", getenv("PWD"));
+		printf("%s\n", get_env_value("PWD"));
 }
 
 int	main(int argc, char *argv[], char *env[])
@@ -45,8 +45,8 @@ int	main(int argc, char *argv[], char *env[])
 	if (argc != 1)
 		return (write(1, "too many arguments", 1));
 	data = get_data();
-	get_username();
 	get_env(env);
+	get_username();
 	while (GLOBAL_WARMING_DONT_EXIST)
 	{
 		get_prompt();
@@ -56,6 +56,7 @@ int	main(int argc, char *argv[], char *env[])
 		add_history(data->input);
 	}
 	free(data->username);
+	free_env(data->env);
 	rl_clear_history();
 	return (0);
 }

@@ -6,11 +6,30 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:21:22 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/11/28 20:24:49 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:47:25 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	free_env(t_env *stack)
+{
+	t_env	*current;
+	t_env	*temp;
+
+	current = stack;
+	while (current->next)
+	{
+		temp = current->next;
+		free(current->key);
+		free(current->value);
+		free(current);
+		current = temp;
+	}
+	free(current->key);
+	free(current->value);
+	free(current);
+}
 
 t_env	*create_new_value(char *str)
 {
@@ -38,6 +57,25 @@ void	add_next_node(t_env *new)
 	}
 	else
 		get_data()->env = new;
+}
+
+char *get_env_value(char *key)
+{
+	t_env *current;
+
+	current = get_data()->env;
+	if(get_data()->env)
+	{
+		while(current->next)
+		{
+			if (!strcmp(current->key, key))
+				return (current->value);
+			current = current->next;
+		}
+		return (NULL);
+	}
+	else
+		return (NULL);
 }
 
 void get_env(char *env[])
