@@ -16,6 +16,7 @@ OK • Avoid using more than one global variable to indicate a received signal. 
 	◦ env with no options or arguments
 	OK ◦ exit with no options
 
+
 • Search and launch the right executable (based on the PATH variable or using a relative or an absolute path).
 • Not interpret unclosed quotes or special characters which are not required by the
 subject such as \ (backslash) or ; (semicolon).
