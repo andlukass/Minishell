@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/11/28 21:09:37 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/12/05 19:55:28 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_env{
 }	t_env;
 
 typedef struct s_data{
+	char	**input_array;
 	char	*input;
 	char	*prompt;
 	char	*username;
@@ -44,6 +45,10 @@ typedef struct s_data{
  * @return	the adress of the static struct.
  */
 t_data	*get_data(void);
+
+char	**ft_split(char const *s, char c);
+void	free_double_array(char **array);
+void	ft_pwd(void);
 
 /**
  * @param	s the string in which to search.
@@ -97,7 +102,7 @@ void	ft_exit(void);
 /**
  * @brief	Prints whats was the input.
  */
-void	ft_echo(char *str);
+void	ft_echo();
 
 /**
  * @brief	Copy then env to a linked list stored in the global data

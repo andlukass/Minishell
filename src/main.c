@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/11/28 21:05:56 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/12/05 20:02:33 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,21 @@ void	signal_handler(int sig)
 	}
 }
 
-void	check_input(void)
+void	get_input_array()
 {
-	if (get_data()->input == NULL || !strcmp(get_data()->input, "exit"))
+	get_data()->input_array = ft_split(get_data()->input, ' ');
+}
+
+void	handle_input(void)
+{
+	get_input_array();
+	if (get_data()->input == NULL || !strcmp(get_data()->input_array[0], "exit"))
 		ft_exit();
-	else if (!strcmp(get_data()->input, "pwd"))
-		printf("%s\n", get_env_value("PWD"));
+	else if (!strcmp(get_data()->input_array[0], "pwd"))
+		ft_pwd();
+	else if (!strcmp(get_data()->input_array[0], "echo"))
+		ft_echo();
+	free_double_array(get_data()->input_array);
 }
 
 int	main(int argc, char *argv[], char *env[])
@@ -52,12 +61,9 @@ int	main(int argc, char *argv[], char *env[])
 		get_prompt();
 		data->input = readline(data->prompt);
 		free(data->prompt);
-		check_input();
+		handle_input();
 		add_history(data->input);
 	}
-	free(data->username);
-	free_env(data->env);
-	rl_clear_history();
 	return (0);
 }
 

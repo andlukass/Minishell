@@ -15,7 +15,5 @@ int main()
 		printf("%s\n",entity->d_name);
 		entity = readdir(dir);
 	}
-
 	closedir(dir);
-
 }

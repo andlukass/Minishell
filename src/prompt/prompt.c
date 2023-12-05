@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:22:42 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/11/28 21:06:53 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/12/05 20:28:00 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	get_prompt(void)
 	prompt = &get_data()->prompt;
 	username = &get_data()->username;
 	*prompt = ft_strjoin(*username, get_dir(), NO_FREE);
+	// *prompt = ft_strjoin(*prompt, "] ", DO_FREE);
 	*prompt = ft_strjoin(*prompt, "]\033[0m ", DO_FREE);
 }
 
@@ -48,7 +49,8 @@ void	get_username(void)
 	*username = ft_strjoin(" \033[1;96m", *username, NO_FREE);
 	*username = ft_strjoin(*username, env_user, DO_FREE);
 	*username = ft_strjoin(*username, "\033[0m", DO_FREE);
-	*username = ft_strjoin(*username, " ", DO_FREE);
+	// *username = ft_strjoin(*username, " ", DO_FREE);
 	*username = ft_strjoin(*username, "in ", DO_FREE);
+	// *username = ft_strjoin(*username, "[~", DO_FREE);
 	*username = ft_strjoin(*username, "\033[1;93m[~", DO_FREE);
 }
