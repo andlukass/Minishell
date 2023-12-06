@@ -15,7 +15,7 @@ NAME = minishell
 all: $(NAME)
 
 $(NAME): $(SRCS)
-	@$(CC) $(CFLAGS) $(SRCS) -o $(NAME)
+	@$(CC) $(SRCS) -o $(NAME) $(CFLAGS)
 	@echo "\n$(GREEN)> Compilation done!\n$(END)"
 
 clean:
