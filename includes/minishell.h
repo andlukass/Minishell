@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/06 13:32:00 by user             ###   ########.fr       */
+/*   Updated: 2023/12/06 13:38:17 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_data	*get_data(void);
 char	**ft_split(char const *s, char c);
 void	free_double_array(char **array);
 void	ft_pwd(void);
+void	ft_env(void);
 
 /**
  * @param	s the string in which to search.
