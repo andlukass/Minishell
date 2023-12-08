@@ -4,7 +4,8 @@ END := \033[0m
 
 SRCS = src/main.c src/utils/ft_strjoin.c src/utils/ft_strlen.c \
 		src/utils/ft_split.c src/utils/ft_strrchr.c \
-		src/utils/free_double_array.c src/structs/data.c \
+		src/utils/free_double_array.c src/utils/ft_itoa.c \
+		src/structs/data.c \
 		src/prompt/prompt.c src/builtins/ft_exit.c src/builtins/ft_echo.c \
 		src/builtins/ft_pwd.c src/builtins/ft_env.c src/env/env.c \
 

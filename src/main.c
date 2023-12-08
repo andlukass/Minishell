@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/05 20:02:33 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:43:13 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	handle_input(void)
 		ft_pwd();
 	else if (!strcmp(get_data()->input_array[0], "echo"))
 		ft_echo();
+	else if (!strcmp(get_data()->input_array[0], "env"))
+		ft_env();
 	free_double_array(get_data()->input_array);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/06 13:38:17 by user             ###   ########.fr       */
+/*   Updated: 2023/12/08 14:54:24 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ char	**ft_split(char const *s, char c);
 void	free_double_array(char **array);
 void	ft_pwd(void);
 void	ft_env(void);
+
+char	*ft_itoa(int n);
 
 /**
  * @param	s the string in which to search.
