@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:21:22 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/11/28 21:08:18 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:54:15 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ t_env	*create_new_value(char *str)
 	if (!new)
 		return (NULL);
 	new->key = strndup(str, strrchr(str, '=') - str);
-	new->value = strdup(strrchr(str, '=') + 1);
+	if (!strcmp(new->key, "SHLVL"))
+		new->value = ft_itoa( atoi(strrchr(str, '=') + 1) + 1);
+	else
+		new->value = strdup(strrchr(str, '=') + 1);
 	new->next = NULL;
 	return (new);
 }
