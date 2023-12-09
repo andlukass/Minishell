@@ -6,13 +6,13 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:20:27 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/09 21:40:24 by user             ###   ########.fr       */
+/*   Updated: 2023/12/09 22:45:36 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static t_env	*get_copy()
+static t_env	*get_copy(void)
 {
 	t_env	*copy;
 	t_env	*current;
@@ -20,7 +20,7 @@ static t_env	*get_copy()
 
 	current = get_data()->env;
 	copy = NULL;
-	while(current)
+	while (current)
 	{
 		variable = strdup(current->variable);
 		add_next_node(&copy, create_new_value(variable));
@@ -29,37 +29,33 @@ static t_env	*get_copy()
 	return (copy);
 }
 
-static void	print_export()
+static void	print_export(t_env *env_copy)
 {
-	t_env	*current;
-	t_env	*begin;
+	t_env	*cur;
 	char	*temp;
-	int		compare_size;
 
-	current = get_copy();
-	begin = current;
-	while(current->next)
+	cur = env_copy;
+	while (cur->next)
 	{
-		compare_size = strchr(current->variable, '=') - current->variable;
-		if(strncmp(current->variable, current->next->variable, compare_size) > 0)
+		if (strncmp(cur->variable, cur->next->variable, \
+				strchr(cur->variable, '=') - cur->variable) > 0)
 		{
-			temp = current->variable;
-			current->variable = current->next->variable;
-			current->next->variable = temp;
-			current = begin;
+			temp = cur->variable;
+			cur->variable = cur->next->variable;
+			cur->next->variable = temp;
+			cur = env_copy;
 		}
-		current = current->next;
+		cur = cur->next;
 	}
-	current = begin;
-	while(current)
+	cur = env_copy;
+	while (cur)
 	{
-		if (strchr(current->variable, '=') && !(*(strchr(current->variable, '=') + 1)))
-			printf("declare -x %s''\n", current->variable);
+		if (strchr(cur->variable, '=') && !(*(strchr(cur->variable, '=') + 1)))
+			printf("declare -x %s''\n", cur->variable);
 		else
-			printf("declare -x %s\n", current->variable);
-		current = current->next;
+			printf("declare -x %s\n", cur->variable);
+		cur = cur->next;
 	}
-	free_env(begin);
 }
 
 static void	add_to_env(char *argument)
@@ -108,14 +104,15 @@ static void	add_to_env(char *argument)
 
 void	ft_export(void)
 {
-	t_env *current;
-	int	index;
+	t_env	*env_copy;
+	int		index;
 
 	index = 1;
-	current = get_data()->env;
+	env_copy = get_copy();
 	if (!get_data()->input_array[1])
-		print_export();
+		print_export(env_copy);
 	else
-		while(get_data()->input_array[index])
+		while (get_data()->input_array[index])
 			add_to_env(get_data()->input_array[index++]);
+	free_env(env_copy);
 }
