@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/08 15:38:23 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/12/09 23:09:55 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	signal_handler(int sig)
 	}
 }
 
-void	get_input_array()
+void	get_input_array(void)
 {
 	get_data()->input_array = ft_split(get_data()->input, ' ');
 }
@@ -34,7 +34,8 @@ void	get_input_array()
 void	handle_input(void)
 {
 	get_input_array();
-	if (get_data()->input == NULL || !strcmp(get_data()->input_array[0], "exit"))
+	if (get_data()->input == NULL || \
+			!strcmp(get_data()->input_array[0], "exit"))
 		ft_exit();
 	else if (!strcmp(get_data()->input_array[0], "pwd"))
 		ft_pwd();

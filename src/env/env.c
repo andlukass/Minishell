@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:21:22 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/09 21:39:33 by user             ###   ########.fr       */
+/*   Updated: 2023/12/09 23:05:22 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,25 +59,26 @@ void	add_next_node(t_env **list, t_env *new)
 
 char	*get_env_value(char *key)
 {
-	t_env	*current;
+	t_env	*cur;
 	char	*old_key;
 
-	current = get_data()->env;
+	cur = get_data()->env;
 	if (get_data()->env)
 	{
-		while (current->next)
+		while (cur->next)
 		{
-			if (strrchr(current->variable, '='))
-				old_key = strndup(current->variable, strrchr(current->variable, '=') - current->variable);
+			if (strrchr(cur->variable, '='))
+				old_key = strndup(cur->variable, \
+					strrchr(cur->variable, '=') - cur->variable);
 			else
-				old_key = strndup(current->variable, ft_strlen(current->variable));
+				old_key = strndup(cur->variable, ft_strlen(cur->variable));
 			if (!strcmp(old_key, key))
 			{
 				free(old_key);
-				return (strrchr(current->variable, '=') + 1);
+				return (strrchr(cur->variable, '=') + 1);
 			}
 			free(old_key);
-			current = current->next;
+			cur = cur->next;
 		}
 		return (NULL);
 	}
