@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:21:22 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/09 15:00:10 by user             ###   ########.fr       */
+/*   Updated: 2023/12/09 15:20:41 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ char	*get_env_value(char *key)
 
 void	get_env(char *env[])
 {
-	int	index;
-	char *key;
-	char *value;
+	int		index;
+	char	*key;
+	char	*value;
 
 	index = 0;
 	while (env[index])
