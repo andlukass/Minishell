@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:21:22 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/09 14:32:30 by user             ###   ########.fr       */
+/*   Updated: 2023/12/09 15:00:10 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,19 @@ t_env	*create_new_value(char *key, char *value)
 	return (new);
 }
 
-void	add_next_node(t_env *new)
+void	add_next_node(t_env **list, t_env *new)
 {
 	t_env	*current;
 
-	if (get_data()->env)
+	if (*(list))
 	{
-		current = get_data()->env;
+		current = *(list);
 		while (current->next)
 			current = current->next;
 		current->next = new;
 	}
 	else
-		get_data()->env = new;
+		*(list) = new;
 }
 
 char	*get_env_value(char *key)
@@ -92,7 +92,7 @@ void	get_env(char *env[])
 			value = ft_itoa( atoi(strrchr(env[index], '=') + 1) + 1);
 		else
 			value = strdup(strrchr(env[index], '=') + 1);
-		add_next_node(create_new_value(key, value));
+		add_next_node(&get_data()->env, create_new_value(key, value));
 		index++;
 	}
 }

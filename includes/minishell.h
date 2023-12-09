@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/09 14:29:20 by user             ###   ########.fr       */
+/*   Updated: 2023/12/09 14:59:51 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	get_env(char *env[]);
 /**
  * @brief	Add a new t_env allocated node in a t_env stack
  */
-void	add_next_node(t_env *new);
+void	add_next_node(t_env **list, t_env *new);
 /**
  * @brief	Create a new allocated node for t_env
  */
