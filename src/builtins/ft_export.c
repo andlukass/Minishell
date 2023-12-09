@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:20:27 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/09 22:45:36 by user             ###   ########.fr       */
+/*   Updated: 2023/12/09 23:04:16 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,48 +58,49 @@ static void	print_export(t_env *env_copy)
 	}
 }
 
-static void	add_to_env(char *argument)
+static int	is_duplicated(t_env	*env, char	*variable, char	*key)
 {
-	t_env	*current;
+	char	*cur_key;
+
+	while (env)
+	{
+		if (strchr(env->variable, '='))
+			cur_key = strndup(env->variable, \
+				strchr(env->variable, '=') - env->variable);
+		else
+			cur_key = strndup(env->variable, ft_strlen(env->variable));
+		if (!strcmp(cur_key, key))
+		{
+			free(cur_key);
+			if (!strchr(variable, '='))
+				return (free(variable), 1);
+			free(env->variable);
+			env->variable = variable;
+			return (1);
+		}
+		free(cur_key);
+		env = env->next;
+	}
+	return (0);
+}
+
+static int	add_to_env(char *arg)
+{
+	t_env	*env;
 	char	*variable;
-	char	*old_key;
 	char	*key;
 
-	if (*argument >= '0' && *argument <= '9')
-	{
-		printf("'%c' identifier can't start with numbers\n", *argument);
-		return;
-	}
-	variable = strdup(argument);
+	if (*arg >= '0' && *arg <= '9')
+		return (printf("'%c' identifier can't start with numbers\n", *arg));
+	variable = strdup(arg);
 	if (strchr(variable, '='))
 		key = strndup(variable, strchr(variable, '=') - variable);
 	else
 		key = strndup(variable, ft_strlen(variable));
-	current = get_data()->env;
-	while(current)
-	{
-		if (strchr(current->variable, '='))
-			old_key = strndup(current->variable, strchr(current->variable, '=') - current->variable);
-		else
-			old_key = strndup(current->variable, ft_strlen(current->variable));
-		if (!strcmp(old_key, key))
-		{
-			free(old_key);
-			free(key);
-			if (!strchr(variable, '='))
-			{
-				free(variable);
-				return;
-			}
-			free(current->variable);
-			current->variable = variable;
-			return ;
-		}
-		free(old_key);
-		current = current->next;
-	}
+	env = get_data()->env;
+	if (!is_duplicated(env, variable, key))
+		add_next_node(&get_data()->env, create_new_value(variable));
 	free(key);
-	add_next_node(&get_data()->env, create_new_value(variable));
 }
 
 void	ft_export(void)
