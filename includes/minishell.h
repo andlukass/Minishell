@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/09 17:02:47 by user             ###   ########.fr       */
+/*   Updated: 2023/12/09 21:16:44 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	free_double_array(char **array);
 void	ft_pwd(void);
 void	ft_env(void);
 void	ft_export(void);
+char	*ft_strrchr(const char *s, int c);
 
 char	*ft_itoa(int n);
 
