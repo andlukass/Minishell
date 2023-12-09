@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:21:22 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/08 14:54:15 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/12/09 14:32:30 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,15 @@ void	free_env(t_env *stack)
 	free(current);
 }
 
-t_env	*create_new_value(char *str)
+t_env	*create_new_value(char *key, char *value)
 {
 	t_env	*new;
 
 	new = malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
-	new->key = strndup(str, strrchr(str, '=') - str);
-	if (!strcmp(new->key, "SHLVL"))
-		new->value = ft_itoa( atoi(strrchr(str, '=') + 1) + 1);
-	else
-		new->value = strdup(strrchr(str, '=') + 1);
+	new->key = key;
+	new->value = value;
 	new->next = NULL;
 	return (new);
 }
@@ -84,8 +81,18 @@ char	*get_env_value(char *key)
 void	get_env(char *env[])
 {
 	int	index;
+	char *key;
+	char *value;
 
 	index = 0;
 	while (env[index])
-		add_next_node(create_new_value(env[index++]));
+	{
+		key = strndup(env[index], strrchr(env[index], '=') - env[index]);
+		if (!strcmp(key, "SHLVL"))
+			value = ft_itoa( atoi(strrchr(env[index], '=') + 1) + 1);
+		else
+			value = strdup(strrchr(env[index], '=') + 1);
+		add_next_node(create_new_value(key, value));
+		index++;
+	}
 }

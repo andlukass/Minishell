@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/08 15:41:51 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/12/09 14:29:20 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	add_next_node(t_env *new);
 /**
  * @brief	Create a new allocated node for t_env
  */
-t_env	*create_new_value(char *str);
+t_env	*create_new_value(char *key, char *value);
 /**
  * @brief	Get a value in the t_env from a key received as parameter
  */
