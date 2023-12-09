@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/09 14:59:51 by user             ###   ########.fr       */
+/*   Updated: 2023/12/09 17:02:47 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@
 # define NO_FREE 0
 
 typedef struct s_env{
-	char			*key;
-	char			*value;
+	char			*variable;
 	struct s_env	*next;
 }	t_env;
 
@@ -119,7 +118,7 @@ void	add_next_node(t_env **list, t_env *new);
 /**
  * @brief	Create a new allocated node for t_env
  */
-t_env	*create_new_value(char *key, char *value);
+t_env	*create_new_value(char *variable);
 /**
  * @brief	Get a value in the t_env from a key received as parameter
  */
