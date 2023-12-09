@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:21:22 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/09 17:30:48 by user             ###   ########.fr       */
+/*   Updated: 2023/12/09 21:39:33 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,46 +45,22 @@ void	add_next_node(t_env **list, t_env *new)
 {
 	t_env	*current;
 	char	*old_key;
-	char	*key;
-
-	if (strrchr(new->variable, '='))
-		key = strndup(new->variable, strrchr(new->variable, '=') - new->variable);
-	else
-		key = strndup(new->variable, ft_strlen(new->variable));
 
 	if (*(list))
 	{
 		current = *(list);
 		while (current->next)
-		{
-			if (strrchr(current->variable, '='))
-				old_key = strndup(current->variable, strrchr(current->variable, '=') - current->variable);
-			else
-				old_key = strndup(current->variable, ft_strlen(current->variable));
-			if (!strcmp(old_key, key))
-			{
-				current->variable = new->variable;
-				free(new->variable);
-				free(new);
-				free(old_key);
-				free(key);
-				return;
-			}
-			free(old_key);
 			current = current->next;
-		}
 		current->next = new;
 	}
 	else
 		*(list) = new;
-	free(key);
 }
 
 char	*get_env_value(char *key)
 {
 	t_env	*current;
 	char	*old_key;
-
 
 	current = get_data()->env;
 	if (get_data()->env)
