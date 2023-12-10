@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/10 19:14:30 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/12/10 23:47:59 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	ft_env(void);
 void	ft_export(void);
 void	ft_unset(void);
 char	*ft_strrchr(const char *s, int c);
+char	*get_env_key(char *variable);
 
 int ft_ls();
 void ft_cd();
