@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/10 14:55:29 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/12/10 18:58:21 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ void	handle_input(void)
 		ft_export();
 	else if (!strcmp(get_data()->input_array[0], "unset"))
 		ft_unset();
+	else if (!strcmp(get_data()->input_array[0], "ls"))
+		ft_ls();
+	else if (!strcmp(get_data()->input_array[0], "cd"))
+		ft_cd();
 	free_double_array(get_data()->input_array);
 }
 
