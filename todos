@@ -13,7 +13,7 @@ OK • Not interpret unclosed quotes or special characters which are not require
 	OK ◦ exit with no options
 	OK ◦ pwd with no options
 	OK ◦ env with no options or arguments
-	◦ export with no options
+	OK ◦ export with no options
 	◦ unset with no options
 	◦ cd with only a relative or absolute path
 

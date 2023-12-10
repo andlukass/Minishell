@@ -9,6 +9,7 @@ SRCS = src/main.c src/utils/ft_strjoin.c src/utils/ft_strlen.c \
 		src/structs/data.c \
 		src/prompt/prompt.c src/builtins/ft_exit.c src/builtins/ft_echo.c \
 		src/builtins/ft_pwd.c src/builtins/ft_env.c src/builtins/ft_export.c \
+		src/builtins/ft_unset.c \
 		src/env/env.c \
 
 CFLAGS = -lreadline #-Wall -Wextra -Werror

@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/09 23:09:55 by user             ###   ########.fr       */
+/*   Updated: 2023/12/10 09:18:01 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	handle_input(void)
 		ft_env();
 	else if (!strcmp(get_data()->input_array[0], "export"))
 		ft_export();
+	else if (!strcmp(get_data()->input_array[0], "unset"))
+		ft_unset();
 	free_double_array(get_data()->input_array);
 }
 
