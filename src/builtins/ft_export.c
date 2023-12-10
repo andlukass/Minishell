@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:20:27 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/10 14:54:45 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/12/10 14:58:03 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,17 @@ static int	is_duplicated(t_env	*env, char	*variable, char	*key)
 	return (0);
 }
 
-static int	add_to_env(char *arg)
+static void	add_to_env(char *arg)
 {
 	t_env	*env;
 	char	*variable;
 	char	*key;
 
 	if (*arg >= '0' && *arg <= '9')
-		return (printf("'%c' identifier can't start with numbers\n", *arg));
+	{
+		printf("'%c' identifier can't start with numbers\n", *arg);
+		return ;
+	}
 	variable = strdup(arg);
 	if (strchr(variable, '='))
 		key = strndup(variable, strchr(variable, '=') - variable);
