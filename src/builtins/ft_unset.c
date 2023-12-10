@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 09:19:38 by user              #+#    #+#             */
-/*   Updated: 2023/12/10 11:47:15 by user             ###   ########.fr       */
+/*   Updated: 2023/12/10 14:49:58 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static void	remove_from_env(char *key)
 void	ft_unset(void)
 {
 	int	i;
-	char *teste = "a=1";
 
 	i = 1;
 	while (get_data()->input_array[i])
