@@ -6,39 +6,37 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 09:19:38 by user              #+#    #+#             */
-/*   Updated: 2023/12/10 14:49:58 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/12/10 15:13:49 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	remove_from_env(char *key)
+static void	remove_from_env(t_env *cur, t_env *previous, char *key)
 {
-	t_env	*current;
-	t_env	*previous;
 	char	*old_key;
 
-	current = get_data()->env;
-	previous = NULL;
-	while(current)
+	while(cur)
 	{
-		if (strrchr(current->variable, '='))
-				old_key = strndup(current->variable, \
-					strchr(current->variable, '=') - current->variable);
-			else
-				old_key = strndup(current->variable, ft_strlen(current->variable));
+		if (strrchr(cur->variable, '='))
+			old_key = strndup(cur->variable, \
+				strchr(cur->variable, '=') - cur->variable);
+		else
+			old_key = strndup(cur->variable, ft_strlen(cur->variable));
 		if(!strcmp(key, old_key))
 		{
 			if (!previous)
-				get_data()->env = current->next;
+				get_data()->env = cur->next;
 			else
-				previous->next = current->next;
-			free(current->variable);
-			free(current);
+				previous->next = cur->next;
+			free(cur->variable);
+			free(cur);
+			free(old_key);
+			return ;
 		}
 		free(old_key);
-		previous = current;
-		current = current->next;
+		previous = cur;
+		cur = cur->next;
 	}
 }
 
@@ -48,5 +46,5 @@ void	ft_unset(void)
 
 	i = 1;
 	while (get_data()->input_array[i])
-		remove_from_env(get_data()->input_array[i++]);
+		remove_from_env(get_data()->env, NULL, get_data()->input_array[i++]);
 }
