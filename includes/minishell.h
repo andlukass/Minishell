@@ -53,7 +53,7 @@ void	ft_pwd(void);
 void	ft_env(void);
 void	ft_export(void);
 void	ft_unset(void);
-char	*ft_strrchr(const char *s, int c);
+
 char	*get_env_key(char *variable);
 void	update_env_value(char *key, char *variable);
 void	remove_env_value(char *key);
@@ -66,10 +66,10 @@ char	*ft_itoa(int n);
 /**
  * @param	s the string in which to search.
  * @param	c the char to search in 's'.
- * @return	the adress of the last occurence of 'c' in 's'.
+ * @return	the adress of the first occurence of 'c' in 's'.
  * 0 if nothing is found.
  */
-char	*ft_strrchr(const char *s, int c);
+char	*ft_strchr(const char *s, int c);
 
 /**
  * @brief	Concatenates two strings.

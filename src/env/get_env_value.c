@@ -26,7 +26,7 @@ char	*get_env_value(char *key)
 			if (!strcmp(env_key, key))
 			{
 				free(env_key);
-				return (strrchr(current->variable, '=') + 1);
+				return (ft_strchr(current->variable, '=') + 1);
 			}
 			free(env_key);
 			current = current->next;

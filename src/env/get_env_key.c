@@ -16,8 +16,8 @@ char	*get_env_key(char *variable)
 {
 	char	*env_key;
 
-	if (strchr(variable, '='))
-		env_key = strndup(variable, strchr(variable, '=') - variable);
+	if (ft_strchr(variable, '='))
+		env_key = strndup(variable, ft_strchr(variable, '=') - variable);
 	else
 		env_key = strndup(variable, ft_strlen(variable));
 	return (env_key);

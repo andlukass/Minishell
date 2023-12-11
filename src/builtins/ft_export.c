@@ -38,7 +38,7 @@ static void	print_export(t_env *env_copy)
 	while (cur->next)
 	{
 		if (strncmp(cur->variable, cur->next->variable, \
-				strchr(cur->variable, '=') - cur->variable) > 0)
+				ft_strchr(cur->variable, '=') - cur->variable) > 0)
 		{
 			temp = cur->variable;
 			cur->variable = cur->next->variable;
@@ -50,7 +50,7 @@ static void	print_export(t_env *env_copy)
 	cur = env_copy;
 	while (cur)
 	{
-		if (strchr(cur->variable, '=') && !(*(strchr(cur->variable, '=') + 1)))
+		if (ft_strchr(cur->variable, '=') && !(*(ft_strchr(cur->variable, '=') + 1)))
 			printf("declare -x %s''\n", cur->variable);
 		else
 			printf("declare -x %s\n", cur->variable);
@@ -64,15 +64,15 @@ static int	is_duplicated(t_env	*env, char	*variable, char	*key)
 
 	while (env)
 	{
-		if (strchr(env->variable, '='))
+		if (ft_strchr(env->variable, '='))
 			cur_key = strndup(env->variable, \
-				strchr(env->variable, '=') - env->variable);
+				ft_strchr(env->variable, '=') - env->variable);
 		else
 			cur_key = strndup(env->variable, ft_strlen(env->variable));
 		if (!strcmp(cur_key, key))
 		{
 			free(cur_key);
-			if (!strchr(variable, '='))
+			if (!ft_strchr(variable, '='))
 				return (free(variable), 1);
 			free(env->variable);
 			env->variable = variable;

@@ -24,7 +24,7 @@ void	ft_env(void)
 	current = get_data()->env;
 	while (current)
 	{
-		if (strrchr(current->variable, '='))
+		if (ft_strchr(current->variable, '='))
 			printf("%s\n", current->variable);
 		current = current->next;
 	}
