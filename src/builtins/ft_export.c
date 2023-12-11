@@ -31,30 +31,30 @@ static t_env	*get_copy(void)
 
 static void	print_export(t_env *env_copy)
 {
-	t_env	*cur;
+	t_env	*current;
 	char	*temp;
 
-	cur = env_copy;
-	while (cur->next)
+	current = env_copy;
+	while (current->next)
 	{
-		if (strncmp(cur->variable, cur->next->variable, \
-				ft_strchr(cur->variable, '=') - cur->variable) > 0)
+		if (strncmp(current->variable, current->next->variable, \
+				ft_strchr(current->variable, '=') - current->variable) > 0)
 		{
-			temp = cur->variable;
-			cur->variable = cur->next->variable;
-			cur->next->variable = temp;
-			cur = env_copy;
+			temp = current->variable;
+			current->variable = current->next->variable;
+			current->next->variable = temp;
+			current = env_copy;
 		}
-		cur = cur->next;
+		current = current->next;
 	}
-	cur = env_copy;
-	while (cur)
+	while (env_copy)
 	{
-		if (ft_strchr(cur->variable, '=') && !(*(ft_strchr(cur->variable, '=') + 1)))
-			printf("declare -x %s''\n", cur->variable);
+		if (ft_strchr(env_copy->variable, '=') \
+				&& !(*(ft_strchr(env_copy->variable, '=') + 1)))
+			printf("declare -x %s''\n", env_copy->variable);
 		else
-			printf("declare -x %s\n", cur->variable);
-		cur = cur->next;
+			printf("declare -x %s\n", env_copy->variable);
+		env_copy = env_copy->next;
 	}
 }
 
@@ -109,6 +109,7 @@ void	ft_export(void)
 	if (!get_data()->input_array[1])
 		print_export(env_copy);
 	else
+	{
 		while (get_data()->input_array[index])
 		{
 			argument = get_data()->input_array[index++];
@@ -117,5 +118,6 @@ void	ft_export(void)
 			else
 				add_to_env(argument);
 		}
+	}
 	free_env(env_copy);
 }

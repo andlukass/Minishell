@@ -23,7 +23,7 @@ void	remove_env_value(char *key)
 	while (current)
 	{
 		env_key = get_env_key(current->variable);
-		if(!strcmp(key, env_key))
+		if (!strcmp(key, env_key))
 		{
 			if (!previous)
 				get_data()->env = current->next;
