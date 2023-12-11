@@ -12,18 +12,46 @@
 
 #include "../../includes/minishell.h"
 
-void	add_next_node(t_env **list, t_env *new)
+/**
+ * @brief	Create a new allocated node for t_env
+ */
+static t_env	*create_new_value(char *variable)
+{
+	t_env	*new;
+
+	new = malloc(sizeof(t_env));
+	if (!new)
+		return (NULL);
+	new->variable = variable;
+	new->next = NULL;
+	return (new);
+}
+
+int	add_next_node(t_env **list, char *variable)
 {
 	t_env	*current;
-	char	*old_key;
+	char	*env_key;
+	char	*new_key;
 
-	if (*(list))
+	if (!(*(list)))
+		return (*(list) = create_new_value(variable), 0);
+	current = *(list);
+	new_key = get_env_key(variable);
+	while (current->next)
 	{
-		current = *(list);
-		while (current->next)
-			current = current->next;
-		current->next = new;
+		env_key = get_env_key(current->variable);
+		if (!strcmp(new_key, env_key))
+		{
+			free(new_key);
+			free(env_key);
+			if (!ft_strchr(variable, '='))
+				return (free(variable), 0);
+			free(current->variable);
+			return (current->variable = variable, 1);
+		}
+		free(env_key);
+		current = current->next;
 	}
-	else
-		*(list) = new;
+	current->next = create_new_value(variable);
+	free(new_key);
 }

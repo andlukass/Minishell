@@ -124,11 +124,8 @@ void	get_env(char *env[]);
 /**
  * @brief	Add a new t_env allocated node in a t_env stack
  */
-void	add_next_node(t_env **list, t_env *new);
-/**
- * @brief	Create a new allocated node for t_env
- */
-t_env	*create_new_value(char *variable);
+int	add_next_node(t_env **list, char *variable);
+
 /**
  * @brief	Get a value in the t_env from a key received as parameter
  */

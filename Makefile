@@ -9,7 +9,7 @@ SRCS = src/main.c src/utils/ft_strjoin.c src/utils/ft_strlen.c \
 		src/prompt/prompt.c src/builtins/ft_exit.c src/builtins/ft_echo.c \
 		src/builtins/ft_pwd.c src/builtins/ft_env.c src/builtins/ft_export.c \
 		src/builtins/ft_unset.c src/builtins/ft_cd.c \
-		src/env/get_env.c src/env/free_env.c src/env/create_new_value.c \
+		src/env/get_env.c src/env/free_env.c \
 		src/env/add_next_node.c src/env/get_env_value.c src/env/update_env_value.c \
 		src/env/get_env_key.c src/env/remove_env_value.c \
 

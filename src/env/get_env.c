@@ -29,7 +29,7 @@ void	get_env(char *env[])
 		}
 		else
 			variable = strndup(env[index], ft_strlen(env[index]));
-		add_next_node(&get_data()->env, create_new_value(variable));
+		add_next_node(&get_data()->env, variable);
 		index++;
 	}
 }
