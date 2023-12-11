@@ -20,7 +20,7 @@ char	*get_env_value(char *key)
 	current = get_data()->env;
 	if (get_data()->env)
 	{
-		while (current->next)
+		while (current)
 		{
 			env_key = get_env_key(current->variable);
 			if (!strcmp(env_key, key))
