@@ -84,22 +84,14 @@ static int	is_duplicated(t_env	*env, char	*variable, char	*key)
 	return (0);
 }
 
-static void	add_to_env(char *arg)
+static void	add_to_env(char *argument)
 {
 	t_env	*env;
 	char	*variable;
 	char	*key;
 
-	if (*arg >= '0' && *arg <= '9')
-	{
-		printf("'%c' identifier can't start with numbers\n", *arg);
-		return ;
-	}
-	variable = strdup(arg);
-	if (strchr(variable, '='))
-		key = strndup(variable, strchr(variable, '=') - variable);
-	else
-		key = strndup(variable, ft_strlen(variable));
+	variable = strdup(argument);
+	key = get_env_key(argument);
 	env = get_data()->env;
 	if (!is_duplicated(env, variable, key))
 		add_next_node(&get_data()->env, create_new_value(variable));
@@ -110,6 +102,7 @@ void	ft_export(void)
 {
 	t_env	*env_copy;
 	int		index;
+	char	*argument;
 
 	index = 1;
 	env_copy = get_copy();
@@ -117,6 +110,12 @@ void	ft_export(void)
 		print_export(env_copy);
 	else
 		while (get_data()->input_array[index])
-			add_to_env(get_data()->input_array[index++]);
+		{
+			argument = get_data()->input_array[index++];
+			if (*argument >= '0' && *argument <= '9')
+				printf("'%c' identifier can't start with numbers\n", *argument);
+			else
+				add_to_env(argument);
+		}
 	free_env(env_copy);
 }
