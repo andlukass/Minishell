@@ -12,53 +12,53 @@
 
 #include "../../includes/minishell.h"
 
-int ft_ls()
+static int	is_path_valid(char **old_pwd, char *path)
 {
-	DIR* dir= opendir(".");
-
-	struct dirent* entity;
-	
-	entity = readdir(dir);
-	while(entity != NULL)
+	if (chdir(path) != 0)
 	{
-		printf("%s\n",entity->d_name);
-		entity = readdir(dir);
+		perror(path);
+		free(*old_pwd);
+		return (0);
 	}
-	closedir(dir);
-	return 0;
+	return (1);
 }
 
-void	ft_cd()
+static int	have_env(char **old_pwd)
 {
-	char currentDirectory[1024];
-
-	if (!get_data()->input_array[1])
+	if (!get_env_value("HOME"))
 	{
-		if (!get_env_value("HOME"))
-		{
-			printf("HOME is not set!\n");
+		printf("HOME is not set!\n");
+		free(*old_pwd);
+		return (0);
+	}
+	return (1);
+}
+
+void	ft_cd(void)
+{
+	char	directory[4097];
+	char	*pwd;
+	char	*old_pwd;
+
+	if (get_data()->input_array[1] && get_data()->input_array[2])
+	{
+		printf("cd only takes one argument!\n");
+		return ;
+	}
+	getcwd(directory, sizeof(directory));
+	old_pwd = ft_strjoin("OLDPWD=", directory, NO_FREE);
+	if (!get_data()->input_array[1] || !strcmp(get_data()->input_array[1], "~"))
+	{
+		if (!have_env(&old_pwd))
 			return ;
-		}
-		chdir(get_env_value("HOME"));
-		return ;
+		if (!is_path_valid(&old_pwd, get_env_value("HOME")))
+			return ;
 	}
-	if (get_data()->input_array[2])
-	{
-		printf("cd only take one argument!\n");
-		return ;
-	}
-	if (chdir(get_data()->input_array[1]) == 0)
-		printf("Changed directory to: %s\n", get_data()->input_array[1]);
 	else
-	{
-		perror(get_data()->input_array[1]);
-		return ;
-	}
-
-	if (getcwd(currentDirectory, sizeof(currentDirectory)) != NULL) {
-		printf("Current directory after chdir: %s\n", currentDirectory);
-	 } else {
-		perror("Error getting current directory before chdir");
-		return ; // Return an error code, if needed
-	 }
+		if (!is_path_valid(&old_pwd, get_data()->input_array[1]))
+			return ;
+	getcwd(directory, sizeof(directory));
+	pwd = ft_strjoin("PWD=", directory, NO_FREE);
+	add_next_node(&get_data()->env, pwd);
+	add_next_node(&get_data()->env, old_pwd);
 }
