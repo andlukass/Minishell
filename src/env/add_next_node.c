@@ -45,7 +45,7 @@ static int	is_duplicated(char *new_key, char **variable, t_env **current)
 		return (1);
 	}
 	free(env_key);
-	return 0;
+	return (0);
 }
 
 int	add_next_node(t_env **list, char *variable)
