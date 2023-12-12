@@ -7,20 +7,19 @@ OK • In interactive mode:
 	OK ◦ ctrl-\ does nothing.
 OK • Avoid using more than one global variable to indicate a received signal. Consider the implications: this approach ensures that your signal handler will not access your main data structures.
 OK • Not interpret unclosed quotes or special characters which are not required by the subject such as \ (backslash) or ; (semicolon).
-
-	• Your shell must implement the following builtins:
+OK • Your shell must implement the following builtins:
 	OK ◦ echo with option -n
 	OK ◦ exit with no options
 	OK ◦ pwd with no options
 	OK ◦ env with no options or arguments
 	OK ◦ export with no options
 	OK ◦ unset with no options
-	◦ cd with only a relative or absolute path
+	OK ◦ cd with only a relative or absolute path
 
 
 • Search and launch the right executable (based on the PATH variable or using a relative or an absolute path).
-• Handle ’ (single quote) which should prevent the shell from interpreting the meta-characters in the quoted sequence.
-• Handle " (double quote) which should prevent the shell from interpreting the meta-characters in the quoted sequence except for $ (dollar sign).
+• Handle '' (single quote) which should prevent the shell from interpreting the meta-characters in the quoted sequence.
+• Handle "" (double quote) which should prevent the shell from interpreting the meta-characters in the quoted sequence except for $ (dollar sign).
 • Implement redirections:
 	◦ < should redirect input.
 	◦ > should redirect output.
