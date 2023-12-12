@@ -14,7 +14,7 @@
 
 void	ft_pwd(void)
 {
-	if (get_data()->input_array[1] != NULL)
+	if (get_data()->input_array[1] != (void *)0)
 		printf("pwd doesn't take any arguments!\n");
 	else if (get_env_value("PWD"))
 		printf("%s\n", get_env_value("PWD"));

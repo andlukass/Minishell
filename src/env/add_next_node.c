@@ -21,9 +21,9 @@ static t_env	*create_new_value(char *variable)
 
 	new = malloc(sizeof(t_env));
 	if (!new)
-		return (NULL);
+		return ((void *)0);
 	new->variable = variable;
-	new->next = NULL;
+	new->next = (void *)0;
 	return (new);
 }
 

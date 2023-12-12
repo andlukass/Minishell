@@ -19,7 +19,7 @@ static t_env	*get_copy(void)
 	char	*variable;
 
 	current = get_data()->env;
-	copy = NULL;
+	copy = (void *)0;
 	while (current)
 	{
 		variable = strdup(current->variable);

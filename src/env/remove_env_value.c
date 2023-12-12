@@ -19,7 +19,7 @@ void	remove_env_value(char *key)
 	char	*env_key;
 
 	current = get_data()->env;
-	previous = NULL;
+	previous = (void *)0;
 	while (current)
 	{
 		env_key = get_env_key(current->variable);

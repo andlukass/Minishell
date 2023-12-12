@@ -31,8 +31,8 @@ char	*get_env_value(char *key)
 			free(env_key);
 			current = current->next;
 		}
-		return (NULL);
+		return ((void *)0);
 	}
 	else
-		return (NULL);
+		return ((void *)0);
 }

@@ -14,7 +14,7 @@
 
 void	ft_exit(void)
 {
-	if (get_data()->input_array[1] != NULL)
+	if (get_data()->input_array[1] != (void *)0)
 	{
 		printf("exit doesn't take any arguments!\n");
 		return ;

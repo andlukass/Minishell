@@ -25,8 +25,8 @@ char	*ft_strjoin(char *s1, char *s2, int is_free)
 	}
 	newstr = (char *) malloc(((ft_strlen(s1) + ft_strlen(s2)) + 1)
 			* sizeof(char));
-	if (newstr == NULL)
-		return (NULL);
+	if (newstr == (void *)0)
+		return ((void *)0);
 	index = 0;
 	length = -1;
 	while (s1[++length])

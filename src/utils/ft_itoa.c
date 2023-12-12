@@ -41,8 +41,8 @@ char	*ft_itoa(int n)
 	nb = n;
 	length = get_length(nb);
 	str = malloc(length * sizeof(char) + 1);
-	if (str == NULL)
-		return (NULL);
+	if (str == (void *)0)
+		return ((void *)0);
 	if (nb == 0)
 		str[0] = 0 + '0';
 	str[length] = '\0';

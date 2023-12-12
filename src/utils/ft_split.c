@@ -37,7 +37,7 @@ static char	*ft_new_str(char const *s, char *str, char c)
 		i++;
 	str = malloc(sizeof(char) * i + 1);
 	if (!str)
-		return (NULL);
+		return ((void *)0);
 	i = 0;
 	while (s[i] != '\0' && s[i] != c)
 	{
@@ -55,8 +55,8 @@ char	**ft_split(char const *s, char c)
 	char	**allstr;
 
 	allstr = (char **)malloc(sizeof(char *) * (ft_count_words(s, c) + 1));
-	if (allstr == NULL)
-		return (NULL);
+	if (allstr == (void *)0)
+		return ((void *)0);
 	i = 0;
 	j = 0;
 	while (s[i])
@@ -71,6 +71,6 @@ char	**ft_split(char const *s, char c)
 		else
 			i++;
 	}
-	allstr[j] = NULL;
+	allstr[j] = (void *)0;
 	return (allstr);
 }

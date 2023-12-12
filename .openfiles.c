@@ -10,7 +10,7 @@ int main()
 	struct dirent* entity;
 	
 	entity = readdir(dir);
-	while(entity != NULL)
+	while(entity != (void *)0)
 	{
 		printf("%s\n",entity->d_name);
 		entity = readdir(dir);

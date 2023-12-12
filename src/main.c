@@ -34,7 +34,7 @@ void	get_input_array(void)
 void	handle_input(void)
 {
 	get_input_array();
-	if (get_data()->input == NULL || \
+	if (get_data()->input == (void *)0 || \
 			!strcmp(get_data()->input_array[0], "exit"))
 		ft_exit();
 	else if (!strcmp(get_data()->input_array[0], "pwd"))
@@ -81,7 +81,7 @@ int	main(int argc, char *argv[], char *env[])
 	// 	ft_strjoin(data->path, "ping", NO_FREE),
 	// 	"-c",
 	// 	"2",
-	// 	NULL
+	// 	(void *)0
 	// };
 	// printf("%s\n", ft_strjoin(data->path, "ping", NO_FREE));
 	// execve(ft_strjoin(data->path, "ping", NO_FREE), args, env);
