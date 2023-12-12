@@ -47,8 +47,6 @@ void	handle_input(void)
 		ft_export();
 	else if (!strcmp(get_data()->input_array[0], "unset"))
 		ft_unset();
-	else if (!strcmp(get_data()->input_array[0], "ls"))
-		ft_ls();
 	else if (!strcmp(get_data()->input_array[0], "cd"))
 		ft_cd();
 	free_double_array(get_data()->input_array);

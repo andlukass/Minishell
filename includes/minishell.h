@@ -55,11 +55,9 @@ void	ft_export(void);
 void	ft_unset(void);
 
 char	*get_env_key(char *variable);
-void	update_env_value(char *key, char *variable);
 void	remove_env_value(char *key);
 
-int ft_ls();
-void ft_cd();
+void ft_cd(void);
 
 char	*ft_itoa(int n);
 
