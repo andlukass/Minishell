@@ -27,6 +27,27 @@ static t_env	*create_new_value(char *variable)
 	return (new);
 }
 
+static int	is_duplicated(char *new_key, char **variable, t_env **current)
+{
+	char	*env_key;
+
+	env_key = get_env_key((*current)->variable);
+	if (!strcmp(new_key, env_key))
+	{
+		free(env_key);
+		if (!ft_strchr(*variable, '='))
+		{
+			free(*variable);
+			return (1);
+		}
+		free((*current)->variable);
+		(*current)->variable = *variable;
+		return (1);
+	}
+	free(env_key);
+	return 0;
+}
+
 int	add_next_node(t_env **list, char *variable)
 {
 	t_env	*current;
@@ -39,19 +60,12 @@ int	add_next_node(t_env **list, char *variable)
 	new_key = get_env_key(variable);
 	while (current->next)
 	{
-		env_key = get_env_key(current->variable);
-		if (!strcmp(new_key, env_key))
-		{
-			free(new_key);
-			free(env_key);
-			if (!ft_strchr(variable, '='))
-				return (free(variable), 0);
-			free(current->variable);
-			return (current->variable = variable, 1);
-		}
-		free(env_key);
+		if (is_duplicated(new_key, &variable, &current))
+			return (free(new_key), 0);
 		current = current->next;
 	}
+	if (is_duplicated(new_key, &variable, &current))
+		return (free(new_key), 0);
 	current->next = create_new_value(variable);
 	free(new_key);
 }
