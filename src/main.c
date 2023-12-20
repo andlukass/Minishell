@@ -70,8 +70,11 @@ int	main(int argc, char *argv[], char *env[])
 		get_prompt();
 		data->input = readline(data->prompt);
 		free(data->prompt);
-		handle_input();
-		add_history(data->input);
+		if (*data->input)
+		{
+			handle_input();
+			add_history(data->input);
+		}
 	}
 	return (0);
 }
