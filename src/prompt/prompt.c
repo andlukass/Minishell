@@ -12,53 +12,36 @@
 
 #include "../../includes/minishell.h"
 
-void	replace_home(char *copy)
+char	*replace_home(char *home, char *pwd)
 {
-	int	copy_index;
-	int	home_index;
-	char	*home;
-	char	*pwd;
+	int		i;
+	int		j;
+	char	*dir;
 
-
-	copy_index = 0;
-	home_index = 0;
-	pwd = get_env_value("PWD");
-	home = get_env_value("HOME");
-	copy[copy_index++] = '~';
-	if (!strcmp(home, pwd))
-		return ;
-	copy[copy_index++] = '/';
-	while (pwd[home_index] == home[home_index])
-		home_index++;
-	while (pwd[home_index])
-	{
-		copy[copy_index] = pwd[home_index];
-		copy_index++;
-		home_index++;
-	}
-	copy[copy_index] = '\0';
-
-	//enquanto pwd for igual ao home aumenta o index de copy, quando for diferente, adiciona ~/ nos 
-	//indices 0 e 1, e entao começa a copiar 
+	i = ft_strlen(home);
+	j = 0;
+	dir = malloc(sizeof(char) * ft_strlen(pwd) + 1);
+	dir[j++] = '~';
+	while (pwd[i])
+		dir[j++] = pwd[i++];
+	dir[j] = '\0';
+	return (dir);
 }
 
 char	*get_dir(void)
 {
-	char	*home;
 	char	*pwd;
-	char	*occurrence;
-	char	*copy;
+	char	*home;
+	char	*dir;
 
 	home = get_env_value("HOME");
 	pwd = get_env_value("PWD");
-	if (!strncmp(home, pwd, ft_strlen(home)))
-	{
-		replace_home(copy);
-		occurrence = strdup(copy);
-	}
-	else
-		occurrence = strdup(pwd);
-	return (occurrence);
+	if (!pwd)
+		return (strdup("?"));
+	if (!home || strncmp(home, pwd, ft_strlen(home)))
+		return (strdup(pwd));
+	dir = replace_home(home, pwd);
+	return (dir);
 }
 
 void	get_prompt(void)
@@ -71,7 +54,7 @@ void	get_prompt(void)
 	username = &get_data()->username;
 	dir = get_dir();
 	*prompt = ft_strjoin(*username, dir, NO_FREE);
-	*prompt = ft_strjoin(*prompt, "]\033[0m ", DO_FREE);
+	*prompt = ft_strjoin(*prompt, " ]\033[0m ", DO_FREE);
 	free(dir);
 }
 
@@ -89,10 +72,6 @@ void	get_username(void)
 		*username = strdup("user");
 		return ;
 	}
-	*username = ft_strjoin(" \033[1;96m", *username, NO_FREE);
-	*username = ft_strjoin(*username, env_user, DO_FREE);
-	*username = ft_strjoin(*username, "\033[0m", DO_FREE);
-	*username = ft_strjoin(*username, " ", DO_FREE);
-	*username = ft_strjoin(*username, "in ", DO_FREE);
-	*username = ft_strjoin(*username, "\033[1;93m[", DO_FREE);
+	*username = ft_strjoin("\033[1;96m", env_user, NO_FREE);
+	*username = ft_strjoin(*username, "\033[0m in \033[1;93m[ ", DO_FREE);
 }
