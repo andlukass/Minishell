@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/10 23:59:12 by user             ###   ########.fr       */
+/*   Updated: 2023/12/21 13:55:12 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	remove_env_value(char *key);
 void ft_cd(void);
 
 char	*ft_itoa(int n);
+int	ft_putstr(char *str);
 
 /**
  * @param	s the string in which to search.
