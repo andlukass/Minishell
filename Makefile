@@ -12,6 +12,7 @@ SRCS = src/main.c src/utils/ft_strjoin.c src/utils/ft_strlen.c \
 		src/env/get_env.c src/env/free_env.c \
 		src/env/add_next_node.c src/env/get_env_value.c \
 		src/env/get_env_key.c src/env/remove_env_value.c \
+		src/executor/executor.c
 
 CFLAGS = -lreadline -g #-Wall -Wextra -Werror
 
