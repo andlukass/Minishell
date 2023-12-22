@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/10 18:58:21 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/12/21 19:03:50 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,32 +24,6 @@ void	signal_handler(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-}
-
-void	get_input_array(void)
-{
-	get_data()->input_array = ft_split(get_data()->input, ' ');
-}
-
-void	handle_input(void)
-{
-	get_input_array();
-	if (get_data()->input == (void *)0 || \
-			!strcmp(get_data()->input_array[0], "exit"))
-		ft_exit();
-	else if (!strcmp(get_data()->input_array[0], "pwd"))
-		ft_pwd();
-	else if (!strcmp(get_data()->input_array[0], "echo"))
-		ft_echo();
-	else if (!strcmp(get_data()->input_array[0], "env"))
-		ft_env();
-	else if (!strcmp(get_data()->input_array[0], "export"))
-		ft_export();
-	else if (!strcmp(get_data()->input_array[0], "unset"))
-		ft_unset();
-	else if (!strcmp(get_data()->input_array[0], "cd"))
-		ft_cd();
-	free_double_array(get_data()->input_array);
 }
 
 int	main(int argc, char *argv[], char *env[])
@@ -72,7 +46,13 @@ int	main(int argc, char *argv[], char *env[])
 		free(data->prompt);
 		if (*data->input)
 		{
-			handle_input();
+			handle_input();//parser
+			if (!strcmp("exit", get_data()->commands->command[0]) && \
+				!get_data()->commands->next)
+				ft_exit(get_data()->commands->command);
+			//expander
+			executor(&get_data()->commands, NULL);
+			get_data()->commands = NULL;
 			add_history(data->input);
 		}
 	}
