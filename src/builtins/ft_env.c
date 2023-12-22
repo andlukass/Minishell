@@ -12,11 +12,11 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_env(void)
+void	ft_env(char **command)
 {
 	t_env	*current;
 
-	if (get_data()->input_array[1])
+	if (command[1])
 	{
 		printf("env doesn't take any arguments!\n");
 		return ;
@@ -28,4 +28,5 @@ void	ft_env(void)
 			printf("%s\n", current->variable);
 		current = current->next;
 	}
+	exit(0);
 }

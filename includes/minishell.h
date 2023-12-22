@@ -21,6 +21,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+//waitpid & pipe
+#include <sys/wait.h>
+#include <fcntl.h>
+
 # include <dirent.h>
 
 # define GLOBAL_WARMING_DONT_EXIST 1
@@ -32,13 +36,20 @@ typedef struct s_env{
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_commands{
+	char				**command;
+	int					is_pipe;
+	struct s_commands	*next;
+}	t_commands;
+
 typedef struct s_data{
-	char	**input_array;
-	char	*input;
-	char	*prompt;
-	char	*username;
-	char	*path;
-	t_env	*env;
+	char		**input_array;
+	char		*input;
+	char		*prompt;
+	char		*username;
+	char		*path;
+	t_env		*env;
+	t_commands	*commands;
 }	t_data;
 
 /**
@@ -49,18 +60,21 @@ t_data	*get_data(void);
 
 char	**ft_split(char const *s, char c);
 void	free_double_array(char **array);
-void	ft_pwd(void);
-void	ft_env(void);
-void	ft_export(void);
-void	ft_unset(void);
+void	ft_pwd(char **command);
+void	ft_env(char **command);
+void	ft_export(char **command);
+void	ft_unset(char **command);
 
 char	*get_env_key(char *variable);
 void	remove_env_value(char *key);
 
-void ft_cd(void);
+void ft_cd(char **command);
 
 char	*ft_itoa(int n);
 int	ft_putstr(char *str);
+
+void executor(t_commands **commands, int *fd);
+
 
 /**
  * @param	s the string in which to search.
@@ -109,12 +123,12 @@ void	get_username(void);
 /**
  * @brief	Prints exit message, free what is needed and exit program.
  */
-void	ft_exit(void);
+void	ft_exit(char **command);
 
 /**
  * @brief	Prints whats was the input.
  */
-void	ft_echo(void);
+void	ft_echo(char **command);
 
 /**
  * @brief	Copy then env to a linked list stored in the global data

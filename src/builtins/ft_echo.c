@@ -12,20 +12,21 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_echo(void)
+void	ft_echo(char **command)
 {
 	int	i;
 
-	if (strcmp(get_data()->input_array[1], "-n"))
+	if (strcmp(command[1], "-n"))
 		i = 1;
 	else
 		i = 2;
-	while (get_data()->input_array[i])
+	while (command[i])
 	{
-		printf("%s", get_data()->input_array[i++]);
-		if (get_data()->input_array[i])
+		printf("%s", command[i++]);
+		if (command[i])
 			printf(" ");
 	}
-	if (strcmp(get_data()->input_array[1], "-n"))
+	if (strcmp(command[1], "-n"))
 		printf("\n");
+	exit (0);
 }

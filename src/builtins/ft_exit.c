@@ -12,15 +12,15 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_exit(void)
+void	ft_exit(char **command)
 {
-	if (get_data()->input_array[1] != (void *)0)
+	if (command[1] != (void *)0)
 	{
 		printf("exit doesn't take any arguments!\n");
 		return ;
 	}
 	printf("exit\n");
-	free_double_array(get_data()->input_array);
+	free_double_array(command);
 	free(get_data()->username);
 	free_env(get_data()->env);
 	rl_clear_history();

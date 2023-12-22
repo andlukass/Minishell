@@ -34,20 +34,20 @@ static int	have_env(char **old_pwd)
 	return (1);
 }
 
-void	ft_cd(void)
+void	ft_cd(char **command)
 {
 	char	directory[4097];
 	char	*pwd;
 	char	*old_pwd;
 
-	if (get_data()->input_array[1] && get_data()->input_array[2])
+	if (command[1] && command[2])
 	{
 		printf("cd only takes one argument!\n");
 		return ;
 	}
 	getcwd(directory, sizeof(directory));
 	old_pwd = ft_strjoin("OLDPWD=", directory, NO_FREE);
-	if (!get_data()->input_array[1] || !strcmp(get_data()->input_array[1], "~"))
+	if (!command[1] || !strcmp(command[1], "~"))
 	{
 		if (!have_env(&old_pwd))
 			return ;
@@ -55,10 +55,11 @@ void	ft_cd(void)
 			return ;
 	}
 	else
-		if (!is_path_valid(&old_pwd, get_data()->input_array[1]))
+		if (!is_path_valid(&old_pwd, command[1]))
 			return ;
 	getcwd(directory, sizeof(directory));
 	pwd = ft_strjoin("PWD=", directory, NO_FREE);
 	add_next_node(&get_data()->env, pwd);
 	add_next_node(&get_data()->env, old_pwd);
+	exit(0);
 }

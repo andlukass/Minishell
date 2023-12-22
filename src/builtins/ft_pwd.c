@@ -12,12 +12,13 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_pwd(void)
+void	ft_pwd(char **command)
 {
-	if (get_data()->input_array[1] != (void *)0)
+	if (command[1] != (void *)0)
 		printf("pwd doesn't take any arguments!\n");
 	else if (get_env_value("PWD"))
 		printf("%s\n", get_env_value("PWD"));
 	else
 		printf("PWD is not set!\n");
+	exit(0);
 }

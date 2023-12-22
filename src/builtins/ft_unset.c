@@ -12,11 +12,12 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_unset(void)
+void	ft_unset(char **command)
 {
 	int	i;
 
 	i = 1;
-	while (get_data()->input_array[i])
-		remove_env_value(get_data()->input_array[i++]);
+	while (command[i])
+		remove_env_value(command[i++]);
+	exit(0);
 }

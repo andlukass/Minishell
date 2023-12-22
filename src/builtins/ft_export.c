@@ -58,7 +58,7 @@ static void	print_export(t_env *env_copy)
 	}
 }
 
-void	ft_export(void)
+void	ft_export(char **command)
 {
 	t_env	*env_copy;
 	int		index;
@@ -66,13 +66,13 @@ void	ft_export(void)
 
 	index = 1;
 	env_copy = get_copy();
-	if (!get_data()->input_array[1])
+	if (!command[1])
 		print_export(env_copy);
 	else
 	{
-		while (get_data()->input_array[index])
+		while (command[index])
 		{
-			argument = get_data()->input_array[index++];
+			argument = command[index++];
 			if (*argument >= '0' && *argument <= '9')
 				printf("'%c' identifier can't start with numbers\n", *argument);
 			else
@@ -83,4 +83,5 @@ void	ft_export(void)
 		}
 	}
 	free_env(env_copy);
+	exit(0);
 }
