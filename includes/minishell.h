@@ -75,6 +75,8 @@ int	ft_putstr(char *str);
 
 void executor(t_commands **commands, int *fd);
 
+void	handle_input(void);
+
 
 /**
  * @param	s the string in which to search.
