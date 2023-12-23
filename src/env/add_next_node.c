@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:21:22 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/10 22:21:43 by user             ###   ########.fr       */
+/*   Updated: 2023/12/23 17:33:46 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static int	is_duplicated(char *new_key, char **variable, t_env **current)
 int	add_next_node(t_env **list, char *variable)
 {
 	t_env	*current;
-	char	*env_key;
 	char	*new_key;
 
 	if (!(*(list)))
@@ -67,5 +66,5 @@ int	add_next_node(t_env **list, char *variable)
 	if (is_duplicated(new_key, &variable, &current))
 		return (free(new_key), 0);
 	current->next = create_new_value(variable);
-	free(new_key);
+	return (free(new_key), 0);
 }

@@ -25,6 +25,7 @@ static int	add_next_node_to_commands(t_commands **list, char *command, int is_pi
 	while (current->next)
 		current = current->next;
 	current->next = create_new_command_value(command, is_pipe);
+	return (0);
 }
 
 void	free_commands(t_commands *stack)

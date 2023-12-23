@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2023/12/21 19:09:47 by user             ###   ########.fr       */
+/*   Updated: 2023/12/23 17:34:57 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	executor(t_commands **commands, int *fd)
 {
 	// declarar tudo que seja possivel de ser utilizado em uma execucao
 	int next_fd[2]; // trocar o stdout ou in para o arquivo ou proximo comando
-	int file; // arquivo para possivel redirect
+	// int file; // arquivo para possivel redirect
 	int pid; // id do fork
 	t_commands	*current;
 
