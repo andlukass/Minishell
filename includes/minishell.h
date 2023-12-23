@@ -72,7 +72,6 @@ void	remove_env_value(char *key);
 void ft_cd(char **command);
 
 char	*ft_itoa(int n);
-int	ft_putstr(char *str);
 
 void executor(t_commands **commands, int *fd);
 
