@@ -28,5 +28,5 @@ void	ft_env(char **command)
 			printf("%s\n", current->variable);
 		current = current->next;
 	}
-	exit(0);
+	ft_exit(NULL);
 }

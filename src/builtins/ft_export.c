@@ -58,30 +58,37 @@ static void	print_export(t_env *env_copy)
 	}
 }
 
-void	ft_export(char **command)
+static void export_add(char **command)
 {
-	t_env	*env_copy;
 	int		index;
 	char	*argument;
 
 	index = 1;
+	while (command[index])
+	{
+		argument = command[index++];
+		if (*argument >= '0' && *argument <= '9')
+			printf("'%c' identifier can't start with numbers\n", *argument);
+		else
+		{
+			argument = strdup(argument);
+			add_next_node(&get_data()->env, argument);
+		}
+	}
+}
+
+void	ft_export(char **command)
+{
+	t_env	*env_copy;
+
 	env_copy = get_copy();
 	if (!command[1])
 		print_export(env_copy);
 	else
-	{
-		while (command[index])
-		{
-			argument = command[index++];
-			if (*argument >= '0' && *argument <= '9')
-				printf("'%c' identifier can't start with numbers\n", *argument);
-			else
-			{
-				argument = strdup(argument);
-				add_next_node(&get_data()->env, argument);
-			}
-		}
-	}
+		export_add(command);
 	free_env(env_copy);
-	exit(0);
+	if (get_data()->number_of_commands > 1)
+		ft_exit(NULL);
+	else
+		return ;
 }

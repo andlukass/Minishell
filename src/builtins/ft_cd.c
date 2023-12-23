@@ -43,23 +43,26 @@ void	ft_cd(char **command)
 	if (command[1] && command[2])
 	{
 		printf("cd only takes one argument!\n");
-		return ;
+		ft_exit(NULL);
 	}
 	getcwd(directory, sizeof(directory));
 	old_pwd = ft_strjoin("OLDPWD=", directory, NO_FREE);
 	if (!command[1] || !strcmp(command[1], "~"))
 	{
 		if (!have_env(&old_pwd))
-			return ;
+			ft_exit(NULL);
 		if (!is_path_valid(&old_pwd, get_env_value("HOME")))
-			return ;
+			ft_exit(NULL);
 	}
 	else
 		if (!is_path_valid(&old_pwd, command[1]))
-			return ;
+			ft_exit(NULL);
 	getcwd(directory, sizeof(directory));
 	pwd = ft_strjoin("PWD=", directory, NO_FREE);
 	add_next_node(&get_data()->env, pwd);
 	add_next_node(&get_data()->env, old_pwd);
-	exit(0);
+	if (get_data()->number_of_commands > 1)
+		ft_exit(NULL);
+	else
+		return ;
 }

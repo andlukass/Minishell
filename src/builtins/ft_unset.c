@@ -19,5 +19,8 @@ void	ft_unset(char **command)
 	i = 1;
 	while (command[i])
 		remove_env_value(command[i++]);
-	exit(0);
+	if (get_data()->number_of_commands > 1)
+		ft_exit(NULL);
+	else
+		return ;
 }

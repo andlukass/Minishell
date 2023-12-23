@@ -20,5 +20,5 @@ void	ft_pwd(char **command)
 		printf("%s\n", get_env_value("PWD"));
 	else
 		printf("PWD is not set!\n");
-	exit(0);
+	ft_exit(NULL);
 }

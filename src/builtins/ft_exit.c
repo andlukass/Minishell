@@ -14,15 +14,18 @@
 
 void	ft_exit(char **command)
 {
-	if (command[1] != (void *)0)
+	if (command)
 	{
-		printf("exit doesn't take any arguments!\n");
-		return ;
+		if (command[1] != (void *)0)
+		{
+			printf("exit doesn't take any arguments!\n");
+			return ;
+		}
+		printf("exit\n");
 	}
-	printf("exit\n");
-	free_double_array(command);
 	free(get_data()->username);
 	free_env(get_data()->env);
+	free_commands(get_data()->commands);
 	rl_clear_history();
 	exit(0);
 }

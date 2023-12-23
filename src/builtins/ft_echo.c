@@ -28,5 +28,5 @@ void	ft_echo(char **command)
 	}
 	if (strcmp(command[1], "-n"))
 		printf("\n");
-	exit (0);
+	ft_exit(NULL);
 }
