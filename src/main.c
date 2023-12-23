@@ -31,7 +31,6 @@ int	main(int argc, char *argv[], char *env[])
 	t_data	*data;
 
 	(void)argv;
-	(void)env;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, signal_handler);
 	if (argc != 1)
@@ -47,11 +46,9 @@ int	main(int argc, char *argv[], char *env[])
 		if (*data->input)
 		{
 			handle_input();//parser
-			if (!strcmp("exit", get_data()->commands->command[0]) && \
-				!get_data()->commands->next)
-				ft_exit(get_data()->commands->command);
 			//expander
 			executor(&get_data()->commands, NULL);
+			free_commands(get_data()->commands);
 			get_data()->commands = NULL;
 			add_history(data->input);
 		}

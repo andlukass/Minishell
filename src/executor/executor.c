@@ -14,8 +14,7 @@
 
 void executor_router(char **command)
 {
-	if (command == (void *)0 || \
-			!strcmp(command[0], "exit"))
+	if (!strcmp(command[0], "exit"))
 		ft_exit(command);
 	else if (!strcmp(command[0], "pwd"))
 		ft_pwd(command);
@@ -33,6 +32,20 @@ void executor_router(char **command)
 		execvp(command[0], command);
 }
 
+static int is_multable_builtin(char **command)
+{
+	if (!strcmp(command[0], "exit"))
+		return (1);
+	else if (!strcmp(command[0], "export"))
+		return (1);
+	else if (!strcmp(command[0], "unset"))
+		return (1);
+	else if (!strcmp(command[0], "cd"))
+		return (1);
+	else
+		return (0);
+}
+
 void executor(t_commands **commands, int *fd)
 {
 	// declarar tudo que seja possivel de ser utilizado em uma execucao
@@ -42,6 +55,12 @@ void executor(t_commands **commands, int *fd)
 	t_commands	*current;
 
 	current = *commands;
+
+	if (is_multable_builtin(current->command) && get_data()->number_of_commands == 1)
+	{
+		executor_router(current->command);
+		return ;
+	}
 
 	// printf("command: %s, is_pipe: %d\n", current->command[0], current->is_pipe);
 	// se tem redirect
@@ -54,7 +73,7 @@ void executor(t_commands **commands, int *fd)
 
 	pid = fork();
 	if (pid < 0) return;
-	if (pid == 0) {
+	if (pid == 0) {//child process
 		// se tem redirect ou pipe |
 		if(current->is_pipe)
 		{
@@ -75,14 +94,14 @@ void executor(t_commands **commands, int *fd)
 		close(fd[0]);close(fd[1]);
 	}
 
+	waitpid(pid, NULL, 0);
 	// se tem redirect 
 	// close next_fd
 
 	// se tem pipe
-	// chamar executor novamente com o proximo nodo e passando o next_fd
+	// parent chama executor novamente com o proximo nodo e passando o next_fd
 	if (current->is_pipe) {
 		current = current->next;
 		executor(&current, next_fd);
 	}
-	waitpid(pid, NULL, 0);
 }
