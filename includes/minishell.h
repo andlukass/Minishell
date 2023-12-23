@@ -22,8 +22,8 @@
 # include <readline/history.h>
 
 //waitpid & pipe
-#include <sys/wait.h>
-#include <fcntl.h>
+# include <sys/wait.h>
+# include <fcntl.h>
 
 # include <dirent.h>
 
@@ -59,50 +59,97 @@ typedef struct s_data{
  */
 t_data	*get_data(void);
 
-char	**ft_split(char const *s, char c);
-void	free_double_array(char **array);
+/* ---------------BUILTINS---------------- */
+
+/**
+ * @brief	Prints the current directory.
+ * @param command a command formed from an array of tokens.
+ */
 void	ft_pwd(char **command);
+
+/**
+ * @brief	Prints the system environment.
+ * @param command a command formed from an array of tokens.
+ */
 void	ft_env(char **command);
+
+/**
+ * @brief	Prints the system environment or adds to it based on the
+ * number of commands provided.
+ * @param command a command formed from an array of tokens.
+ */
 void	ft_export(char **command);
+
+/**
+ * @brief	Remove from the system environment.
+ * @param command a command formed from an array of tokens.
+ */
 void	ft_unset(char **command);
 
-char	*get_env_key(char *variable);
-void	remove_env_value(char *key);
+/**
+ * @brief	Prints exit message, free what is needed and exit program.
+ * @param command a command formed from an array of tokens.
+ */
+void	ft_exit(char **command);
 
-void ft_cd(char **command);
+/**
+ * @brief	Prints whats was the input.
+ * @param command a command formed from an array of tokens.
+ */
+void	ft_echo(char **command);
 
-char	*ft_itoa(int n);
+/**
+ * @brief	Change the current directory.
+ * @param command a command formed from an array of tokens.
+ */
+void	ft_cd(char **command);
+/* --------------------------------------- */
 
-void executor(t_commands **commands, int *fd);
+/* ---------------EXECUTOR---------------- */
+
+/**
+ * @brief	Execute all the commands received, handling pipes
+ * and "> and >>" redirections.
+ * @param commands an array of commands
+ * @param fd pipe generated array of fds. NULL if don't have a pipe
+ */
+void	executor(t_commands **commands, int *fd);
+/* --------------------------------------- */
+
+/* ----------------PARSER----------------- */
 
 void	handle_input(void);
 void	free_commands(t_commands *stack);
+/* --------------------------------------- */
 
-
-/**
- * @param	s the string in which to search.
- * @param	c the char to search in 's'.
- * @return	the adress of the first occurence of 'c' in 's'.
- * 0 if nothing is found.
- */
-char	*ft_strchr(const char *s, int c);
+/* ------------------ENV------------------ */
 
 /**
- * @brief	Concatenates two strings.
- * @param	is_free is used to determine whether you 
- * want to free s1 or not. Passing 0 indicate that 
- * it should not be freed.
- * @return	the new concatenated string, which should be
- * freed afer use.
+ * @brief	Copy then env to a linked list stored in the global data
+ * @param	env the env of the program
  */
-char	*ft_strjoin(char *s1, char *s2, int is_free);
+void	get_env(char *env[]);
+/**
+ * @brief	Add a new t_env allocated node in a t_env stack
+ */
+int		add_next_node(t_env **list, char *variable);
 
 /**
- * @param	s string in which to get size.
- * @return	the size of 's'.
+ * @brief	Get a value in the t_env from a key received as parameter
+ * @param	key key to be searched
  */
-int		ft_strlen(const char *s);
+char	*get_env_value(char *key);
+/**
+ * @brief	Free all memory alocated by the t_env list
+ * @param	stack stack to be freed
+ */
+void	free_env(t_env *stack);
 
+char	*get_env_key(char *variable);
+void	remove_env_value(char *key);
+/* --------------------------------------- */
+
+/* ----------------PROMPT----------------- */
 /**
  * @brief	Compares home directory with the current PWD
  * and returns the portion of the actual directory path 
@@ -122,33 +169,54 @@ void	get_prompt(void);
  * The username is stored in the global data.
  */
 void	get_username(void);
+/* --------------------------------------- */
+
+/* -----------------UTILS----------------- */
 
 /**
- * @brief	Prints exit message, free what is needed and exit program.
+ * @brief	Separate the string 's' using 'c', creating an array 
+ * of string with each new string createad after the separation.
+ * @param	s the string in which to split.
+ * @param	c the char to delimit the strings.
+ * @return	an array of strings terminated with a NULL pointer.
  */
-void	ft_exit(char **command);
+char	**ft_split(char const *s, char c);
 
 /**
- * @brief	Prints whats was the input.
+ * @param	n number to transform into a string.
+ * @return	the number n, into a dinamic allocated string.
  */
-void	ft_echo(char **command);
+char	*ft_itoa(int n);
 
 /**
- * @brief	Copy then env to a linked list stored in the global data
+ * @param	s the string in which to search.
+ * @param	c the char to search in 's'.
+ * @return	the adress of the first occurence of 'c' in 's'.
+ * 0 if nothing is found.
  */
-void	get_env(char *env[]);
-/**
- * @brief	Add a new t_env allocated node in a t_env stack
- */
-int	add_next_node(t_env **list, char *variable);
+char	*ft_strchr(const char *s, int c);
 
 /**
- * @brief	Get a value in the t_env from a key received as parameter
+ * @brief	Concatenates two strings.
+ * @param	is_free is used to determine whether you
+ * want to free s1 or not. Passing 0 indicate that
+ * it should not be freed.
+ * @return	the new concatenated string, which should be
+ * freed afer use.
  */
-char	*get_env_value(char *key);
+char	*ft_strjoin(char *s1, char *s2, int is_free);
+
 /**
- * @brief	Free all memory alocated by the t_env list
+ * @param	s string in which to get size.
+ * @return	the size of 's'.
  */
-void	free_env(t_env *stack);
+int		ft_strlen(const char *s);
+
+/**
+ * @brief	Cleanly frees a double char pointer array.
+ * @param	array the array to be freed.
+ */
+void	free_double_array(char **array);
+/* --------------------------------------- */
 
 #endif
