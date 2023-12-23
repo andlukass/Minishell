@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void executor_router(char **command)
+static void	executor_router(char **command)
 {
 	if (!strcmp(command[0], "exit"))
 		ft_exit(command);
@@ -46,7 +46,7 @@ static int is_multable_builtin(char **command)
 		return (0);
 }
 
-void executor(t_commands **commands, int *fd)
+void	executor(t_commands **commands, int *fd)
 {
 	// declarar tudo que seja possivel de ser utilizado em uma execucao
 	int next_fd[2]; // trocar o stdout ou in para o arquivo ou proximo comando
