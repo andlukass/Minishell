@@ -50,6 +50,7 @@ typedef struct s_data{
 	char		*path;
 	t_env		*env;
 	t_commands	*commands;
+	int			number_of_commands;
 }	t_data;
 
 /**
@@ -76,6 +77,7 @@ int	ft_putstr(char *str);
 void executor(t_commands **commands, int *fd);
 
 void	handle_input(void);
+void	free_commands(t_commands *stack);
 
 
 /**
