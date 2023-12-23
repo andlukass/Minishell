@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/21 19:03:50 by user             ###   ########.fr       */
+/*   Updated: 2023/12/23 17:28:11 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ int	main(int argc, char *argv[], char *env[])
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, signal_handler);
 	if (argc != 1)
-		return (write(1, "too many arguments", 1));
+		return (write(1, "too many arguments\n", 19));
 	data = get_data();
 	get_env(env);
 	get_username();
-	while (GLOBAL_WARMING_DONT_EXIST)
+	while (1)
 	{
 		get_prompt();
 		data->input = readline(data->prompt);
