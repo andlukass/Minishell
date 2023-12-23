@@ -34,6 +34,14 @@ static int	have_env(char **old_pwd)
 	return (1);
 }
 
+static void	go_home(char **old_pwd)
+{
+	if (!have_env(old_pwd))
+		ft_exit(NULL);
+	if (!is_path_valid(old_pwd, get_env_value("HOME")))
+		ft_exit(NULL);
+}
+
 void	ft_cd(char **command)
 {
 	char	directory[4097];
@@ -48,12 +56,7 @@ void	ft_cd(char **command)
 	getcwd(directory, sizeof(directory));
 	old_pwd = ft_strjoin("OLDPWD=", directory, NO_FREE);
 	if (!command[1] || !strcmp(command[1], "~"))
-	{
-		if (!have_env(&old_pwd))
-			ft_exit(NULL);
-		if (!is_path_valid(&old_pwd, get_env_value("HOME")))
-			ft_exit(NULL);
-	}
+		go_home(&old_pwd);
 	else
 		if (!is_path_valid(&old_pwd, command[1]))
 			ft_exit(NULL);

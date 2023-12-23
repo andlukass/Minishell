@@ -58,7 +58,7 @@ static void	print_export(t_env *env_copy)
 	}
 }
 
-static void export_add(char **command)
+static void	export_add(char **command)
 {
 	int		index;
 	char	*argument;
