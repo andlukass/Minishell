@@ -1,4 +1,6 @@
+#include "../../includes/parser.h"
 #include "../../includes/minishell.h"
+
 
 static t_commands	*create_new_command_value(char *command, int is_pipe)
 {
