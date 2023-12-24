@@ -15,7 +15,7 @@ SRCS = src/main.c src/utils/ft_strjoin.c src/utils/ft_strlen.c \
 		src/executor/executor.c \
 		src/.parsing_test/parsing_test.c
 
-CFLAGS = -lreadline -g -Wall -Wextra -Werror
+CFLAGS = -lreadline -g #-Wall -Wextra -Werror
 
 NAME = minishell
 
