@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 16:59:14 by user              #+#    #+#             */
-/*   Updated: 2023/12/23 17:23:23 by user             ###   ########.fr       */
+/*   Updated: 2023/12/24 17:38:00 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,14 @@ int		ft_strlen(const char *s);
  * @param	array the array to be freed.
  */
 void	free_double_array(char **array);
+
+/**
+ * @brief	Copy a string to a new dinamic allocated string.
+ * @param	s1 the string to be copied.
+ * @return	the new dinamic allocated string, which should be
+ * freed afer use.
+ */
+char	*ft_strdup(char const *s1);
 /* --------------------------------------- */
 
 #endif

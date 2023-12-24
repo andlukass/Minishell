@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:20:27 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/10 14:58:03 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/12/24 17:35:56 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_env	*get_copy(void)
 	copy = (void *)0;
 	while (current)
 	{
-		variable = strdup(current->variable);
+		variable = ft_strdup(current->variable);
 		add_next_node(&copy, variable);
 		current = current->next;
 	}
@@ -71,7 +71,7 @@ static void	export_add(char **command)
 			printf("'%c' identifier can't start with numbers\n", *argument);
 		else
 		{
-			argument = strdup(argument);
+			argument = ft_strdup(argument);
 			add_next_node(&get_data()->env, argument);
 		}
 	}

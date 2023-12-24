@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:22:42 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/10 23:37:13 by user             ###   ########.fr       */
+/*   Updated: 2023/12/24 17:35:56 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ char	*get_dir(void)
 	home = get_env_value("HOME");
 	pwd = get_env_value("PWD");
 	if (!pwd)
-		return (strdup("?"));
+		return (ft_strdup("?"));
 	if (!home || strncmp(home, pwd, ft_strlen(home)))
-		return (strdup(pwd));
+		return (ft_strdup(pwd));
 	dir = replace_home(home, pwd);
 	return (dir);
 }
@@ -69,7 +69,7 @@ void	get_username(void)
 		env_user = get_env_value("HOSTNAME");
 	if (!env_user)
 	{
-		*username = strdup("user");
+		*username = ft_strdup("user");
 		return ;
 	}
 	*username = ft_strjoin("\033[1;96m", env_user, NO_FREE);

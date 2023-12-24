@@ -35,4 +35,3 @@ foreground pipeline.
 functions utils to make:
 strcmp
 strncmp
-strdup

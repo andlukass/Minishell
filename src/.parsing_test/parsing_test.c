@@ -69,13 +69,13 @@ void swap_command(t_commands **list, int size)
 	{
 		// se nao tem anterior entao é comando
 		if (l == 0) {
-			new_command[k++] = strdup(current->command[l++]);
+			new_command[k++] = ft_strdup(current->command[l++]);
 		} else if (*current->command[l] == '>') { // se atual for > vai para o proximo
 			l++;
 		} else if (*current->command[l-1] == '>') {
 			l++;
 		} else {
-			new_command[k++] = strdup(current->command[l++]);
+			new_command[k++] = ft_strdup(current->command[l++]);
 		}
 	}
 	new_command[k] = NULL;
@@ -109,9 +109,9 @@ void	handle_redirects(t_commands **list)
 		{
 			if (!strcmp(current->command[index], ">") || !strcmp(current->command[index], ">>"))
 			{
-				current->redirect = strdup(current->command[index]);
+				current->redirect = ft_strdup(current->command[index]);
 				index++;
-				files[j] = strdup(current->command[index]);
+				files[j] = ft_strdup(current->command[index]);
 				j++;
 			}
 			index++;
