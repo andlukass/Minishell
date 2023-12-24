@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2023/12/23 17:34:57 by user             ###   ########.fr       */
+/*   Updated: 2023/12/24 15:51:51 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,62 +46,94 @@ static int is_multable_builtin(char **command)
 		return (0);
 }
 
+static int	open_files(t_commands *current, int (*next_fd)[2])
+{
+	int	index;
+	int	file;
+	int	flag;
+
+	index = 0;
+	file = 0;
+	if (!current->redirect)
+		return 0;
+	if (!strcmp(current->redirect, ">") || !strcmp(current->redirect, ">>"))
+	{
+		if (!strcmp(current->redirect, ">"))
+			flag = O_TRUNC; // para substituir
+		else
+			flag = O_APPEND; // para concatenar
+		while (current->files[index])
+		{
+			file = open(current->files[index], O_WRONLY | O_CREAT | flag, 0777);
+			index++;
+			if (current->files[index])
+				close(file);
+			else
+			{
+				(*next_fd)[1] = file;
+				(*next_fd)[0] = file;
+			}
+		}
+	}
+	return (file);
+}
+
 void	executor(t_commands **commands, int *fd)
 {
-	// declarar tudo que seja possivel de ser utilizado em uma execucao
 	int next_fd[2]; // trocar o stdout ou in para o arquivo ou proximo comando
-	// int file; // arquivo para possivel redirect
+	int file; // arquivo para possivel redirect
 	int pid; // id do fork
 	t_commands	*current;
 
 	current = *commands;
 
+	// return;
+
+
+	if(current->is_pipe) { // se tem | abre o pipe
+		if (pipe(next_fd) < 0) // cria o next_fd
+			return ;
+	}
+	file = open_files(current, &next_fd); // se tiver redirect vai trocar o fd
 	if (is_multable_builtin(current->command) && get_data()->number_of_commands == 1)
 	{
+		if (file)
+			dup2(file, STDOUT_FILENO);
 		executor_router(current->command);
+		if (file) {
+			dup2(STDOUT_FILENO, file);
+			close(file);
+		}
 		return ;
 	}
-
-	// printf("command: %s, is_pipe: %d\n", current->command[0], current->is_pipe);
-	// se tem redirect
-	// file = open("teste.txt", O_WRONLY | O_CREAT, 0777);
-
-	// se tem redirect ou pipe |
-	if(current->is_pipe) { // falta verificar se tem redirect
-		if (pipe(next_fd) < 0) return ; // cria o next_fd
-	}
-
 	pid = fork();
-	if (pid < 0) return;
+	if (pid < 0)
+		return;
 	if (pid == 0) {//child process
-		// se tem redirect ou pipe |
-		if(current->is_pipe)
+		if(current->is_pipe || file) // se tem redirect ou pipe |
 		{
 			dup2(next_fd[1], STDOUT_FILENO); // cancelar o proprio stdout e escrever para o proximo commando (next_fd)
-			close(next_fd[0]);close(next_fd[1]); // close next_fd
+			close(next_fd[0]);
+			close(next_fd[1]); // close next_fd
 		}
 
-		// se recebeu algum fd
-		if (fd)
+		if (fd) // se recebeu algum fd
 		{
 			dup2(fd[0], STDIN_FILENO); // cancelar o proprio in e receber o do comando anterior (fd recebido)
-			close(fd[0]);close(fd[1]); // close fd recebido
+			close(fd[0]);
+			close(fd[1]); // close fd recebido
 		}
 		executor_router(current->command);
 	}
-
 	if (fd) {
-		close(fd[0]);close(fd[1]);
+		close(fd[0]);
+		close(fd[1]);
 	}
-
 	waitpid(pid, NULL, 0);
-	// se tem redirect 
-	// close next_fd
-
-	// se tem pipe
-	// parent chama executor novamente com o proximo nodo e passando o next_fd
-	if (current->is_pipe) {
+	if (file)
+		close(file);
+	if (current->is_pipe) {// se tem pipe
 		current = current->next;
-		executor(&current, next_fd);
+		executor(&current, next_fd);// parent chama executor novamente com o proximo nodo e passando o next_fd
 	}
 }

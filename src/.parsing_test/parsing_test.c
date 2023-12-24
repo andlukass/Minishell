@@ -9,11 +9,13 @@ static t_commands	*create_new_command_value(char *command, int is_pipe)
 	new = malloc(sizeof(t_commands));
 	if (!new)
 		return ((void *)0);
+	new->redirect = NULL;
+	new->files = NULL;
 	new->command = ft_split(command, ' ');
 	new->is_pipe = is_pipe;
 	new->next = (void *)0;
 	return (new);
-}
+} // echo teste >> teste.txt
 
 static int	add_next_node_to_commands(t_commands **list, char *command, int is_pipe)
 {
@@ -38,11 +40,93 @@ void	free_commands(t_commands *stack)
 	{
 		temp = current->next;
 		free_double_array(current->command);
+		if (current->redirect) {
+			free_double_array(current->files);
+			free(current->redirect);
+		}
 		free(current);
 		current = temp;
 	}
 	free_double_array(current->command);
+	if (current->redirect) {
+		free_double_array(current->files);
+		free(current->redirect);
+	}
 	free(current);
+}
+
+void swap_command(t_commands **list, int size)
+{
+	t_commands	*current = *list;
+	char **new_command;
+	int l;
+	int k;
+
+	l = 0;
+	k = 0;
+	new_command = malloc(sizeof(char *) * size +1);
+	while(current->command[l])
+	{
+		// se nao tem anterior entao é comando
+		if (l == 0) {
+			new_command[k++] = strdup(current->command[l++]);
+		} else if (*current->command[l] == '>') { // se atual for > vai para o proximo
+			l++;
+		} else if (*current->command[l-1] == '>') {
+			l++;
+		} else {
+			new_command[k++] = strdup(current->command[l++]);
+		}
+	}
+	new_command[k] = NULL;
+	free_double_array(current->command);
+	current->command = new_command;
+}
+
+void	handle_redirects(t_commands **list)
+{
+	t_commands	*current = *list;
+	int index = 0;
+	int j = 0;
+	int number_of_files = 0;
+	char **files;
+
+	while(current)
+	{
+		index = 0;
+		j = 0;
+		number_of_files = 0;
+		while (current->command[index])
+		{
+			if (!strcmp(current->command[index], ">") || !strcmp(current->command[index], ">>"))
+				number_of_files++;
+			index++;
+		}
+		if (number_of_files)
+			files = malloc(sizeof(char *) * (number_of_files + 1));
+		index = 0;
+		while (current->command[index])
+		{
+			if (!strcmp(current->command[index], ">") || !strcmp(current->command[index], ">>"))
+			{
+				current->redirect = strdup(current->command[index]);
+				index++;
+				files[j] = strdup(current->command[index]);
+				j++;
+			}
+			index++;
+		}
+		if (number_of_files)
+			swap_command(&current, index);
+		if (number_of_files)
+			files[j] = NULL;
+		current->files = files;
+
+		if (current->next)
+			current = current->next;
+		else
+			break;
+	}
 }
 
 void	handle_input(void)
@@ -67,6 +151,18 @@ void	handle_input(void)
 		}
 		free_double_array(plural);
 	}
+	handle_redirects(&get_data()->commands);
+	// int index = 0;
+	// t_commands	*current;
+	// current = get_data()->commands;
+	// if (current->redirect)
+	// {
+	// 	while(current->files[index])
+	// 	{
+	// 		printf("file: %d, %s\n", index, current->files[index]);
+	// 		index++;
+	// 	}
+	// }
 	if (i == 0)
 		i = 1;
 	get_data()->number_of_commands = i;
