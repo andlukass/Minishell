@@ -6,13 +6,14 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/24 10:35:19 by user             ###   ########.fr       */
+/*   Updated: 2023/12/25 16:26:47 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+/* ---------------HEADERS--------------- */
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -25,7 +26,13 @@
 
 # include <signal.h>
 
-# include <string.h>
+# include "env.h"
+# include "executor.h"
+# include "parser.h"
+# include "builtins.h"
+# include "prompt.h"
+# include "utils.h"
+/* ------------------------------------- */
 
 typedef struct s_env{
 	char			*variable;
@@ -50,15 +57,6 @@ typedef struct s_data{
 	t_commands	*commands;
 	int			number_of_commands;
 }	t_data;
-
-/* ---------------HEADERS--------------- */
-# include "env.h"
-# include "executor.h"
-# include "parser.h"
-# include "builtins.h"
-# include "prompt.h"
-# include "utils.h"
-/* ------------------------------------- */
 
 /**
  * @brief	Static struct accessible from any point of the code.

@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:03:10 by user              #+#    #+#             */
-/*   Updated: 2023/12/25 15:47:45 by user             ###   ########.fr       */
+/*   Updated: 2023/12/25 16:22:15 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define EXECUTOR_H
 
 # include "minishell.h"
+
+typedef struct s_commands	t_commands;
 
 /* ---------------EXECUTOR---------------- */
 
