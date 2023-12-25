@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2023/12/25 15:48:01 by user             ###   ########.fr       */
+/*   Updated: 2023/12/25 17:53:59 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	executor(t_commands **commands, int *fd)
  se o comando possuir redirects criamos os arquivos 
  necessarios e trocamos o STDOUT do next_fd.
 
- são executador comandos especiais que nao podem 
+ são executados comandos especiais que nao podem 
  passar por fork e damos return
 
  cria o fork para ser chamado o execve, trocando 
