@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:03:10 by user              #+#    #+#             */
-/*   Updated: 2023/12/25 12:50:37 by user             ###   ########.fr       */
+/*   Updated: 2023/12/25 15:47:45 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * @brief	Execute all the commands received, handling pipes
  * and "> and >>" redirections.
  * @param commands an array of commands
- * @param fd pipe generated array of fds. NULL if don't have a pipe
+ * @param fd pipe or file redirect array of fds. NULL if don't have a pipe
  */
 void	executor(t_commands **commands, int *fd);
 
@@ -29,7 +29,10 @@ void	executor(t_commands **commands, int *fd);
  * @brief	Opens all files needed by the command and put the last to
  * next_fd.
  * @param current the current command and all info of it
- * @param next_fd array of fds.
+ * @param next_fd array of fds to be swaped by the fd of the file pointed
+ * by the redirect.
+ * @return the fd of the last opened file. If command donst have 
+ * redirects, return -1.
  */
 int		open_files(t_commands *current, int (*next_fd)[2]);
 /* --------------------------------------- */

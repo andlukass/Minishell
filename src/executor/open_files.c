@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2023/12/25 12:51:06 by user             ###   ########.fr       */
+/*   Updated: 2023/12/25 15:48:46 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	is_redirect(char *redirect)
 	if (!ft_strcmp(redirect, ">>"))
 		return (1);
 }
-// O_TRUNC - para substituir ||| O_APPEND -- para concatenar
+
 int	open_files(t_commands *current, int (*next_fd)[2])
 {
 	int	index;
@@ -55,3 +55,4 @@ int	open_files(t_commands *current, int (*next_fd)[2])
 	}
 	return (file);
 }
+// O_TRUNC - para substituir ||| O_APPEND -- para concatenar
