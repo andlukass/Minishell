@@ -1,4 +1,10 @@
+
+comportamento:
+pode ter mais de um redirect em um comando só, é ignorado todos e feito somente o ultimo
+(no caso de "<<", deve receber os dois terminadores, em ordem em que foram declarados)
+
 <  -  le um arquivo e faz o input do comando ser esse arquivo (deve sempre receber o nome de um arquivo)
 << -  le uma palavra e faz o input do comando ser STDIN até receber essa palavra novamente (deve sempre receber uma palavra)
+
 >  -  cria/abre um arquivo, deleta seu conteudo e escreve o output do comando anterior(deve sempre receber um nome de arquivo)
 >> -  cria/abre um arquivo, e concatena seu conteudo com o output do comando anterior(deve sempre receber um nome de arquivo)
