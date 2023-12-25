@@ -1,6 +1,4 @@
-#include "../../includes/parser.h"
 #include "../../includes/minishell.h"
-
 
 static t_commands	*create_new_command_value(char *command, int is_pipe)
 {
@@ -15,7 +13,7 @@ static t_commands	*create_new_command_value(char *command, int is_pipe)
 	new->is_pipe = is_pipe;
 	new->next = (void *)0;
 	return (new);
-} // echo teste >> teste.txt
+}
 
 static int	add_next_node_to_commands(t_commands **list, char *command, int is_pipe)
 {
@@ -67,8 +65,7 @@ void swap_command(t_commands **list, int size)
 	new_command = malloc(sizeof(char *) * size +1);
 	while(current->command[l])
 	{
-		// se nao tem anterior entao é comando
-		if (l == 0) {
+		if (l == 0) { // se nao tem anterior entao é comando
 			new_command[k++] = ft_strdup(current->command[l++]);
 		} else if (*current->command[l] == '>') { // se atual for > vai para o proximo
 			l++;
@@ -152,18 +149,19 @@ void	handle_input(void)
 		free_double_array(plural);
 	}
 	handle_redirects(&get_data()->commands);
-	// int index = 0;
-	// t_commands	*current;
-	// current = get_data()->commands;
-	// if (current->redirect)
-	// {
-	// 	while(current->files[index])
-	// 	{
-	// 		printf("file: %d, %s\n", index, current->files[index]);
-	// 		index++;
-	// 	}
-	// }
 	if (i == 0)
 		i = 1;
 	get_data()->number_of_commands = i;
 }
+
+/*
+exemplo:
+echo teste > 1 > 2 > 3 > teste.txt mais teste kkkkkkk
+typedef struct s_commands{
+	char				**command; = {"echo", "teste", "mais", "teste", "kkkkkkk"} // array com todos os tokens do comando
+	int					is_pipe; = 0 // se tem pipe no final do comando
+	char				**files; = {"1", "2", "3", "teste.txt"} // array com todos os nomes de arquivo
+	char				*redirect; = ">" // vai ser uma string com sempre o ultimo redirect usado
+	struct s_commands	*next; = NULL // aponta para o proximo comando
+}	t_commands;
+*/
