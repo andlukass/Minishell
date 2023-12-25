@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:14:55 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/10 19:38:21 by llopes-d         ###   ########.fr       */
+/*   Updated: 2023/12/25 12:11:27 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_cd(char **command)
 	}
 	getcwd(directory, sizeof(directory));
 	old_pwd = ft_strjoin("OLDPWD=", directory, NO_FREE);
-	if (!command[1] || !strcmp(command[1], "~"))
+	if (!command[1] || !ft_strcmp(command[1], "~"))
 		go_home(&old_pwd);
 	else
 		if (!is_path_valid(&old_pwd, command[1]))

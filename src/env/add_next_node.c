@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:21:22 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/23 17:33:46 by user             ###   ########.fr       */
+/*   Updated: 2023/12/25 12:11:27 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	is_duplicated(char *new_key, char **variable, t_env **current)
 	char	*env_key;
 
 	env_key = get_env_key((*current)->variable);
-	if (!strcmp(new_key, env_key))
+	if (!ft_strcmp(new_key, env_key))
 	{
 		free(env_key);
 		if (!ft_strchr(*variable, '='))

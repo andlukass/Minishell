@@ -3,8 +3,9 @@ RED := \033[31m
 END := \033[0m
 
 SRCS = src/main.c src/utils/ft_strjoin.c src/utils/ft_strlen.c \
-		src/utils/ft_itoa.c src/utils/ft_strchr.c src/utils/ft_strdup.c\
+		src/utils/ft_itoa.c src/utils/ft_strchr.c src/utils/ft_strdup.c \
 		src/utils/free_double_array.c src/utils/ft_split.c \
+		src/utils/ft_strcmp.c src/utils/ft_strncmp.c \
 		src/structs/data.c \
 		src/prompt/prompt.c src/builtins/ft_exit.c src/builtins/ft_echo.c \
 		src/builtins/ft_pwd.c src/builtins/ft_env.c src/builtins/ft_export.c \

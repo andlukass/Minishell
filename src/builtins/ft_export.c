@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:20:27 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/24 17:35:56 by user             ###   ########.fr       */
+/*   Updated: 2023/12/25 12:10:58 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	print_export(t_env *env_copy)
 	current = env_copy;
 	while (current->next)
 	{
-		if (strncmp(current->variable, current->next->variable, \
+		if (ft_strncmp(current->variable, current->next->variable, \
 				ft_strchr(current->variable, '=') - current->variable) > 0)
 		{
 			temp = current->variable;

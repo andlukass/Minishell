@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 16:59:14 by user              #+#    #+#             */
-/*   Updated: 2023/12/24 17:38:00 by user             ###   ########.fr       */
+/*   Updated: 2023/12/25 12:09:41 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,25 @@ void	free_double_array(char **array);
  * freed afer use.
  */
 char	*ft_strdup(char const *s1);
+
+/**
+ * @brief	Compare 2 strings until the limit 'n'.
+ * @param	s1 the string to be compared.
+ * @param	s2 the string to be compared.
+ * @param	n the limit to be compared.
+ * @return	the ascii diference between the first different char,
+ * 0 if they are all equal
+ */
+int	ft_strncmp(const char *s1, const char *s2, unsigned int n);
+
+/**
+ * @brief	Compare 2 strings.
+ * @param	s1 the string to be compared.
+ * @param	s2 the string to be compared.
+ * @return	the ascii diference between the first different char,
+ * 0 if they are all equal
+ */
+int	ft_strcmp(const char *s1, const char *s2);
 /* --------------------------------------- */
 
 #endif

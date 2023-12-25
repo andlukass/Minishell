@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2023/12/24 15:51:51 by user             ###   ########.fr       */
+/*   Updated: 2023/12/25 12:11:27 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 static void	executor_router(char **command)
 {
-	if (!strcmp(command[0], "exit"))
+	if (!ft_strcmp(command[0], "exit"))
 		ft_exit(command);
-	else if (!strcmp(command[0], "pwd"))
+	else if (!ft_strcmp(command[0], "pwd"))
 		ft_pwd(command);
-	else if (!strcmp(command[0], "echo"))
+	else if (!ft_strcmp(command[0], "echo"))
 		ft_echo(command);
-	else if (!strcmp(command[0], "env"))
+	else if (!ft_strcmp(command[0], "env"))
 		ft_env(command);
-	else if (!strcmp(command[0], "export"))
+	else if (!ft_strcmp(command[0], "export"))
 		ft_export(command);
-	else if (!strcmp(command[0], "unset"))
+	else if (!ft_strcmp(command[0], "unset"))
 		ft_unset(command);
-	else if (!strcmp(command[0], "cd"))
+	else if (!ft_strcmp(command[0], "cd"))
 		ft_cd(command);
 	else
 		execvp(command[0], command);
@@ -34,13 +34,13 @@ static void	executor_router(char **command)
 
 static int is_multable_builtin(char **command)
 {
-	if (!strcmp(command[0], "exit"))
+	if (!ft_strcmp(command[0], "exit"))
 		return (1);
-	else if (!strcmp(command[0], "export"))
+	else if (!ft_strcmp(command[0], "export"))
 		return (1);
-	else if (!strcmp(command[0], "unset"))
+	else if (!ft_strcmp(command[0], "unset"))
 		return (1);
-	else if (!strcmp(command[0], "cd"))
+	else if (!ft_strcmp(command[0], "cd"))
 		return (1);
 	else
 		return (0);
@@ -56,9 +56,9 @@ static int	open_files(t_commands *current, int (*next_fd)[2])
 	file = 0;
 	if (!current->redirect)
 		return 0;
-	if (!strcmp(current->redirect, ">") || !strcmp(current->redirect, ">>"))
+	if (!ft_strcmp(current->redirect, ">") || !ft_strcmp(current->redirect, ">>"))
 	{
-		if (!strcmp(current->redirect, ">"))
+		if (!ft_strcmp(current->redirect, ">"))
 			flag = O_TRUNC; // para substituir
 		else
 			flag = O_APPEND; // para concatenar

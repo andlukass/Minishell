@@ -98,7 +98,7 @@ void	handle_redirects(t_commands **list)
 		number_of_files = 0;
 		while (current->command[index])
 		{
-			if (!strcmp(current->command[index], ">") || !strcmp(current->command[index], ">>"))
+			if (!ft_strcmp(current->command[index], ">") || !ft_strcmp(current->command[index], ">>"))
 				number_of_files++;
 			index++;
 		}
@@ -107,7 +107,7 @@ void	handle_redirects(t_commands **list)
 		index = 0;
 		while (current->command[index])
 		{
-			if (!strcmp(current->command[index], ">") || !strcmp(current->command[index], ">>"))
+			if (!ft_strcmp(current->command[index], ">") || !ft_strcmp(current->command[index], ">>"))
 			{
 				current->redirect = ft_strdup(current->command[index]);
 				index++;
