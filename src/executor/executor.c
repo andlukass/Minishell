@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2023/12/25 12:11:27 by user             ###   ########.fr       */
+/*   Updated: 2023/12/25 12:57:55 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,38 +44,6 @@ static int is_multable_builtin(char **command)
 		return (1);
 	else
 		return (0);
-}
-
-static int	open_files(t_commands *current, int (*next_fd)[2])
-{
-	int	index;
-	int	file;
-	int	flag;
-
-	index = 0;
-	file = 0;
-	if (!current->redirect)
-		return 0;
-	if (!ft_strcmp(current->redirect, ">") || !ft_strcmp(current->redirect, ">>"))
-	{
-		if (!ft_strcmp(current->redirect, ">"))
-			flag = O_TRUNC; // para substituir
-		else
-			flag = O_APPEND; // para concatenar
-		while (current->files[index])
-		{
-			file = open(current->files[index], O_WRONLY | O_CREAT | flag, 0777);
-			index++;
-			if (current->files[index])
-				close(file);
-			else
-			{
-				(*next_fd)[1] = file;
-				(*next_fd)[0] = file;
-			}
-		}
-	}
-	return (file);
 }
 
 void	executor(t_commands **commands, int *fd)
