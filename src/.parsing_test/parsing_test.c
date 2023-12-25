@@ -106,6 +106,8 @@ void	handle_redirects(t_commands **list)
 		{
 			if (!ft_strcmp(current->command[index], ">") || !ft_strcmp(current->command[index], ">>"))
 			{
+				if (current->redirect)
+					free(current->redirect);
 				current->redirect = ft_strdup(current->command[index]);
 				index++;
 				files[j] = ft_strdup(current->command[index]);
