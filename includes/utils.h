@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 16:59:14 by user              #+#    #+#             */
-/*   Updated: 2023/12/25 12:09:41 by user             ###   ########.fr       */
+/*   Updated: 2023/12/25 15:49:56 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*ft_strdup(char const *s1);
  * @return	the ascii diference between the first different char,
  * 0 if they are all equal
  */
-int	ft_strncmp(const char *s1, const char *s2, unsigned int n);
+int		ft_strncmp(const char *s1, const char *s2, unsigned int n);
 
 /**
  * @brief	Compare 2 strings.
@@ -88,7 +88,7 @@ int	ft_strncmp(const char *s1, const char *s2, unsigned int n);
  * @return	the ascii diference between the first different char,
  * 0 if they are all equal
  */
-int	ft_strcmp(const char *s1, const char *s2);
+int		ft_strcmp(const char *s1, const char *s2);
 /* --------------------------------------- */
 
 #endif
