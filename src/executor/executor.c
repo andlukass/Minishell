@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2023/12/25 17:53:59 by user             ###   ########.fr       */
+/*   Updated: 2023/12/26 12:58:36 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,13 @@ void	executor(t_commands **commands, int *fd)
 	if (pid == 0)
 		child_routine(current, file, next_fd, fd);
 	close_fds(fd, file);
-	waitpid(pid, NULL, 0);
 	if (current->is_pipe)
 	{
 		current = current->next;
 		executor(&current, next_fd);
 	}
+	else
+		waitpid(pid, NULL, 0);
 }
 /*
  OBS: ainda falta lidar com os redirects '<'
