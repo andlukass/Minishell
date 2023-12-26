@@ -158,12 +158,25 @@ void	handle_input(void)
 
 /*
 exemplo:
-echo teste > 1 > 2 > 3 > teste.txt mais teste kkkkkkk
+echo teste > 1 >> 2 > 3 >> teste.txt mais teste kkkkkkk <<EOF <<FIM < Makefile
 typedef struct s_commands{
-	char				**command; = {"echo", "teste", "mais", "teste", "kkkkkkk"} // array com todos os tokens do comando
+	char				**command; = {"echo", "teste", "mais", "teste", "kkkkkkk", NULL} // array com todos os tokens do comando
 	int					is_pipe; = 0 // se tem pipe no final do comando
-	char				**files; = {"1", "2", "3", "teste.txt"} // array com todos os nomes de arquivo
-	char				*redirect; = ">" // vai ser uma string com sempre o ultimo redirect usado
+	char				*greater_than; = ">>" // vai ser uma string com o ultimo greater_than usado
+	char				**gt_files; = {"1", "2", "3", "teste.txt", NULL} // array com todos os nomes de arquivo para abrir
+	char				*heredocs; = {"EOF", "FIM", NULL};
+	char				*less_than; = "<" // vai ser uma string com o ultimo less_than usado
+	char				**lt_files; = {"Makefile", NULL} // array com todos os nomes de arquivo para escutar
 	struct s_commands	*next; = NULL // aponta para o proximo comando
 }	t_commands;
+
+
+	t_redirect			*greater_than;
+							char	**files; = {"1", "2", "3", "teste.txt", NULL}; 
+							char	**redirects = {">", ">>", ">", ">", NULL};
+	t_redirect			*less_than;
+							char	**files; = {"EOF", "FIM", "Makefile", NULL};
+							char	**redirects = {"<<", "<<", "<", NULL};
+
+
 */
