@@ -69,7 +69,11 @@ void swap_command(t_commands **list, int size)
 			new_command[k++] = ft_strdup(current->command[l++]);
 		} else if (*current->command[l] == '>') { // se atual for > vai para o proximo
 			l++;
-		} else if (*current->command[l-1] == '>') {
+		} else if (*current->command[l-1] == '>') { // se anterior for > vai para o prox (ex: "> teste.txt" é preciso pular os dois)
+			l++;
+		}  else if (*current->command[l] == '<') {
+			l++;
+		} else if (*current->command[l-1] == '<') {
 			l++;
 		} else {
 			new_command[k++] = ft_strdup(current->command[l++]);
