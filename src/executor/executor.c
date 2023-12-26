@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2023/12/26 12:58:36 by user             ###   ########.fr       */
+/*   Updated: 2023/12/26 18:45:18 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,22 +91,22 @@ void	executor(t_commands **commands, int *fd)
 {
 	t_commands	*current;
 	int			next_fd[2];
-	int			file;
+	int			files[2];
 	int			pid;
 
 	current = *commands;
 	if (current->is_pipe)
 		if (pipe(next_fd) < 0)
 			return ;
-	file = open_files(current, &next_fd);
-	if (is_multable_builtin(current->command, file))
+	open_files(current, &next_fd, &files);
+	if (is_multable_builtin(current->command, files[1]))
 		return ;
 	pid = fork();
 	if (pid < 0)
 		return ;
 	if (pid == 0)
-		child_routine(current, file, next_fd, fd);
-	close_fds(fd, file);
+		child_routine(current, files[1], next_fd, fd);
+	close_fds(fd, files[1]);
 	if (current->is_pipe)
 	{
 		current = current->next;

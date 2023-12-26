@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2023/12/25 15:48:46 by user             ###   ########.fr       */
+/*   Updated: 2023/12/26 19:18:03 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,20 @@ static int	get_flag(char *redirect)
 		return (O_APPEND);
 }
 
-static int	is_redirect(char *redirect)
+static int	do_greater_than(t_commands *current, int (*next_fd)[2])
 {
+	char	*redirect;
+	int		index;
+	int		file;
+	int		flag;
+
+	redirect = current->redirect;
 	if (!redirect)
 		return (0);
-	if (!ft_strcmp(redirect, ">"))
-		return (1);
-	if (!ft_strcmp(redirect, ">>"))
-		return (1);
-}
-
-int	open_files(t_commands *current, int (*next_fd)[2])
-{
-	int	index;
-	int	file;
-	int	flag;
-
-	index = 0;
-	flag = get_flag(current->redirect);
-	if (!is_redirect(current->redirect))
+	if (ft_strcmp(redirect, ">") && ft_strcmp(redirect, ">>"))
 		return (0);
+	index = 0;
+	flag = get_flag(redirect);
 	while (current->files[index])
 	{
 		file = open(current->files[index++], O_WRONLY | O_CREAT | flag, 0777);
@@ -54,5 +48,16 @@ int	open_files(t_commands *current, int (*next_fd)[2])
 		}
 	}
 	return (file);
+}
+
+static int	do_less_than(t_commands *current)
+{
+	return (0);
+}
+
+void	open_files(t_commands *current, int (*next_fd)[2], int (*files)[2])
+{
+	(*files)[1] = do_greater_than(current, next_fd);
+	(*files)[0] = do_less_than(current);
 }
 // O_TRUNC - para substituir ||| O_APPEND -- para concatenar
