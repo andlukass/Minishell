@@ -6,21 +6,23 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2023/12/26 18:45:18 by user             ###   ########.fr       */
+/*   Updated: 2023/12/27 18:15:50 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	close_fds(int *fd, int file)
+static void	close_fds(int *fd, int *files)
 {
 	if (fd)
 	{
 		close(fd[0]);
 		close(fd[1]);
 	}
-	if (file)
-		close(file);
+	if (files && files[0])
+		close(files[0]);
+	if (files && files[1])
+		close(files[1]);
 }
 
 static void	executor_router(char **command)
@@ -43,38 +45,43 @@ static void	executor_router(char **command)
 		execvp(command[0], command);
 }
 
-static int	is_multable_builtin(char **command, int file)
+static int	is_multable_builtin(char **command, int *files)
 {
 	if (!get_data()->number_of_commands == 1)
 		return (0);
 	if (!ft_strcmp(command[0], "exit") || !ft_strcmp(command[0], "export") || \
 		!ft_strcmp(command[0], "unset") || !ft_strcmp(command[0], "cd"))
 	{
-		if (file)
-			dup2(file, STDOUT_FILENO);
+		if (files[1])
+			dup2(files[1], STDOUT_FILENO);
 		executor_router(command);
-		if (file)
+		if (files[1])
 		{
-			dup2(STDOUT_FILENO, file);
-			close(file);
+			dup2(STDOUT_FILENO, files[1]);
+			close(files[1]);
 		}
+		if (files[0])
+			close(files[0]);
 		return (1);
 	}
 	else
 		return (0);
 }
 
-static void	child_routine(t_commands *current, int file, int *next_fd, int *fd)
+static void	child_routine(t_commands *current, int *files, int *next_fd, int *fd)
 {
-	if (current->is_pipe || file)
+	if (current->is_pipe || files[1])
 	{
 		dup2(next_fd[1], STDOUT_FILENO);
 		close_fds(next_fd, 0);
 	}
-	if (fd)
+	if (fd || files[0])
 	{
-		dup2(fd[0], STDIN_FILENO);
-		close_fds(fd, 0);
+		if (files[0])
+			dup2(files[0], STDIN_FILENO);
+		else
+			dup2(fd[0], STDIN_FILENO);
+		close_fds(fd, files);
 	}
 	executor_router(current->command);
 }
@@ -93,20 +100,21 @@ void	executor(t_commands **commands, int *fd)
 	int			next_fd[2];
 	int			files[2];
 	int			pid;
-
+	
+	// return;
 	current = *commands;
 	if (current->is_pipe)
 		if (pipe(next_fd) < 0)
 			return ;
 	open_files(current, &next_fd, &files);
-	if (is_multable_builtin(current->command, files[1]))
+	if (is_multable_builtin(current->command, files))
 		return ;
 	pid = fork();
 	if (pid < 0)
 		return ;
 	if (pid == 0)
-		child_routine(current, files[1], next_fd, fd);
-	close_fds(fd, files[1]);
+		child_routine(current, files, next_fd, fd);
+	close_fds(fd, files);
 	if (current->is_pipe)
 	{
 		current = current->next;

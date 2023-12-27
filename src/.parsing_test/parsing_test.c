@@ -7,8 +7,11 @@ static t_commands	*create_new_command_value(char *command, int is_pipe)
 	new = malloc(sizeof(t_commands));
 	if (!new)
 		return ((void *)0);
-	new->redirect = NULL;
-	new->files = NULL;
+	new->greater_than = NULL;
+	new->gt_files = NULL;
+	new->less_than = NULL;
+	new->lt_files = NULL;
+	new->heredocs = NULL;
 	new->command = ft_split(command, ' ');
 	new->is_pipe = is_pipe;
 	new->next = (void *)0;
@@ -38,18 +41,30 @@ void	free_commands(t_commands *stack)
 	{
 		temp = current->next;
 		free_double_array(current->command);
-		if (current->redirect) {
-			free_double_array(current->files);
-			free(current->redirect);
+		if (current->greater_than) {
+			free_double_array(current->gt_files);
+			free(current->greater_than);
 		}
+		if (current->less_than) {
+			free_double_array(current->lt_files);
+			free(current->less_than);
+		}
+		if (current->heredocs)
+			free_double_array(current->heredocs);
 		free(current);
 		current = temp;
 	}
 	free_double_array(current->command);
-	if (current->redirect) {
-		free_double_array(current->files);
-		free(current->redirect);
+	if (current->greater_than) {
+		free_double_array(current->gt_files);
+		free(current->greater_than);
 	}
+	if (current->lt_files)
+		free_double_array(current->lt_files);
+	if (current->less_than)
+		free(current->less_than);
+	if (current->heredocs)
+		free_double_array(current->heredocs);
 	free(current);
 }
 
@@ -89,41 +104,88 @@ void	handle_redirects(t_commands **list)
 	t_commands	*current = *list;
 	int index = 0;
 	int j = 0;
-	int number_of_files = 0;
-	char **files;
+	int k = 0;
+	int l = 0;
+	int number_of_gt_files = 0;
+	int number_of_lt_files = 0;
+	int number_of_heredocs = 0;
+	char **gt_files;
+	char **lt_files;
+	char **heredocs;
 
 	while(current)
 	{
+		current->heredocs = NULL;
 		index = 0;
 		j = 0;
-		number_of_files = 0;
+		k = 0;
+		l = 0;
+		number_of_gt_files = 0;
 		while (current->command[index])
 		{
 			if (!ft_strcmp(current->command[index], ">") || !ft_strcmp(current->command[index], ">>"))
-				number_of_files++;
+				number_of_gt_files++;
+			if (!ft_strcmp(current->command[index], "<"))
+				number_of_lt_files++;
+			if (!ft_strcmp(current->command[index], "<<"))
+				number_of_heredocs++;
 			index++;
 		}
-		if (number_of_files)
-			files = malloc(sizeof(char *) * (number_of_files + 1));
+		if (number_of_gt_files)
+			gt_files = malloc(sizeof(char *) * (number_of_gt_files + 1));
+		if (number_of_lt_files)
+			lt_files = malloc(sizeof(char *) * (number_of_lt_files + 1));
+		if (number_of_heredocs)
+			heredocs = malloc(sizeof(char *) * (number_of_heredocs + 1));
 		index = 0;
 		while (current->command[index])
 		{
 			if (!ft_strcmp(current->command[index], ">") || !ft_strcmp(current->command[index], ">>"))
 			{
-				if (current->redirect)
-					free(current->redirect);
-				current->redirect = ft_strdup(current->command[index]);
+				if (current->greater_than)
+					free(current->greater_than);
+				current->greater_than = ft_strdup(current->command[index]);
 				index++;
-				files[j] = ft_strdup(current->command[index]);
+				gt_files[j] = ft_strdup(current->command[index]);
 				j++;
+			}
+			if (!ft_strcmp(current->command[index], "<"))
+			{
+				if (current->less_than)
+					free(current->less_than);
+				current->less_than = ft_strdup(current->command[index]);
+				index++;
+				lt_files[k] = ft_strdup(current->command[index]);
+				k++;
+			}
+			if (!ft_strcmp(current->command[index], "<<"))
+			{
+				if (current->less_than)
+					free(current->less_than);
+				current->less_than = ft_strdup(current->command[index]);
+				index++;
+				heredocs[l] = ft_strdup(current->command[index]);
+				l++;
 			}
 			index++;
 		}
-		if (number_of_files)
+		if (number_of_gt_files || number_of_lt_files || number_of_heredocs)
 			swap_command(&current, index);
-		if (number_of_files)
-			files[j] = NULL;
-		current->files = files;
+		if (number_of_gt_files)
+		{
+			gt_files[j] = NULL;
+			current->gt_files = gt_files;
+		}
+		if (number_of_lt_files)
+		{
+			lt_files[k] = NULL;
+			current->lt_files = lt_files;
+		}
+		if (number_of_heredocs)
+		{
+			heredocs[l] = NULL;
+			current->heredocs = heredocs;
+		}
 
 		if (current->next)
 			current = current->next;

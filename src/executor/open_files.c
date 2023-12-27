@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2023/12/26 20:02:09 by user             ###   ########.fr       */
+/*   Updated: 2023/12/27 18:13:28 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	do_greater_than(t_commands *current, int (*next_fd)[2])
 		else
 		{
 			(*next_fd)[1] = file;
-			(*next_fd)[0] = file;
+			(*next_fd)[0] = 0;
 		}
 	}
 	return (file);
@@ -52,7 +52,24 @@ static int	do_greater_than(t_commands *current, int (*next_fd)[2])
 
 static int	do_less_than(t_commands *current)
 {
-	return (0);
+	int	index;
+	int	file;
+
+	index = 0;
+	file = 0;
+	// return 0;
+	if (current->less_than && !ft_strcmp(current->less_than, "<") && \
+		(ft_strcmp(current->command[0], "exit") && ft_strcmp(current->command[0], "export") && \
+		ft_strcmp(current->command[0], "unset") && ft_strcmp(current->command[0], "cd")))
+	{
+		while(current->lt_files[index])
+		{
+			if (!current->lt_files[index + 1])
+				file = open(current->lt_files[index], O_RDONLY, 0777);
+			index++;
+		}
+	}
+	return (file);
 }
 
 void	open_files(t_commands *current, int (*next_fd)[2], int (*files)[2])
