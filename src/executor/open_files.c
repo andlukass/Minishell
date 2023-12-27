@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2023/12/26 19:18:03 by user             ###   ########.fr       */
+/*   Updated: 2023/12/26 20:02:09 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ static int	do_greater_than(t_commands *current, int (*next_fd)[2])
 	int		file;
 	int		flag;
 
-	redirect = current->redirect;
+	redirect = current->greater_than;
 	if (!redirect)
 		return (0);
 	if (ft_strcmp(redirect, ">") && ft_strcmp(redirect, ">>"))
 		return (0);
 	index = 0;
 	flag = get_flag(redirect);
-	while (current->files[index])
+	while (current->gt_files[index])
 	{
-		file = open(current->files[index++], O_WRONLY | O_CREAT | flag, 0777);
-		if (current->files[index])
+		file = open(current->gt_files[index++], O_WRONLY | O_CREAT | flag, 0777);
+		if (current->gt_files[index])
 			close(file);
 		else
 		{

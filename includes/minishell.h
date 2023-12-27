@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/25 16:26:47 by user             ###   ########.fr       */
+/*   Updated: 2023/12/26 20:01:37 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,11 @@ typedef struct s_env{
 typedef struct s_commands{
 	char				**command;
 	int					is_pipe;
-	char				**files;
-	char				*redirect;
+	char				**gt_files;
+	char				*greater_than;
+	char				**heredocs;
+	char				**lt_files;
+	char				*less_than;
 	struct s_commands	*next;
 }	t_commands;
 
