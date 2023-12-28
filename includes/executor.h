@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:03:10 by user              #+#    #+#             */
-/*   Updated: 2023/12/26 18:50:04 by user             ###   ########.fr       */
+/*   Updated: 2023/12/28 12:02:24 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	executor(t_commands **commands, int *fd);
  * @return the fd of the last opened file. If command donst have 
  * redirects, return -1.
  */
-void	open_files(t_commands *current, int (*next_fd)[2], int (*files)[2]);
+void	open_files(t_commands *current, int **fd, int (*next_fd)[2]);
 /* --------------------------------------- */
 
 #endif

@@ -6,48 +6,77 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2023/12/27 18:13:28 by user             ###   ########.fr       */
+/*   Updated: 2023/12/28 17:22:14 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	get_flag(char *redirect)
+static int	do_heredocs(t_commands *current)
 {
-	if (!redirect)
-		return (0);
-	if (!ft_strcmp(redirect, ">"))
-		return (O_TRUNC);
-	else
-		return (O_APPEND);
+	int		temp_file;
+	int		index;
+	char	*input;
+	char	*text;
+
+	index = 0;
+	temp_file = -1;
+	while (current->heredocs[index])
+	{
+		if (temp_file)
+			close(temp_file);
+		temp_file = open(".temp.txt", O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		text = NULL;
+		while (1)
+		{
+			input = readline("> ");
+			if (input == NULL) // Verifica se a entrada é nula (geralmente indica Ctrl+D)
+			{
+				printf("wanted terminador: '%s'.\n", current->heredocs[index]);
+				break ;
+			}
+			if (!ft_strcmp(input, current->heredocs[index]))
+			{
+				free(input);
+				break ;
+			}
+			text = ft_strjoin(text, input, 1);
+			text = ft_strjoin(text, "\n", 1);
+			free(input);
+		}
+		write(temp_file, text, ft_strlen(text));
+		free(text);
+		index++;
+	}
+	if (temp_file)
+	{
+		close(temp_file);
+		temp_file = open(".temp.txt", O_RDONLY, 0777);
+	}
+	return (temp_file);
 }
 
-static int	do_greater_than(t_commands *current, int (*next_fd)[2])
+static int	do_greater_than(t_commands *current)
 {
-	char	*redirect;
 	int		index;
-	int		file;
+	int		fd;
 	int		flag;
 
-	redirect = current->greater_than;
-	if (!redirect)
+	if (!current->greater_than)
 		return (0);
-	if (ft_strcmp(redirect, ">") && ft_strcmp(redirect, ">>"))
-		return (0);
+	if (!ft_strcmp(current->greater_than, ">"))
+		flag = O_TRUNC;
+	else
+		flag = O_APPEND;
 	index = 0;
-	flag = get_flag(redirect);
 	while (current->gt_files[index])
 	{
-		file = open(current->gt_files[index++], O_WRONLY | O_CREAT | flag, 0777);
+		fd = open(current->gt_files[index], O_WRONLY | O_CREAT | flag, 0777);
+		index++;
 		if (current->gt_files[index])
-			close(file);
-		else
-		{
-			(*next_fd)[1] = file;
-			(*next_fd)[0] = 0;
-		}
+			close(fd);
 	}
-	return (file);
+	return (fd);
 }
 
 static int	do_less_than(t_commands *current)
@@ -56,25 +85,33 @@ static int	do_less_than(t_commands *current)
 	int	file;
 
 	index = 0;
-	file = 0;
-	// return 0;
-	if (current->less_than && !ft_strcmp(current->less_than, "<") && \
-		(ft_strcmp(current->command[0], "exit") && ft_strcmp(current->command[0], "export") && \
-		ft_strcmp(current->command[0], "unset") && ft_strcmp(current->command[0], "cd")))
+	file = -1;
+	if (current->less_than && !ft_strcmp(current->less_than, "<"))
 	{
-		while(current->lt_files[index])
+		while (current->lt_files[index])
 		{
 			if (!current->lt_files[index + 1])
 				file = open(current->lt_files[index], O_RDONLY, 0777);
 			index++;
 		}
 	}
+	if (current->less_than && !ft_strcmp(current->less_than, "<<"))
+		file = do_heredocs(current);
+	if (is_builtin(current->command))
+	{
+		close(file);
+		file = 0;
+	}
 	return (file);
 }
 
-void	open_files(t_commands *current, int (*next_fd)[2], int (*files)[2])
+void	open_files(t_commands *current, int **fd, int (*next_fd)[2])
 {
-	(*files)[1] = do_greater_than(current, next_fd);
-	(*files)[0] = do_less_than(current);
+	if (current->greater_than)
+		(*next_fd)[1] = do_greater_than(current);
+	if (current->less_than)
+		(*next_fd)[0] = -1;
+	// (*files)[0] = -1;
+	// (*files)[0] = do_less_than(current);
 }
 // O_TRUNC - para substituir ||| O_APPEND -- para concatenar
