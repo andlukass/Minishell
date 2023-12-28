@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 16:59:28 by user              #+#    #+#             */
-/*   Updated: 2023/12/23 16:59:29 by user             ###   ########.fr       */
+/*   Updated: 2023/12/28 09:27:39 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,13 @@ void	ft_echo(char **command);
  * @param command a command formed from an array of tokens.
  */
 void	ft_cd(char **command);
+
+/**
+ * @brief	Determines if the command is calling a builtin.
+ * @param command a command formed from an array of tokens.
+ * @return 1 if the command is calling a builtin, 0 if isn't.
+ */
+int		is_builtin(char **command);
 /* --------------------------------------- */
 
 #endif
