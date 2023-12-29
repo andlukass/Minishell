@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2023/12/28 17:27:53 by user             ###   ########.fr       */
+/*   Updated: 2023/12/29 13:42:03 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,28 @@ static int	is_multable_builtin(char **command, int *next_fd)
 
 static void	child_routine(t_commands *current, int *next_fd, int *fd)
 {
-	if (current->is_pipe || next_fd[1]) // 
+	if (current->is_pipe || next_fd[1] != -1) // 
 	{
 		dup2(next_fd[1], STDOUT_FILENO);
-		close_fds(next_fd);
 	}
-	if (fd) // || next_fd[0]
+	if (fd || next_fd[0] != -1) // 
 	{
-		// if (next_fd[0])
-			// dup2(next_fd[0], STDIN_FILENO);
-		// else
-		if (fd[0] && fd[0] != -1)
-			dup2(fd[0], STDIN_FILENO);
-		close_fds(fd);
+		if (next_fd[0] && next_fd[0] != -1)
+		{
+			dup2(next_fd[0], STDIN_FILENO);
+			// close_fds(next_fd);
+		}
+		else
+		{
+			if (fd[0] && fd[0] != -1)
+			{
+				dup2(fd[0], STDIN_FILENO);
+				// close_fds(fd);
+			}
+		}
 	}
+	close_fds(fd);
+	close_fds(next_fd);
 	executor_router(current->command);
 }
 /*

@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2023/12/28 17:22:14 by user             ###   ########.fr       */
+/*   Updated: 2023/12/29 13:42:21 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	do_heredocs(t_commands *current)
 	temp_file = -1;
 	while (current->heredocs[index])
 	{
-		if (temp_file)
+		if (temp_file != -1)
 			close(temp_file);
 		temp_file = open(".temp.txt", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		text = NULL;
@@ -48,7 +48,7 @@ static int	do_heredocs(t_commands *current)
 		free(text);
 		index++;
 	}
-	if (temp_file)
+	if (temp_file != -1)
 	{
 		close(temp_file);
 		temp_file = open(".temp.txt", O_RDONLY, 0777);
@@ -63,7 +63,7 @@ static int	do_greater_than(t_commands *current)
 	int		flag;
 
 	if (!current->greater_than)
-		return (0);
+		return (-1);
 	if (!ft_strcmp(current->greater_than, ">"))
 		flag = O_TRUNC;
 	else
@@ -108,10 +108,16 @@ static int	do_less_than(t_commands *current)
 void	open_files(t_commands *current, int **fd, int (*next_fd)[2])
 {
 	if (current->greater_than)
+	{
+		if ((*next_fd)[1] != -1)
+			close((*next_fd)[1]);
 		(*next_fd)[1] = do_greater_than(current);
+	}
 	if (current->less_than)
-		(*next_fd)[0] = -1;
-	// (*files)[0] = -1;
-	// (*files)[0] = do_less_than(current);
+	{
+		if ((*next_fd)[0] != -1)
+			close((*next_fd)[0]);
+		(*next_fd)[0] = do_less_than(current);
+	}
 }
 // O_TRUNC - para substituir ||| O_APPEND -- para concatenar
