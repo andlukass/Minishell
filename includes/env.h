@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 16:58:42 by user              #+#    #+#             */
-/*   Updated: 2023/12/25 16:21:46 by user             ###   ########.fr       */
+/*   Updated: 2023/12/30 22:19:56 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char	*get_env_value(char *key);
  */
 void	free_env(t_env *stack);
 
+char	**env_to_array(void);
 char	*get_env_key(char *variable);
 void	remove_env_value(char *key);
 /* --------------------------------------- */
