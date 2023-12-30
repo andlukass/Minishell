@@ -33,3 +33,4 @@ should expand to their values.
 foreground pipeline.
 
 FIX EMPTY ECHO 
+CLEANLY EXIT ON EXECUTOR (PIPE & FORK ERRORS)

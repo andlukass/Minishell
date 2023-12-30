@@ -6,22 +6,11 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2023/12/30 15:12:17 by user             ###   ########.fr       */
+/*   Updated: 2023/12/30 18:01:41 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static void	close_fds(int *fd)
-{
-	if (fd)
-	{
-		if (fd && fd[0] != -1)
-			close(fd[0]);
-		if (fd && fd[1] != -1)
-			close(fd[1]);
-	}
-}
 
 static void	executor_router(char **command)
 {
@@ -43,134 +32,84 @@ static void	executor_router(char **command)
 		execvp(command[0], command);
 }
 
-static int	is_multable_builtin(char **command, int *next_fd)
+static int	do_multable_builtin(t_commands *current)
 {
-	if (!get_data()->number_of_commands == 1)
-		return (0);
-	if (!ft_strcmp(command[0], "exit") || !ft_strcmp(command[0], "export") || \
-		!ft_strcmp(command[0], "unset") || !ft_strcmp(command[0], "cd"))
+	if (!current->next && \
+		(!ft_strcmp(current->command[0], "exit") || \
+		!ft_strcmp(current->command[0], "export") || \
+		!ft_strcmp(current->command[0], "unset") || \
+		!ft_strcmp(current->command[0], "cd")))
 	{
-		if (next_fd && next_fd[1] != -1)
-			dup2(next_fd[1], STDOUT_FILENO);
-		executor_router(command);
-		if (next_fd && next_fd[1] != -1)
-		{
-			dup2(STDOUT_FILENO, next_fd[1]);
-			close(next_fd[1]);
-		}
+		executor_router(current->command);
 		return (1);
 	}
 	else
 		return (0);
 }
 
-static void	child_routine(t_commands *current, int *next_fd, int *fd)
+static void	child_routine(t_commands *cur, int *next_fd, int *fd, int **pids)
 {
-	if (current->is_pipe || next_fd[1] != -1) // 
-	{
+	if (next_fd[1] != -1)
 		dup2(next_fd[1], STDOUT_FILENO);
-	}
-	if (fd || next_fd[0] != -1) // 
-	{
-		if (next_fd[0] && next_fd[0] != -1)
-		{
-			dup2(next_fd[0], STDIN_FILENO);
-			// close_fds(next_fd);
-		}
-		else
-		{
-			if (fd[0] && fd[0] != -1)
-			{
-				dup2(fd[0], STDIN_FILENO);
-				// close_fds(fd);
-			}
-		}
-	}
+	if (fd[0] != -1)
+		dup2(fd[0], STDIN_FILENO);
+	if (next_fd[0] != -1 && cur->less_than)
+		dup2(next_fd[0], STDIN_FILENO);
 	close_fds(fd);
 	close_fds(next_fd);
-	executor_router(current->command);
+	free(*pids);
+	executor_router(cur->command);
 }
 /*
- verifica se tem pipe ou se foi criado um arquivo por
- meio de um redirect, e troca o STDOUT pelo arquivo 
- ou pelo pipe.
-
- verifica se recebeu um fd, o que significa que terá 
- de ignorar o STDIN e escutar o o que vem do fd
+IFS:
+	1º cancelar o proprio stdout ex: echo teste | cat ou echo teste > teste.txt
+	2º cancelar o proprio stdin | ex: echo teste | cat
+	3º cancelar o proprio stdin | ex: cat < teste.txt
 */
+
+static int	do_commands(t_commands *current, int **pids, int (*fd)[2])
+{
+	int	next_fd[2];
+	int	index;
+
+	index = 0;
+	while (current)
+	{
+		next_fd[0] = -1;
+		next_fd[1] = -1;
+		if (current->next)
+			if (pipe(next_fd) < 0)
+				exit(0);
+		open_files(current, &next_fd);
+		(*pids)[index] = fork();
+		if ((*pids)[index] < 0)
+			exit(0);
+		if ((*pids)[index++] == 0)
+			child_routine(current, next_fd, *fd, pids);
+		close_fds(*fd);
+		(*fd)[0] = next_fd[0];
+		(*fd)[1] = next_fd[1];
+		current = current->next;
+	}
+	close_fds(next_fd);
+	return (index);
+}
 
 void	executor(t_commands **commands)
 {
 	t_commands	*current;
-	int fd[2];
-	int next_fd[2];
-	int *pids;
-	int index;
-
-	pids = malloc(sizeof(int) * get_data()->number_of_commands);
-	index = 0;
-
-	fd[0] = -1;
-	fd[1] = -1;
+	int			fd[2];
+	int			index;
+	int			*pids;
 
 	current = *commands;
-	while(current)
-	{
-		next_fd[0] = -1;
-		next_fd[1] = -1;
-
-		if (current->next)
-			if (pipe(next_fd) < 0)
-				return ;
-		open_files(current, &next_fd);
-		pids[index] = fork();
-		if (pids[index] < 0)
-			return ;
-		if (pids[index] == 0) {
-			if (next_fd[1] != -1)
-				dup2(next_fd[1], STDOUT_FILENO); // cancelar o proprio stdout ex: echo teste | cat ou echo teste > teste.txt
-			
-			if (fd[0] != -1)
-				dup2(fd[0], STDIN_FILENO); // cancelar o proprio stdin | ex: echo teste | cat
-			if (next_fd[0] != -1 && current->less_than)
-				dup2(next_fd[0], STDIN_FILENO); // cancelar o proprio stdin | ex: cat < teste.txt
-
-			close_fds(fd);
-			close_fds(next_fd);
-
-			free(pids);
-			executor_router(current->command);
-		}
-
-		index++;
-		close_fds(fd);
-		fd[0] = next_fd[0];
-		fd[1] = next_fd[1];
-		current = current->next;
-	}
-
-	index--;
-	close_fds(next_fd);
-	while (index >= 0)
-		waitpid(pids[index--], NULL, 0);
+	if (do_multable_builtin(current))
+		return ;
+	pids = malloc(sizeof(int) * get_data()->number_of_commands);
+	fd[0] = -1;
+	fd[1] = -1;
+	index = do_commands(current, &pids, &fd);
+	while (--index >= 0)
+		waitpid(pids[index], NULL, 0);
 	free(pids);
 }
-/*
- se o comando possuir pipe, criamos o pipe de comunicação
-
- se o comando possuir redirects criamos os arquivos 
- necessarios e trocamos o STDOUT do next_fd.
-
- são executados comandos especiais que nao podem 
- passar por fork e damos return
-
- cria o fork para ser chamado o execve, trocando 
- os STDIN e OUT com base em ter pipes ou redirects
-
- encerra os fds e aguarda o fork terminar a execucão
-
- ao final de cada execução, verifica se o comando
- tem pipe, caso seja verdadeiro, é chamanda a funcao
- executor de forma recursiva com o proximo nodo e o 
- array de fds contendo qual será o STDIN do proximo comando.
-*/
