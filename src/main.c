@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/29 17:25:04 by user             ###   ########.fr       */
+/*   Updated: 2023/12/30 22:35:41 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,3 @@ int	main(int argc, char *argv[], char *env[])
 	}
 	return (0);
 }
-
-// execve use
-	// char *args[] = {
-	// 	ft_strjoin(data->path, "ping", NO_FREE),
-	// 	"-c",
-	// 	"2",
-	// 	(void *)0
-	// };
-	// printf("%s\n", ft_strjoin(data->path, "ping", NO_FREE));
-	// execve(ft_strjoin(data->path, "ping", NO_FREE), args, env);
