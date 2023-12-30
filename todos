@@ -31,3 +31,5 @@ connected to the input of the next command via a pipe.
 should expand to their values.
 • Handle $? which should expand to the exit status of the most recently executed
 foreground pipeline.
+
+FIX EMPTY ECHO 
