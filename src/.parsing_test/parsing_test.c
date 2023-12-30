@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static t_commands	*create_new_command_value(char *command, int is_pipe)
+static t_commands	*create_new_command_value(char *command)
 {
 	t_commands	*new;
 
@@ -13,21 +13,20 @@ static t_commands	*create_new_command_value(char *command, int is_pipe)
 	new->lt_files = NULL;
 	new->heredocs = NULL;
 	new->command = ft_split(command, ' ');
-	new->is_pipe = is_pipe;
 	new->next = (void *)0;
 	return (new);
 }
 
-static int	add_next_node_to_commands(t_commands **list, char *command, int is_pipe)
+static int	add_next_node_to_commands(t_commands **list, char *command)
 {
 	t_commands	*current;
 
 	if (!(*(list)))
-		return (*(list) = create_new_command_value(command, is_pipe), 0);
+		return (*(list) = create_new_command_value(command), 0);
 	current = *(list);
 	while (current->next)
 		current = current->next;
-	current->next = create_new_command_value(command, is_pipe);
+	current->next = create_new_command_value(command);
 	return (0);
 }
 
@@ -200,18 +199,13 @@ void	handle_input(void)
 	char **plural;
 	int i = 0;
 	if (!strchr(input, '|'))
-		add_next_node_to_commands(&get_data()->commands, input, 0);
+		add_next_node_to_commands(&get_data()->commands, input);
 	else
 	{
 		plural = ft_split(input, '|');
 		while(plural[i])
 		{
-			int is_pipe;
-			if (plural[i+1])
-				is_pipe = 1;
-			else
-				is_pipe = 0;
-			add_next_node_to_commands(&get_data()->commands, plural[i], is_pipe);
+			add_next_node_to_commands(&get_data()->commands, plural[i]);
 			i++;
 		}
 		free_double_array(plural);
@@ -227,7 +221,6 @@ exemplo:
 echo teste > 1 >> 2 > 3 >> teste.txt mais teste kkkkkkk <<EOF <<FIM < Makefile
 typedef struct s_commands{
 	char				**command; = {"echo", "teste", "mais", "teste", "kkkkkkk", NULL} // array com todos os tokens do comando
-	int					is_pipe; = 0 // se tem pipe no final do comando
 	char				*greater_than; = ">>" // vai ser uma string com o ultimo greater_than usado
 	char				**gt_files; = {"1", "2", "3", "teste.txt", NULL} // array com todos os nomes de arquivo para abrir
 	char				*heredocs; = {"EOF", "FIM", NULL};
