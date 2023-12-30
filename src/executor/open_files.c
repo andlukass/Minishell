@@ -6,44 +6,52 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2023/12/30 15:06:40 by user             ###   ########.fr       */
+/*   Updated: 2023/12/30 20:57:15 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+static char	*get_heredoc_input(t_commands *current, int index)
+{
+	char	*text;
+	char	*input;
+
+	while (1)
+	{
+		input = readline("> ");
+		if (input == NULL)
+		{
+			printf("wanted terminador: '%s'.\n", current->heredocs[index]);
+			break ;
+		}
+		if (!ft_strcmp(input, current->heredocs[index]))
+		{
+			free(input);
+			break ;
+		}
+		text = ft_strjoin(text, input, 1);
+		text = ft_strjoin(text, "\n", 1);
+		free(input);
+	}
+	return (text);
+}
+
 static int	do_heredocs(t_commands *current)
 {
 	int		temp_file;
 	int		index;
-	char	*input;
 	char	*text;
 
 	index = 0;
 	temp_file = -1;
-	while (current->heredocs[index])
+	while (current->heredocs && current->heredocs[index])
 	{
 		if (temp_file != -1)
 			close(temp_file);
 		temp_file = open(".temp.txt", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		text = NULL;
-		while (1)
-		{
-			input = readline("> ");
-			if (input == NULL) // Verifica se a entrada é nula (geralmente indica Ctrl+D)
-			{
-				printf("wanted terminador: '%s'.\n", current->heredocs[index]);
-				break ;
-			}
-			if (!ft_strcmp(input, current->heredocs[index]))
-			{
-				free(input);
-				break ;
-			}
-			text = ft_strjoin(text, input, 1);
-			text = ft_strjoin(text, "\n", 1);
-			free(input);
-		}
+		text = get_heredoc_input(current, index);
 		write(temp_file, text, ft_strlen(text));
 		free(text);
 		index++;
@@ -86,7 +94,10 @@ static int	do_less_than(t_commands *current)
 
 	index = 0;
 	file = -1;
-	if (current->less_than && !ft_strcmp(current->less_than, "<"))
+	if (!current->less_than)
+		return (file);
+	file = do_heredocs(current);
+	if (!ft_strcmp(current->less_than, "<"))
 	{
 		while (current->lt_files[index])
 		{
@@ -95,12 +106,10 @@ static int	do_less_than(t_commands *current)
 			index++;
 		}
 	}
-	if (current->less_than && !ft_strcmp(current->less_than, "<<"))
-		file = do_heredocs(current);
 	if (is_builtin(current->command))
 	{
 		close(file);
-		file = 0;
+		file = -1;
 	}
 	return (file);
 }
@@ -120,4 +129,3 @@ void	open_files(t_commands *current, int (*next_fd)[2])
 		(*next_fd)[0] = do_less_than(current);
 	}
 }
-// O_TRUNC - para substituir ||| O_APPEND -- para concatenar
