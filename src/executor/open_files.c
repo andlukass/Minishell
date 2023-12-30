@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2023/12/29 13:42:21 by user             ###   ########.fr       */
+/*   Updated: 2023/12/30 15:06:40 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static int	do_less_than(t_commands *current)
 	return (file);
 }
 
-void	open_files(t_commands *current, int **fd, int (*next_fd)[2])
+void	open_files(t_commands *current, int (*next_fd)[2])
 {
 	if (current->greater_than)
 	{

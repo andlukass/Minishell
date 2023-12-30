@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/25 15:49:22 by user             ###   ########.fr       */
+/*   Updated: 2023/12/29 17:25:04 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main(int argc, char *argv[], char *env[])
 		if (*data->input)
 		{
 			handle_input();
-			executor(&get_data()->commands, NULL);
+			executor(&get_data()->commands);
 			free_commands(get_data()->commands);
 			get_data()->commands = NULL;
 			add_history(data->input);

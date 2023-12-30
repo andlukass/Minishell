@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2023/12/29 13:42:03 by user             ###   ########.fr       */
+/*   Updated: 2023/12/30 15:12:17 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,43 +99,63 @@ static void	child_routine(t_commands *current, int *next_fd, int *fd)
  de ignorar o STDIN e escutar o o que vem do fd
 */
 
-void	executor(t_commands **commands, int *fd)
+void	executor(t_commands **commands)
 {
 	t_commands	*current;
-	int			next_fd[2];
-	int			pid;
-	
+	int fd[2];
+	int next_fd[2];
+	int *pids;
+	int index;
+
+	pids = malloc(sizeof(int) * get_data()->number_of_commands);
+	index = 0;
+
+	fd[0] = -1;
+	fd[1] = -1;
+
 	current = *commands;
-	next_fd[0] = -1;
-	next_fd[1] = -1;
-	if (current->is_pipe)
-		if (pipe(next_fd) < 0)
+	while(current)
+	{
+		next_fd[0] = -1;
+		next_fd[1] = -1;
+
+		if (current->next)
+			if (pipe(next_fd) < 0)
+				return ;
+		open_files(current, &next_fd);
+		pids[index] = fork();
+		if (pids[index] < 0)
 			return ;
-	open_files(current, &fd, &next_fd);
-	if (is_multable_builtin(current->command, next_fd))
-		return ;
-	pid = fork();
-	if (pid < 0)
-		return ;
-	if (pid == 0)
-		child_routine(current, next_fd, fd);
-	close_fds(fd);
-	if (current->is_pipe)
-	{
+		if (pids[index] == 0) {
+			if (next_fd[1] != -1)
+				dup2(next_fd[1], STDOUT_FILENO); // cancelar o proprio stdout ex: echo teste | cat ou echo teste > teste.txt
+			
+			if (fd[0] != -1)
+				dup2(fd[0], STDIN_FILENO); // cancelar o proprio stdin | ex: echo teste | cat
+			if (next_fd[0] != -1 && current->less_than)
+				dup2(next_fd[0], STDIN_FILENO); // cancelar o proprio stdin | ex: cat < teste.txt
+
+			close_fds(fd);
+			close_fds(next_fd);
+
+			free(pids);
+			executor_router(current->command);
+		}
+
+		index++;
+		close_fds(fd);
+		fd[0] = next_fd[0];
+		fd[1] = next_fd[1];
 		current = current->next;
-		executor(&current, next_fd);
 	}
-	else
-	{
-		waitpid(pid, NULL, 0);
-		close_fds(next_fd);
-	}
+
+	index--;
+	close_fds(next_fd);
+	while (index >= 0)
+		waitpid(pids[index--], NULL, 0);
+	free(pids);
 }
 /*
- OBS: ainda falta lidar com os redirects '<'
- (que ignoram o stdin que receberiam, recebendo
- apenas o que foi passado pelo redirect '<')
-
  se o comando possuir pipe, criamos o pipe de comunicação
 
  se o comando possuir redirects criamos os arquivos 
