@@ -6,31 +6,11 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2023/12/30 18:01:41 by user             ###   ########.fr       */
+/*   Updated: 2023/12/30 22:23:57 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static void	executor_router(char **command)
-{
-	if (!ft_strcmp(command[0], "exit"))
-		ft_exit(command);
-	else if (!ft_strcmp(command[0], "pwd"))
-		ft_pwd(command);
-	else if (!ft_strcmp(command[0], "echo"))
-		ft_echo(command);
-	else if (!ft_strcmp(command[0], "env"))
-		ft_env(command);
-	else if (!ft_strcmp(command[0], "export"))
-		ft_export(command);
-	else if (!ft_strcmp(command[0], "unset"))
-		ft_unset(command);
-	else if (!ft_strcmp(command[0], "cd"))
-		ft_cd(command);
-	else
-		execvp(command[0], command);
-}
 
 static int	do_multable_builtin(t_commands *current)
 {
