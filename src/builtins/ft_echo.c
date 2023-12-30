@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:58:58 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/25 12:11:27 by user             ###   ########.fr       */
+/*   Updated: 2023/12/30 21:21:45 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,28 @@
 void	ft_echo(char **command)
 {
 	int	i;
+	int	has_flag;
 
-	if (ft_strcmp(command[1], "-n"))
-		i = 1;
-	else
-		i = 2;
-	while (command[i])
+	i = 1;
+	has_flag = 0;
+	if (command[1])
 	{
-		printf("%s", command[i++]);
-		if (command[i])
-			printf(" ");
+		if (command[1][0] == '-' && command[1][1] != ' ' && ++i && ++has_flag)
+		{
+			if (ft_strcmp(&command[1][1], "n"))
+			{
+				printf("echo has only the '-n' flag\n");
+				ft_exit(NULL);
+			}
+		}
+		while (command[i])
+		{
+			printf("%s", command[i++]);
+			if (command[i])
+				printf(" ");
+		}
 	}
-	if (ft_strcmp(command[1], "-n"))
+	if (!has_flag)
 		printf("\n");
 	ft_exit(NULL);
 }
