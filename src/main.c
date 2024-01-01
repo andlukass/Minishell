@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/01 13:38:09 by user             ###   ########.fr       */
+/*   Updated: 2024/01/01 13:57:32 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,6 @@ void	signal_handler(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-}
-
-static void	handle_input(char *input)
-{
-	parser(input);
-	executor(&get_data()->commands);
-	free_commands(get_data()->commands);
-	get_data()->commands = NULL;
-	add_history(input);
 }
 
 int	main(int argc, char *argv[], char *env[])
