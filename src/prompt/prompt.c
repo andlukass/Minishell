@@ -6,13 +6,13 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:22:42 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/01 12:53:59 by user             ###   ########.fr       */
+/*   Updated: 2024/01/01 12:59:19 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*replace_home(char *home, char *pwd)
+static char	*replace_home(char *home, char *pwd)
 {
 	int		i;
 	int		j;
@@ -28,7 +28,7 @@ char	*replace_home(char *home, char *pwd)
 	return (dir);
 }
 
-char	*get_dir(void)
+static char	*get_dir(void)
 {
 	char	*pwd;
 	char	*home;
@@ -60,16 +60,16 @@ static char	*get_username(void)
 	return (username);
 }
 
-void	get_prompt(void)
+char	*get_prompt(void)
 {
-	char	**prompt;
+	char	*prompt;
 	char	*username;
 	char	*dir;
 
-	prompt = &get_data()->prompt;
 	username = get_username();
 	dir = get_dir();
-	*prompt = ft_strjoin(username, dir, DO_FREE);
-	*prompt = ft_strjoin(*prompt, " ]\033[0m ", DO_FREE);
+	prompt = ft_strjoin(username, dir, DO_FREE);
+	prompt = ft_strjoin(prompt, " ]\033[0m ", DO_FREE);
 	free(dir);
+	return (prompt);
 }

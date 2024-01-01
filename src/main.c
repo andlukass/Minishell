@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/01 12:55:41 by user             ###   ########.fr       */
+/*   Updated: 2024/01/01 12:57:16 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int argc, char *argv[], char *env[])
 {
 	t_data	*data;
 	char	*input;
+	char	*prompt;
 
 	(void)argv;
 	signal(SIGQUIT, SIG_IGN);
@@ -40,9 +41,9 @@ int	main(int argc, char *argv[], char *env[])
 	get_env(env);
 	while (1)
 	{
-		get_prompt();
-		input = readline(data->prompt);
-		free(data->prompt);
+		prompt = get_prompt();
+		input = readline(prompt);
+		free(prompt);
 		if (*input)
 		{
 			handle_input(input);
