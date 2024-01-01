@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 22:01:20 by user              #+#    #+#             */
-/*   Updated: 2023/12/30 22:20:13 by user             ###   ########.fr       */
+/*   Updated: 2024/01/01 11:53:05 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**env_to_array(void)
 	index = 0;
 	while (current)
 	{
-		array[index++] = current->variable;
+		array[index++] = ft_strdup(current->variable);
 		current = current->next;
 	}
 	array[index] = NULL;
