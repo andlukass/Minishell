@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/01 12:57:16 by user             ###   ########.fr       */
+/*   Updated: 2024/01/01 13:11:05 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  */
 void	signal_handler(int sig)
 {
-	if (sig == SIGINT)
+	if (sig == SIGINT && get_data()->interactive)
 	{
 		printf("\n");
 		rl_on_new_line();
@@ -28,7 +28,6 @@ void	signal_handler(int sig)
 
 int	main(int argc, char *argv[], char *env[])
 {
-	t_data	*data;
 	char	*input;
 	char	*prompt;
 
@@ -37,16 +36,17 @@ int	main(int argc, char *argv[], char *env[])
 	signal(SIGINT, signal_handler);
 	if (argc != 1)
 		return (write(1, "too many arguments\n", 19));
-	data = get_data();
 	get_env(env);
 	while (1)
 	{
+		get_data()->interactive = 1;
 		prompt = get_prompt();
 		input = readline(prompt);
 		free(prompt);
+		get_data()->interactive = 0;
 		if (*input)
 		{
-			handle_input(input);
+			parser(input);
 			executor(&get_data()->commands);
 			free_commands(get_data()->commands);
 			get_data()->commands = NULL;
