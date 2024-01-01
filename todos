@@ -1,3 +1,15 @@
+• Handle '' (single quote) which should prevent the shell from
+interpreting the meta-characters in the quoted sequence.
+• Handle "" (double quote) which should prevent the shell from
+interpreting the meta-characters in the quoted sequence except
+for $ (dollar sign).
+• Handle environment variables ($ followed by a sequence of
+characters) which should expand to their values.
+
+CLEANLY EXIT ON EXECUTOR (PIPE & FORK ERRORS)
+strndup - getenvkey
+strndup/atoi - getenv
+
 OK • Display a prompt when waiting for a new command.
 OK • Have a working history.
 OK • Avoid using more than one global variable to indicate a received signal. Consider the implications: this approach ensures that your signal handler will not access your main data structures.
@@ -25,12 +37,3 @@ OK • In interactive mode:
 	OK ◦ ctrl-\ does nothing.
 OK • Handle $? which should expand to the exit status of the most recently executed
 foreground pipeline. // ESTÁ GUARDADO NA VARIAVEL STATUS, SÓ PRECISA TROCAR NO EXPANDER
-
-• Handle '' (single quote) which should prevent the shell from interpreting the meta-characters in the quoted sequence.
-• Handle "" (double quote) which should prevent the shell from interpreting the meta-characters in the quoted sequence except for $ (dollar sign).
-• Handle environment variables ($ followed by a sequence of characters) which
-should expand to their values.
-
-CLEANLY EXIT ON EXECUTOR (PIPE & FORK ERRORS)
-strndup - getenvkey
-strndup/atoi - getenv
