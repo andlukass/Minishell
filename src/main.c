@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/01 14:00:30 by user             ###   ########.fr       */
+/*   Updated: 2024/01/01 21:01:41 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	main(int argc, char *argv[], char *env[])
 	if (argc != 1)
 		return (write(1, "too many arguments\n", 19));
 	get_env(env);
+	get_data()->exit_status = 0;
 	while (1)
 	{
 		get_data()->interactive = 1;
