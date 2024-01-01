@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 15:39:20 by user              #+#    #+#             */
-/*   Updated: 2024/01/01 15:57:33 by user             ###   ########.fr       */
+/*   Updated: 2024/01/01 21:11:11 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	verify_pipes(char *input)
 			}
 		}
 	}
-	return (free(splitted), result);
+	return (free_double_array(splitted) ,result);
 }
 
 static int	seek_errors(char *new_input, int open_quotes)
