@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2023/12/30 22:23:57 by user             ###   ########.fr       */
+/*   Updated: 2024/01/01 13:33:02 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ IFS:
 	3º cancelar o proprio stdin | ex: cat < teste.txt
 */
 
-static int	do_commands(t_commands *current, int **pids, int (*fd)[2])
+static void	do_commands(t_commands *current, int **pids, int (*fd)[2])
 {
 	int	next_fd[2];
 	int	index;
@@ -72,7 +72,6 @@ static int	do_commands(t_commands *current, int **pids, int (*fd)[2])
 		current = current->next;
 	}
 	close_fds(next_fd);
-	return (index);
 }
 
 void	executor(t_commands **commands)
@@ -81,15 +80,18 @@ void	executor(t_commands **commands)
 	int			fd[2];
 	int			index;
 	int			*pids;
+	int			number_of_pids;
 
+	number_of_pids = get_data()->number_of_commands;
 	current = *commands;
 	if (do_multable_builtin(current))
 		return ;
-	pids = malloc(sizeof(int) * get_data()->number_of_commands);
+	pids = malloc(sizeof(int) * number_of_pids);
 	fd[0] = -1;
 	fd[1] = -1;
-	index = do_commands(current, &pids, &fd);
-	while (--index >= 0)
-		waitpid(pids[index], NULL, 0);
+	do_commands(current, &pids, &fd);
+	index = 0;
+	while (index < number_of_pids)
+		waitpid(pids[index++], &get_data()->exit_status, 0);
 	free(pids);
 }
