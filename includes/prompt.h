@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 16:58:36 by user              #+#    #+#             */
-/*   Updated: 2023/12/23 16:58:37 by user             ###   ########.fr       */
+/*   Updated: 2024/01/01 12:49:20 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,6 @@ char	*get_dir(void);
  * The prompt is stored in the global data.
  */
 void	get_prompt(void);
-
-/**
- * @brief	Gets the username and initiates the terminal stylization.
- * The username is stored in the global data.
- */
-void	get_username(void);
 /* --------------------------------------- */
 
 #endif

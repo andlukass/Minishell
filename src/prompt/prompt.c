@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:22:42 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/25 12:10:58 by user             ###   ########.fr       */
+/*   Updated: 2024/01/01 12:53:59 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,34 +44,32 @@ char	*get_dir(void)
 	return (dir);
 }
 
-void	get_prompt(void)
+static char	*get_username(void)
 {
-	char	**prompt;
-	char	**username;
-	char	*dir;
-
-	prompt = &get_data()->prompt;
-	username = &get_data()->username;
-	dir = get_dir();
-	*prompt = ft_strjoin(*username, dir, NO_FREE);
-	*prompt = ft_strjoin(*prompt, " ]\033[0m ", DO_FREE);
-	free(dir);
-}
-
-void	get_username(void)
-{
-	char	**username;
+	char	*username;
 	char	*env_user;
 
-	username = &get_data()->username;
 	env_user = get_env_value("USER");
 	if (!env_user)
 		env_user = get_env_value("HOSTNAME");
 	if (!env_user)
-	{
-		*username = ft_strdup("user");
-		return ;
-	}
-	*username = ft_strjoin("\033[1;96m", env_user, NO_FREE);
-	*username = ft_strjoin(*username, "\033[0m in \033[1;93m[ ", DO_FREE);
+		username = ft_strdup("\033[1;96muser");
+	else
+		username = ft_strjoin("\033[1;96m", env_user, NO_FREE);
+	username = ft_strjoin(username, "\033[0m in \033[1;93m[ ", DO_FREE);
+	return (username);
+}
+
+void	get_prompt(void)
+{
+	char	**prompt;
+	char	*username;
+	char	*dir;
+
+	prompt = &get_data()->prompt;
+	username = get_username();
+	dir = get_dir();
+	*prompt = ft_strjoin(username, dir, DO_FREE);
+	*prompt = ft_strjoin(*prompt, " ]\033[0m ", DO_FREE);
+	free(dir);
 }

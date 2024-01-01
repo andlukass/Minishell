@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/01 12:41:40 by user             ###   ########.fr       */
+/*   Updated: 2024/01/01 12:54:50 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_commands{
 
 typedef struct s_data{
 	char		*prompt;
-	char		*username;
 	t_env		*env;
 	t_commands	*commands;
 	int			number_of_commands;

@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/01 12:46:35 by user             ###   ########.fr       */
+/*   Updated: 2024/01/01 12:55:41 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	main(int argc, char *argv[], char *env[])
 		return (write(1, "too many arguments\n", 19));
 	data = get_data();
 	get_env(env);
-	get_username();
 	while (1)
 	{
 		get_prompt();
