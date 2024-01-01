@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:24:50 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/01 13:00:30 by user             ###   ########.fr       */
+/*   Updated: 2024/01/01 13:37:46 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	ft_exit(char **command)
 		printf("exit\n");
 	}
 	free_env(get_data()->env);
-	free_commands(get_data()->commands);
+	if (get_data()->commands)
+		free_commands(get_data()->commands);
 	rl_clear_history();
 	exit(0);
 }
