@@ -12,7 +12,7 @@ static t_commands	*create_new_command_value(char *command)
 	new->less_than = NULL;
 	new->lt_files = NULL;
 	new->heredocs = NULL;
-	new->command = ft_split(command, ' ');
+	new->command = ft_split(command, '\2');
 	new->next = (void *)0;
 	return (new);
 }
@@ -192,16 +192,19 @@ void	handle_redirects(t_commands **list)
 			break;
 	}
 }
-
+//echo teste
+//echo\2teste
+//cat | echo teste "meu deuskkk"
+//cat\2\3\2echo\2teste\2"meu deuskkk"
 void	parser(char *input)
 {
 	char **plural;
 	int i = 0;
-	if (!strchr(input, '|'))
+	if (!strchr(input, '\3'))
 		add_next_node_to_commands(&get_data()->commands, input);
 	else
 	{
-		plural = ft_split(input, '|');
+		plural = ft_split(input, '\3');
 		while(plural[i])
 		{
 			add_next_node_to_commands(&get_data()->commands, plural[i]);

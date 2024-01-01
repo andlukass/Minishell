@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:02:26 by user              #+#    #+#             */
-/*   Updated: 2024/01/01 14:02:10 by user             ###   ########.fr       */
+/*   Updated: 2024/01/01 15:53:19 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct s_commands	t_commands;
 char	*get_prompt(void);
 
 void	handle_input(char *input);
+
+char	*lexer(char *input);
 
 void	parser(char *input);
 void	free_commands(t_commands *stack);
