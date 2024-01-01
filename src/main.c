@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/30 22:35:41 by user             ###   ########.fr       */
+/*   Updated: 2024/01/01 12:46:35 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	signal_handler(int sig)
 int	main(int argc, char *argv[], char *env[])
 {
 	t_data	*data;
+	char	*input;
 
 	(void)argv;
 	signal(SIGQUIT, SIG_IGN);
@@ -41,15 +42,15 @@ int	main(int argc, char *argv[], char *env[])
 	while (1)
 	{
 		get_prompt();
-		data->input = readline(data->prompt);
+		input = readline(data->prompt);
 		free(data->prompt);
-		if (*data->input)
+		if (*input)
 		{
-			handle_input();
+			handle_input(input);
 			executor(&get_data()->commands);
 			free_commands(get_data()->commands);
 			get_data()->commands = NULL;
-			add_history(data->input);
+			add_history(input);
 		}
 	}
 	return (0);

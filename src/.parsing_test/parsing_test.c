@@ -193,9 +193,8 @@ void	handle_redirects(t_commands **list)
 	}
 }
 
-void	handle_input(void)
+void	handle_input(char *input)
 {
-	char *input = get_data()->input;
 	char **plural;
 	int i = 0;
 	if (!strchr(input, '|'))
