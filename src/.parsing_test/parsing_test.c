@@ -193,7 +193,7 @@ void	handle_redirects(t_commands **list)
 	}
 }
 
-void	handle_input(char *input)
+void	parser(char *input)
 {
 	char **plural;
 	int i = 0;
