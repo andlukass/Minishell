@@ -6,11 +6,18 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/01 13:57:32 by user             ###   ########.fr       */
+/*   Updated: 2024/01/01 14:00:30 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+t_data	*get_data(void)
+{
+	static t_data	data;
+
+	return (&data);
+}
 
 /**
  * @brief	Capture CTRL C command and give the prompt back
