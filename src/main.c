@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/01 13:13:43 by user             ###   ########.fr       */
+/*   Updated: 2024/01/01 13:33:17 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	signal_handler(int sig)
 	}
 }
 
-static void handle_input(char *input)
+static void	handle_input(char *input)
 {
 	parser(input);
 	executor(&get_data()->commands);
