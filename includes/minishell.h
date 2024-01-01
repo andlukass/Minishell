@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/30 21:35:31 by user             ###   ########.fr       */
+/*   Updated: 2023/12/31 13:35:21 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <fcntl.h>
 
 # include <signal.h>
+
+# include <dirent.h>
 
 # include "env.h"
 # include "executor.h"
