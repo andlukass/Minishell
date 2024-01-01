@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/01 13:12:01 by user             ###   ########.fr       */
+/*   Updated: 2024/01/01 13:13:43 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int argc, char *argv[], char *env[])
 		input = readline(prompt);
 		free(prompt);
 		get_data()->interactive = 0;
-		if (*input)
+		if (input && *input)
 			handle_input(input);
 	}
 	return (0);
