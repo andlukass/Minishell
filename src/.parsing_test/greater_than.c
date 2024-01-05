@@ -59,5 +59,5 @@ char *handle_redirections(char *command)
 		if (ft_strlen(reds) == 1 || ft_strlen(reds) == 2)
 			return (reds);
 	}
-	return (NULL);
+	return (free(reds), NULL);
 }
