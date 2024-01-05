@@ -29,6 +29,7 @@ void	handle_input(char *input);
 
 char	*lexer(char *input);
 int		seek_errors(char *new_input, int open_quotes);
+char	**get_command(char *command);
 
 void	parser(char *input);
 void	free_commands(t_commands *stack);

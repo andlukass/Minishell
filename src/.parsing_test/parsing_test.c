@@ -12,7 +12,7 @@ static t_commands	*create_new_command_value(char *command)
 	new->gt_files = NULL;
 	new->lt_files = NULL;
 	new->heredocs = NULL;
-	new->command = ft_split(command, '\2');
+	new->command = get_command(command);
 	new->next = (void *)0;
 	return (new);
 }
