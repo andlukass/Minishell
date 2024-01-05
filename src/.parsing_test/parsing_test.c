@@ -17,7 +17,6 @@ static t_commands	*create_new_command_value(char *command)
 	return (new);
 }
 
-
 static int	add_next_node_to_commands(t_commands **list, char *command)
 {
 	t_commands	*current;
@@ -42,7 +41,7 @@ void	free_commands(t_commands *stack)
 		temp = current->next;
 		free_double_array(current->command);
 		if (current->greater_than) {
-			// free_double_array(current->gt_files);
+			free_double_array(current->gt_files);
 			free(current->greater_than);
 		}
 		if (current->less_than) {
@@ -56,9 +55,8 @@ void	free_commands(t_commands *stack)
 	}
 	free_double_array(current->command);
 	if (current->greater_than) {
-		// free_double_array(current->gt_files);
-		// printf("parsing test : %s\n", current->greater_than);
-		// free(current->greater_than);
+		free_double_array(current->gt_files);
+		free(current->greater_than);
 	}
 	if (current->lt_files)
 		free_double_array(current->lt_files);
@@ -69,135 +67,6 @@ void	free_commands(t_commands *stack)
 	free(current);
 }
 
-void swap_command(t_commands **list, int size)
-{
-	t_commands	*current = *list;
-	char **new_command;
-	int l;
-	int k;
-
-	l = 0;
-	k = 0;
-	new_command = malloc(sizeof(char *) * size +1);
-	while(current->command[l])
-	{
-		if (l == 0) { // se nao tem anterior entao é comando
-			new_command[k++] = ft_strdup(current->command[l++]);
-		} else if (*current->command[l] == '>') { // se atual for > vai para o proximo
-			l++;
-		} else if (*current->command[l-1] == '>') { // se anterior for > vai para o prox (ex: "> teste.txt" é preciso pular os dois)
-			l++;
-		}  else if (*current->command[l] == '<') {
-			l++;
-		} else if (*current->command[l-1] == '<') {
-			l++;
-		} else {
-			new_command[k++] = ft_strdup(current->command[l++]);
-		}
-	}
-	new_command[k] = NULL;
-	free_double_array(current->command);
-	current->command = new_command;
-}
-
-void	handle_redirects(t_commands **list)
-{
-	t_commands	*current = *list;
-	int index = 0;
-	int j = 0;
-	int k = 0;
-	int l = 0;
-	int number_of_gt_files = 0;
-	int number_of_lt_files = 0;
-	int number_of_heredocs = 0;
-	char **gt_files;
-	char **lt_files;
-	char **heredocs;
-
-	while(current)
-	{
-		current->heredocs = NULL;
-		index = 0;
-		j = 0;
-		k = 0;
-		l = 0;
-		number_of_gt_files = 0;
-		while (current->command[index])
-		{
-			if (!ft_strcmp(current->command[index], ">") || !ft_strcmp(current->command[index], ">>"))
-				number_of_gt_files++;
-			if (!ft_strcmp(current->command[index], "<"))
-				number_of_lt_files++;
-			if (!ft_strcmp(current->command[index], "<<"))
-				number_of_heredocs++;
-			index++;
-		}
-		if (number_of_gt_files)
-			gt_files = malloc(sizeof(char *) * (number_of_gt_files + 1));
-		if (number_of_lt_files)
-			lt_files = malloc(sizeof(char *) * (number_of_lt_files + 1));
-		if (number_of_heredocs)
-			heredocs = malloc(sizeof(char *) * (number_of_heredocs + 1));
-		index = 0;
-		while (current->command[index])
-		{
-			if (!ft_strcmp(current->command[index], ">") || !ft_strcmp(current->command[index], ">>"))
-			{
-				if (current->greater_than)
-					free(current->greater_than);
-				current->greater_than = ft_strdup(current->command[index]);
-				index++;
-				gt_files[j] = ft_strdup(current->command[index]);
-				j++;
-			}
-			if (!ft_strcmp(current->command[index], "<"))
-			{
-				if (current->less_than)
-					free(current->less_than);
-				current->less_than = ft_strdup(current->command[index]);
-				index++;
-				lt_files[k] = ft_strdup(current->command[index]);
-				k++;
-			}
-			if (!ft_strcmp(current->command[index], "<<"))
-			{
-				if (current->less_than)
-					free(current->less_than);
-				current->less_than = ft_strdup(current->command[index]);
-				index++;
-				heredocs[l] = ft_strdup(current->command[index]);
-				l++;
-			}
-			index++;
-		}
-		if (number_of_gt_files || number_of_lt_files || number_of_heredocs)
-			swap_command(&current, index);
-		if (number_of_gt_files)
-		{
-			gt_files[j] = NULL;
-			current->gt_files = gt_files;
-		}
-		if (number_of_lt_files)
-		{
-			lt_files[k] = NULL;
-			current->lt_files = lt_files;
-		}
-		if (number_of_heredocs)
-		{
-			heredocs[l] = NULL;
-			current->heredocs = heredocs;
-		}
-
-		if (current->next)
-			current = current->next;
-		else
-			break;
-	}
-}
-//echo teste
-//echo\2teste
-//cat | echo teste "meu deuskkk"
-//cat\2\3\2echo\2teste\2"meu deuskkk"
 void	parser(char *input)
 {
 	char **plural;
@@ -221,19 +90,6 @@ void	parser(char *input)
 }
 
 /*
-
-
-cat 
-
-
-
- echo
- teste
-
-
-
-
-
 exemplo:
 echo teste > 1 >> 2 > 3 >> teste.txt mais teste kkkkkkk <<EOF <<FIM < Makefile
 typedef struct s_commands{
