@@ -15,10 +15,10 @@ SRCS = src/main.c src/utils/ft_strjoin.c src/utils/ft_strlen.c \
 		src/env/env_to_array.c \
 		src/executor/executor.c src/executor/open_files.c \
 		src/executor/close_fds.c src/executor/executor_router.c \
-		src/.parsing_test/parsing_test.c src/input/handle_input.c \
+		src/.parsing_test/parsing_test.c src/input/handle_input.c src/.parsing_test/greater_than.c  \
 		src/input/lexer.c
 
-CFLAGS = -lreadline -g #-Wall -Wextra -Werror
+CFLAGS = -lreadline -g -fsanitize=address -Wall -Wextra -Werror
 
 NAME = minishell
 

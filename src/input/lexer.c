@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 15:39:20 by user              #+#    #+#             */
-/*   Updated: 2024/01/01 21:11:11 by user             ###   ########.fr       */
+/*   Updated: 2024/01/02 16:39:39 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ char	*lexer(char *input)
 		index++;
 	}
 	new_input[index] = '\0';
+	
 	if (seek_errors(new_input, single_q + double_q))
 		return (free(new_input), NULL);
 	return (new_input);

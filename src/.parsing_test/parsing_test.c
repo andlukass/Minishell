@@ -7,15 +7,16 @@ static t_commands	*create_new_command_value(char *command)
 	new = malloc(sizeof(t_commands));
 	if (!new)
 		return ((void *)0);
-	new->greater_than = NULL;
+	new->greater_than = handle_redirections(command);
+	new->less_than = handle_redirections(command);
 	new->gt_files = NULL;
-	new->less_than = NULL;
 	new->lt_files = NULL;
 	new->heredocs = NULL;
 	new->command = ft_split(command, '\2');
 	new->next = (void *)0;
 	return (new);
 }
+
 
 static int	add_next_node_to_commands(t_commands **list, char *command)
 {
@@ -41,7 +42,7 @@ void	free_commands(t_commands *stack)
 		temp = current->next;
 		free_double_array(current->command);
 		if (current->greater_than) {
-			free_double_array(current->gt_files);
+			// free_double_array(current->gt_files);
 			free(current->greater_than);
 		}
 		if (current->less_than) {
@@ -55,8 +56,9 @@ void	free_commands(t_commands *stack)
 	}
 	free_double_array(current->command);
 	if (current->greater_than) {
-		free_double_array(current->gt_files);
-		free(current->greater_than);
+		// free_double_array(current->gt_files);
+		// printf("parsing test : %s\n", current->greater_than);
+		// free(current->greater_than);
 	}
 	if (current->lt_files)
 		free_double_array(current->lt_files);
@@ -212,13 +214,26 @@ void	parser(char *input)
 		}
 		free_double_array(plural);
 	}
-	handle_redirects(&get_data()->commands);
+	// handle_redirects(&get_data()->commands);
 	if (i == 0)
 		i = 1;
 	get_data()->number_of_commands = i;
 }
 
 /*
+
+
+cat 
+
+
+
+ echo
+ teste
+
+
+
+
+
 exemplo:
 echo teste > 1 >> 2 > 3 >> teste.txt mais teste kkkkkkk <<EOF <<FIM < Makefile
 typedef struct s_commands{
@@ -238,6 +253,19 @@ typedef struct s_commands{
 	t_redirect			*less_than;
 							char	**files; = {"EOF", "FIM", "Makefile", NULL};
 							char	**redirects = {"<<", "<<", "<", NULL};
+
+
+
+
+
+
+1 identificar os nomes dos arquivos das redireçoes e salvar em (gtf)
+2 identificar os nomes dos arquivos das redireçoes e salvar em (ltf)
+
+
+
+
+
 
 
 */
