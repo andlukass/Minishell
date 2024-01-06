@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/06 11:09:37 by user              #+#    #+#             */
+/*   Updated: 2024/01/06 11:09:38 by user             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static t_commands	*create_new_command_value(char *command)
@@ -17,7 +29,7 @@ static t_commands	*create_new_command_value(char *command)
 	return (new);
 }
 
-static int	add_next_node_to_commands(t_commands **list, char *command)
+static int	add_next_node(t_commands **list, char *command)
 {
 	t_commands	*current;
 
@@ -30,60 +42,22 @@ static int	add_next_node_to_commands(t_commands **list, char *command)
 	return (0);
 }
 
-void	free_commands(t_commands *stack)
-{
-	t_commands	*current;
-	t_commands	*temp;
-
-	current = stack;
-	while (current->next)
-	{
-		temp = current->next;
-		free_double_array(current->command);
-		if (current->greater_than) {
-			free_double_array(current->gt_files);
-			free(current->greater_than);
-		}
-		if (current->less_than) {
-			free_double_array(current->lt_files);
-			free(current->less_than);
-		}
-		if (current->heredocs)
-			free_double_array(current->heredocs);
-		free(current);
-		current = temp;
-	}
-	free_double_array(current->command);
-	if (current->greater_than) {
-		free_double_array(current->gt_files);
-		free(current->greater_than);
-	}
-	if (current->lt_files)
-		free_double_array(current->lt_files);
-	if (current->less_than)
-		free(current->less_than);
-	if (current->heredocs)
-		free_double_array(current->heredocs);
-	free(current);
-}
-
 void	parser(char *input)
 {
 	char **plural;
 	int i = 0;
 	if (!strchr(input, '\3'))
-		add_next_node_to_commands(&get_data()->commands, input);
+		add_next_node(&get_data()->commands, input);
 	else
 	{
 		plural = ft_split(input, '\3');
 		while(plural[i])
 		{
-			add_next_node_to_commands(&get_data()->commands, plural[i]);
+			add_next_node(&get_data()->commands, plural[i]);
 			i++;
 		}
 		free_double_array(plural);
 	}
-	// handle_redirects(&get_data()->commands);
 	if (i == 0)
 		i = 1;
 	get_data()->number_of_commands = i;
