@@ -6,13 +6,13 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:09:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/06 11:15:27 by user             ###   ########.fr       */
+/*   Updated: 2024/01/06 11:51:52 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static t_commands	*create_new_command_value(char *command)
+static t_commands	*create_new_command(char *command)
 {
 	t_commands	*new;
 
@@ -29,16 +29,19 @@ static t_commands	*create_new_command_value(char *command)
 	return (new);
 }
 
-static int	add_next_node(t_commands **list, char *command)
+static int	add_next_command(t_commands **list, char *command)
 {
 	t_commands	*current;
 
 	if (!(*(list)))
-		return (*(list) = create_new_command_value(command), 0);
+	{
+		*(list) = create_new_command(command);
+		return (0);
+	}
 	current = *(list);
 	while (current->next)
 		current = current->next;
-	current->next = create_new_command_value(command);
+	current->next = create_new_command(command);
 	return (0);
 }
 
@@ -48,13 +51,13 @@ void	parser(char *input)
 	int		i;
 
 	i = 0;
-	if (!strchr(input, '\3'))
-		add_next_node(&get_data()->commands, input);
+	if (!ft_strchr(input, '\3'))
+		add_next_command(&get_data()->commands, input);
 	else
 	{
 		splitted = ft_split(input, '\3');
 		while (splitted[i])
-			add_next_node(&get_data()->commands, splitted[i++]);
+			add_next_command(&get_data()->commands, splitted[i++]);
 		free_double_array(splitted);
 	}
 	if (i == 0)
