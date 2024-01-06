@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   greater_than.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 15:04:04 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/04 16:20:17 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/06 11:59:03 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int skip_quotes(char *command, int index, char quote_type)
+static int	skip_quotes(char *command, int index, char quote_type)
 {
-    while (index >= 0 && command[index] != quote_type)
+	while (index >= 0 && command[index] != quote_type)
 		index--;
 	return (index);
 }
 
-static int find_reds(char *command, int index) 
+static int	find_reds(char *command, int index)
 {
 	char	quote_type;
 
@@ -33,16 +33,16 @@ static int find_reds(char *command, int index)
 		else if (command[index] == '>' || command[index] == '<')
 			return (index);
 		index--;
-    }
+	}
 	return (-1);
 }
 
-char *handle_redirections(char *command) 
+char	*handle_redirections(char *command)
 {
 	char	*reds;
-	int	index;
-	int	i;
-	int	j;
+	int		index;
+	int		i;
+	int		j;
 
 	reds = malloc(sizeof(char) * 3);
 	if (!reds)

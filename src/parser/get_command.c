@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:09:43 by user              #+#    #+#             */
-/*   Updated: 2024/01/06 11:09:45 by user             ###   ########.fr       */
+/*   Updated: 2024/01/06 11:58:04 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	is_redirection(char *str)
 	return (0);
 }
 
-char **get_command(char *command)
+char	**get_command(char *command)
 {
 	char	**splitted;
 	char	**new_command;
