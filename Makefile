@@ -32,9 +32,9 @@ SRCS = src/main.c                        \
 		src/executor/open_files.c        \
 		src/executor/close_fds.c         \
 		src/executor/executor_router.c   \
-		src/.parsing_test/parsing_test.c \
-		src/.parsing_test/greater_than.c \
-		src/.parsing_test/get_command.c  \
+		src/parser/parser.c              \
+		src/parser/greater_than.c        \
+		src/parser/get_command.c         \
 		src/input/handle_input.c         \
 		src/lexer/lexer.c                \
 		src/lexer/seek_errors.c          \
