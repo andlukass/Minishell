@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:09:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/06 11:09:38 by user             ###   ########.fr       */
+/*   Updated: 2024/01/06 11:12:17 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	parser(char *input)
 }
 
 /*
-exemplo:
+exemplo da struct:
 echo teste > 1 >> 2 > 3 >> teste.txt mais teste kkkkkkk <<EOF <<FIM < Makefile
 typedef struct s_commands{
 	char				**command; = {"echo", "teste", "mais", "teste", "kkkkkkk", NULL} // array com todos os tokens do comando
@@ -75,27 +75,4 @@ typedef struct s_commands{
 	char				**lt_files; = {"Makefile", NULL} // array com todos os nomes de arquivo para escutar
 	struct s_commands	*next; = NULL // aponta para o proximo comando
 }	t_commands;
-
-
-	t_redirect			*greater_than;
-							char	**files; = {"1", "2", "3", "teste.txt", NULL}; 
-							char	**redirects = {">", ">>", ">", ">", NULL};
-	t_redirect			*less_than;
-							char	**files; = {"EOF", "FIM", "Makefile", NULL};
-							char	**redirects = {"<<", "<<", "<", NULL};
-
-
-
-
-
-
-1 identificar os nomes dos arquivos das redireçoes e salvar em (gtf)
-2 identificar os nomes dos arquivos das redireçoes e salvar em (ltf)
-
-
-
-
-
-
-
 */
