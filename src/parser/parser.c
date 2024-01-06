@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:09:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/06 11:12:17 by user             ###   ########.fr       */
+/*   Updated: 2024/01/06 11:15:27 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,35 +44,20 @@ static int	add_next_node(t_commands **list, char *command)
 
 void	parser(char *input)
 {
-	char **plural;
-	int i = 0;
+	char	**splitted;
+	int		i;
+
+	i = 0;
 	if (!strchr(input, '\3'))
 		add_next_node(&get_data()->commands, input);
 	else
 	{
-		plural = ft_split(input, '\3');
-		while(plural[i])
-		{
-			add_next_node(&get_data()->commands, plural[i]);
-			i++;
-		}
-		free_double_array(plural);
+		splitted = ft_split(input, '\3');
+		while (splitted[i])
+			add_next_node(&get_data()->commands, splitted[i++]);
+		free_double_array(splitted);
 	}
 	if (i == 0)
 		i = 1;
 	get_data()->number_of_commands = i;
 }
-
-/*
-exemplo da struct:
-echo teste > 1 >> 2 > 3 >> teste.txt mais teste kkkkkkk <<EOF <<FIM < Makefile
-typedef struct s_commands{
-	char				**command; = {"echo", "teste", "mais", "teste", "kkkkkkk", NULL} // array com todos os tokens do comando
-	char				*greater_than; = ">>" // vai ser uma string com o ultimo greater_than usado
-	char				**gt_files; = {"1", "2", "3", "teste.txt", NULL} // array com todos os nomes de arquivo para abrir
-	char				*heredocs; = {"EOF", "FIM", NULL};
-	char				*less_than; = "<" // vai ser uma string com o ultimo less_than usado
-	char				**lt_files; = {"Makefile", NULL} // array com todos os nomes de arquivo para escutar
-	struct s_commands	*next; = NULL // aponta para o proximo comando
-}	t_commands;
-*/
