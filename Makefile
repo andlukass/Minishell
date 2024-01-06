@@ -35,6 +35,7 @@ SRCS = src/main.c                        \
 		src/parser/parser.c              \
 		src/parser/greater_than.c        \
 		src/parser/get_command.c         \
+		src/parser/free_commands.c       \
 		src/input/handle_input.c         \
 		src/lexer/lexer.c                \
 		src/lexer/seek_errors.c          \
