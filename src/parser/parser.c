@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:09:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/06 11:51:52 by user             ###   ########.fr       */
+/*   Updated: 2024/01/07 14:40:47 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static t_commands	*create_new_command(char *command)
 	new = malloc(sizeof(t_commands));
 	if (!new)
 		return ((void *)0);
-	new->greater_than = handle_redirections(command);
-	new->less_than = handle_redirections(command);
+	new->greater_than = get_last_redirection(command, '>');
+	new->less_than = get_last_redirection(command, '<');
 	new->gt_files = NULL;
 	new->lt_files = NULL;
 	new->heredocs = NULL;
