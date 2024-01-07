@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2024/01/01 13:33:02 by user             ###   ########.fr       */
+/*   Updated: 2024/01/07 19:27:02 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 
 static int	do_multable_builtin(t_commands *current)
 {
+	int empty_fd[2];
+
+	if (!current->command)
+		return (0);
 	if (!current->next && \
 		(!ft_strcmp(current->command[0], "exit") || \
 		!ft_strcmp(current->command[0], "export") || \
 		!ft_strcmp(current->command[0], "unset") || \
 		!ft_strcmp(current->command[0], "cd")))
 	{
+		open_files(current, &empty_fd);
 		executor_router(current->command);
 		return (1);
 	}
