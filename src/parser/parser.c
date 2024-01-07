@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:09:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/07 14:40:47 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/07 15:36:46 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static t_commands	*create_new_command(char *command)
 	new->greater_than = get_last_redirection(command, '>');
 	new->less_than = get_last_redirection(command, '<');
 	new->gt_files = NULL;
-	new->lt_files = NULL;
-	new->heredocs = NULL;
+	new->lt_files = get_lt_hd_files(ft_split(command, '\2'), "<");
+	new->heredocs = get_lt_hd_files(ft_split(command, '\2'), "<<");
 	new->command = get_command(command);
 	new->next = (void *)0;
 	return (new);

@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:02:26 by user              #+#    #+#             */
-/*   Updated: 2024/01/07 14:24:03 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/07 15:42:51 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ void	free_commands(t_commands *stack);
 
 char	*get_last_redirection(char *command, char c);
 
-char	**get_files(char **str);
+char	**get_gt_files(char **str);
+
+char	**get_lt_hd_files(char **str, char *s);
+
 /* --------------------------------------- */
 
 #endif
