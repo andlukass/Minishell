@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_files.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 15:04:26 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/07 15:40:33 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/07 16:24:32 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	**get_lt_hd_files(char **str, char *s)
 	while (str[i])
 		i++;
 	file = (char **)malloc(sizeof(char *) * i);
+	i = 0;
 	if (!file)
 		return (NULL);
 	while (str[i])
@@ -51,6 +52,7 @@ char	**get_gt_files(char **str)
 	while (str[i])
 		i++;
 	file = (char **)malloc(sizeof(char *) * i);
+	i = 0;
 	if (!file)
 		return (NULL);
 	while (str[i])
