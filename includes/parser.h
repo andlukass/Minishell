@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:02:26 by user              #+#    #+#             */
-/*   Updated: 2024/01/05 12:35:30 by user             ###   ########.fr       */
+/*   Updated: 2024/01/07 14:03:58 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@ int		seek_errors(char *new_input, int open_quotes);
 char	**get_command(char *command);
 
 void	parser(char *input);
+
 void	free_commands(t_commands *stack);
+
 char	*handle_redirections(char *command);
+
+char	**get_files(char **str);
 /* --------------------------------------- */
 
 #endif
