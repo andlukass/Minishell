@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 16:59:14 by user              #+#    #+#             */
-/*   Updated: 2024/01/05 18:19:22 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/07 15:45:03 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ int		ft_strncmp(const char *s1, const char *s2, unsigned int n);
  */
 int		ft_strcmp(const char *s1, const char *s2);
 
-char	*ft_strcpy(char *dest, char *src);
 /* --------------------------------------- */
 
 #endif
