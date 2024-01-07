@@ -33,14 +33,14 @@ SRCS = src/main.c                        \
 		src/executor/close_fds.c         \
 		src/executor/executor_router.c   \
 		src/parser/parser.c              \
-		src/parser/greater_than.c        \
+		src/parser/get_last_redirection.c        \
 		src/parser/get_command.c         \
 		src/parser/free_commands.c       \
 		src/input/handle_input.c         \
 		src/lexer/lexer.c                \
 		src/lexer/seek_errors.c          \
 
-CFLAGS = -lreadline -g -fsanitize=address # -Wall -Wextra -Werror
+CFLAGS = -lreadline -g  #-fsanitize=address  -Wall -Wextra -Werror
 
 NAME = minishell
 

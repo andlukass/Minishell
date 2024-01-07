@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:02:26 by user              #+#    #+#             */
-/*   Updated: 2024/01/07 14:03:58 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/07 14:24:03 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	parser(char *input);
 
 void	free_commands(t_commands *stack);
 
-char	*handle_redirections(char *command);
+char	*get_last_redirection(char *command, char c);
 
 char	**get_files(char **str);
 /* --------------------------------------- */

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   greater_than.c                                     :+:      :+:    :+:   */
+/*   get_last_redirection.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 15:04:04 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/07 14:05:11 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/07 14:38:15 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	skip_quotes(char *command, int index, char quote_type)
 	return (index);
 }
 
-static int	find_reds(char *command, int index)
+static int	find_reds(char *command, int index, char c)
 {
 	char	quote_type;
 
@@ -30,14 +30,14 @@ static int	find_reds(char *command, int index)
 			quote_type = command[index--];
 			index = skip_quotes(command, index, quote_type);
 		}
-		else if (command[index] == '>' || command[index] == '<')
+		else if (command[index] == c)
 			return (index);
 		index--;
 	}
 	return (-1);
 }
 
-char	*handle_redirections(char *command)
+char	*get_last_redirection(char *command, char c)
 {
 	char	*reds;
 	int		index;
@@ -49,7 +49,7 @@ char	*handle_redirections(char *command)
 		return (NULL);
 	i = ft_strlen(command) - 1;
 	j = 0;
-	index = find_reds(command, i);
+	index = find_reds(command, i, c);
 	if (index != -1)
 	{
 		reds[j++] = command[index];
