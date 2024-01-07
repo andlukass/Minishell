@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gt_files.c                                         :+:      :+:    :+:   */
+/*   lt_files.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/02 15:04:26 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/06 18:02:51 by isbraz-d         ###   ########.fr       */
+/*   Created: 2024/01/06 17:59:42 by isbraz-d          #+#    #+#             */
+/*   Updated: 2024/01/06 18:07:27 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	get_number(char **str)
 	n = 0;
 	while (str[i])
 	{
-		if (ft_strcmp(str[i], ">") == 0 || ft_strcmp(str[i], ">>") == 0)
+		if (ft_strcmp(str[i], "<") == 0)
 			n++;
 		i++;
 	}
@@ -41,7 +41,7 @@ char	**get_files(char **str)
 		return (NULL);
 	while (str[i])
 	{
-		if (ft_strcmp(str[i], ">") == 0 || ft_strcmp(str[i], ">>") == 0)
+		if (ft_strcmp(str[i], "<") == 0)
 		{
 			ft_strcpy(file[j], str[i + 1]);
 			j++;
@@ -50,5 +50,3 @@ char	**get_files(char **str)
 	}
 	return (file);
 }
-
-//echo teste > test.txt kjcnzxjkncjz
