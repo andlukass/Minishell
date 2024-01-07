@@ -34,6 +34,7 @@ SRCS = src/main.c                        \
 		src/executor/executor_router.c   \
 		src/parser/parser.c              \
 		src/parser/get_last_redirection.c        \
+		src/parser/get_files.c           \
 		src/parser/get_command.c         \
 		src/parser/free_commands.c       \
 		src/input/handle_input.c         \
