@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 13:57:05 by user              #+#    #+#             */
-/*   Updated: 2024/01/02 20:08:59 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/06 12:01:20 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	handle_input(char *input)
 	parser(new_input);
 	free(new_input);
 	// expander(&get_data()->commands);
-	// executor(&get_data()->commands);
+	executor(&get_data()->commands);
 	free_commands(get_data()->commands);
 	get_data()->commands = NULL;
 }
