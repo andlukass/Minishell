@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_router.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 22:23:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/07 18:21:27 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/08 17:29:16 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static char	*search_on_env_path(char *command)
 	int				index;
 
 	directories = ft_split(get_env_value("PATH"), ':');
-	
 	index = 0;
 	valid_path = NULL;
 	while (directories[index])
@@ -87,6 +86,8 @@ void	executor_router(char **command)
 	char	*valid_path;
 	char	**env;
 
+	if (!command)
+		ft_exit(NULL);
 	if (do_bultins(command))
 		return ;
 	if (command[0][0] == '/' || (command[0][0] == '.' && \

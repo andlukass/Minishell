@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2024/01/07 19:27:02 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/08 17:28:56 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	do_multable_builtin(t_commands *current)
 {
-	int empty_fd[2];
+	int	empty_fd[2];
 
 	if (!current->command)
 		return (0);
@@ -34,6 +34,13 @@ static int	do_multable_builtin(t_commands *current)
 
 static void	child_routine(t_commands *cur, int *next_fd, int *fd, int **pids)
 {
+	if (next_fd[0] == -2)
+	{
+		close_fds(fd);
+		close_fds(next_fd);
+		free(*pids);
+		ft_exit(NULL);
+	}
 	if (next_fd[1] != -1)
 		dup2(next_fd[1], STDOUT_FILENO);
 	if (fd[0] != -1)
