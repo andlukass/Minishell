@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/10 19:55:20 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/10 20:58:50 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,40 @@ static char	*get_sendable(char *str)
 	sendable[j] = '\0';
 	return (sendable);
 }
-static void	change_str(char **old, char *new, char sendable)
+static void	change_str(char **old, char *new)
 {
 	char	*temp;
+	int	i;
+	int	j;
+	int	k;
 	
+	i = 0;
+	j = 0;
+	k = 0;
 	temp = ft_strdup(*old);
 	free(*old);
 	*old = malloc(ft_strlen(temp) + ft_strlen(new));
 	if (!*old)
 		return (NULL);
-	
+	while (temp[k] != '$')
+	{
+		*old[i] = temp[k];
+		i++;
+		k++;
+	}
+	while (new)
+	{
+		*old[i] = new[j];
+		i++;
+		j++;
+	}
+	while (temp[k])
+	{
+		*old[i] = temp[k];
+		i++;
+		k++;
+	}
+	*old[i] = '\0';
 }
 
 char	*expander(char **strs)
@@ -78,7 +102,7 @@ char	*expander(char **strs)
 		return (NULL);
 	sendable = get_sendable(strs[i]);
 	new = ft_strdup(get_env_value(sendable));
-	change_str(strs[i], new, sendable);
+	change_str(strs[i], new);
 	free(sendable);
 	
 }
