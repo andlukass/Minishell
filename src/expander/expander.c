@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/09 17:34:35 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/10 19:55:20 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,17 @@ static char	*get_sendable(char *str)
 	sendable[j] = '\0';
 	return (sendable);
 }
+static void	change_str(char **old, char *new, char sendable)
+{
+	char	*temp;
+	
+	temp = ft_strdup(*old);
+	free(*old);
+	*old = malloc(ft_strlen(temp) + ft_strlen(new));
+	if (!*old)
+		return (NULL);
+	
+}
 
 char	*expander(char **strs)
 {
@@ -66,14 +77,16 @@ char	*expander(char **strs)
 	if (i == -1)
 		return (NULL);
 	sendable = get_sendable(strs[i]);
-	new = malloc(sizeof(char) * ft_strlen(get_env_value(sendable)));
-	if (!new)
-		return (NULL);
+	new = ft_strdup(get_env_value(sendable));
+	change_str(strs[i], new, sendable);
+	free(sendable);
 	
 }
 
 
 /*
+	$PWD
+	
 	coisas que são aceitas na string com a expansão:
 	letrasantes$PWD
 	$PWD. (pode haver coisas dps do .)
