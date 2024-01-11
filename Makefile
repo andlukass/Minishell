@@ -40,6 +40,8 @@ SRCS = src/main.c                        \
 		src/input/handle_input.c         \
 		src/lexer/lexer.c                \
 		src/lexer/seek_errors.c          \
+		src/expander/expander.c          \
+		src/utils/ft_isalpha.c           \
 
 CFLAGS = -lreadline -g  #-fsanitize=address  -Wall -Wextra -Werror
 
