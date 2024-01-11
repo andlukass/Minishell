@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/11 19:25:24 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/11 20:02:20 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	find_string(char **strs)
 		i++;
 	}
 	return (-1);
-}
+}	
 
 static char	*get_sendable(char *str)
 {
@@ -88,11 +88,15 @@ char **expander(char **strs)
     {
         sendable = get_sendable(strs[i]);
         add = ft_strdup(get_env_value(sendable));
+		if (add == NULL)
+		{
+			add = ft_strdup("");
+		}
         change_str(&strs[i], add, ft_strlen(sendable));
         free(sendable);
         free(add);
     }
-    return strs;
+    return (strs);
 }
 
 // char	*expander(char **strs)
