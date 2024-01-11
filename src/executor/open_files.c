@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2024/01/02 16:23:52 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/07 18:28:12 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static char	*get_heredoc_input(t_commands *current, int index)
 	char	*text;
 	char	*input;
 
+	text = NULL;
 	while (1)
 	{
 		input = readline("> ");

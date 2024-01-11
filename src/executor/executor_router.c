@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_router.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 22:23:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/01 12:22:35 by user             ###   ########.fr       */
+/*   Updated: 2024/01/07 18:21:27 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static char	*check_directory(char *path, char *command)
 	DIR				*dir;
 
 	dir = opendir(path);
+	if (!dir)
+		return (NULL);
 	entity = readdir(dir);
 	valid_path = NULL;
 	while (entity != NULL)
@@ -42,6 +44,7 @@ static char	*search_on_env_path(char *command)
 	int				index;
 
 	directories = ft_split(get_env_value("PATH"), ':');
+	
 	index = 0;
 	valid_path = NULL;
 	while (directories[index])
