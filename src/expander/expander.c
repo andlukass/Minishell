@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/11 19:07:11 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/11 19:25:24 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,21 +77,39 @@ static void	change_str(char **new, char *add, int size)
 	free(temp);
 }
 
-char	*expander(char **strs)
+char **expander(char **strs)
 {
-	char	*add;
-	char	*sendable;
-	int	i;
+    int i;
+    char *add;
+    char *sendable;
 
-	i = find_string(strs);
-	if (i == -1)
-		return (NULL);
-	sendable = get_sendable(strs[i]);
-	add = ft_strdup(get_env_value(sendable));
-	change_str(&strs[i], add, ft_strlen(sendable));
-	free(sendable);
-	return (NULL);
+    i = 0;
+    while ((i = find_string(strs)) != -1)
+    {
+        sendable = get_sendable(strs[i]);
+        add = ft_strdup(get_env_value(sendable));
+        change_str(&strs[i], add, ft_strlen(sendable));
+        free(sendable);
+        free(add);
+    }
+    return strs;
 }
+
+// char	*expander(char **strs)
+// {
+// 	char	*add;
+// 	char	*sendable;
+// 	int	i;
+
+// 	add = ft_strdup(get_env_value(sendable));
+// 	i = find_string(strs);
+// 	sendable = get_sendable(strs[i]);
+// 	if (i == -1)
+// 		return (NULL);
+// 	change_str(&strs[i], add, ft_strlen(sendable));
+// 	free(sendable);
+// 	return (NULL);
+// }
 
 
 /*
