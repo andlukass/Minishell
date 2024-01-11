@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 13:57:05 by user              #+#    #+#             */
-/*   Updated: 2024/01/11 11:28:04 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:45:16 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,9 @@ void	handle_input(char *input)
 		return ;
 	parser(new_input);
 	free(new_input);
-	// expander(&get_data()->commands);
-
 	// print_teste();
 
-	// executor(&get_data()->commands);
+	executor(&get_data()->commands);
 	free_commands(get_data()->commands);
 	get_data()->commands = NULL;
 }
