@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:02:26 by user              #+#    #+#             */
-/*   Updated: 2024/01/11 11:24:26 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/11 19:26:17 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	**get_gt_files(char **str);
 
 char	**get_lt_hd_files(char **str, char *s);
 
-char	*expander(char **strs);
+char	**expander(char **strs);
 
 
 /* --------------------------------------- */
