@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/11 11:33:05 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/11 19:07:11 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,11 @@ static char	*get_sendable(char *str)
 		i++;
 	i++;
 	while (str[i] && (ft_isalpha(str[i]) || str[i] == '_'))
-	{
-		sendable[j] = str[i];
-		j++;
-		i++;
-	}
+		sendable[j++] = str[i++];
 	sendable[j] = '\0';
 	return (sendable);
 }
-static void	change_str(char **new, char *add)
+static void	change_str(char **new, char *add, int size)
 {
 	char	*temp;
 	int	i;
@@ -67,28 +63,17 @@ static void	change_str(char **new, char *add)
 	k = 0;
 	temp = ft_strdup(*new);
 	free(*new);
-	*new = malloc(ft_strlen(temp) + ft_strlen(add));
+	*new = malloc(sizeof(char) * (ft_strlen(temp) + ft_strlen(add) + 1));
 	if (!*new)
 		return ;
 	while (temp[k] != '$')
-	{
-		*new[i] = temp[k];
-		i++;
-		k++;
-	}
-	while (add)
-	{
-		*new[i] = add[j];
-		i++;
-		j++;
-	}
+		(*new)[i++] = temp[k++];
+	while (add[j])
+		(*new)[i++] = add[j++];
+	k += size + 1;
 	while (temp[k])
-	{
-		*new[i] = temp[k];
-		i++;
-		k++;
-	}
-	*new[i] = '\0';
+		(*new)[i++] = temp[k++];
+	(*new)[i] = '\0';
 	free(temp);
 }
 
@@ -103,8 +88,9 @@ char	*expander(char **strs)
 		return (NULL);
 	sendable = get_sendable(strs[i]);
 	add = ft_strdup(get_env_value(sendable));
-	change_str(&strs[i], add);
+	change_str(&strs[i], add, ft_strlen(sendable));
 	free(sendable);
+	return (NULL);
 }
 
 
