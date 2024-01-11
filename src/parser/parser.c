@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:09:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/07 15:36:46 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/07 19:42:52 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,21 @@
 
 static t_commands	*create_new_command(char *command)
 {
+	char			**splitted;
 	t_commands	*new;
 
 	new = malloc(sizeof(t_commands));
 	if (!new)
 		return ((void *)0);
+	splitted = ft_split(command, '\2');
 	new->greater_than = get_last_redirection(command, '>');
 	new->less_than = get_last_redirection(command, '<');
-	new->gt_files = NULL;
-	new->lt_files = get_lt_hd_files(ft_split(command, '\2'), "<");
-	new->heredocs = get_lt_hd_files(ft_split(command, '\2'), "<<");
-	new->command = get_command(command);
+	new->gt_files = get_gt_files(splitted);
+	new->lt_files = get_lt_hd_files(splitted, "<");
+	new->heredocs = get_lt_hd_files(splitted, "<<");
+	new->command = get_command(splitted);
 	new->next = (void *)0;
+	free_double_array(splitted);
 	return (new);
 }
 

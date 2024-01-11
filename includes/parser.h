@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:02:26 by user              #+#    #+#             */
-/*   Updated: 2024/01/07 15:42:51 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/07 19:43:25 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	handle_input(char *input);
 
 char	*lexer(char *input);
 int		seek_errors(char *new_input, int open_quotes);
-char	**get_command(char *command);
+char	**get_command(char **command);
 
 void	parser(char *input);
 
