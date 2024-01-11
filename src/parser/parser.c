@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:09:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/07 19:42:52 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/11 11:34:25 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static t_commands	*create_new_command(char *command)
 	if (!new)
 		return ((void *)0);
 	splitted = ft_split(command, '\2');
+	expander(splitted);
+	
 	new->greater_than = get_last_redirection(command, '>');
 	new->less_than = get_last_redirection(command, '<');
 	new->gt_files = get_gt_files(splitted);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:02:26 by user              #+#    #+#             */
-/*   Updated: 2024/01/07 19:43:25 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/11 11:24:26 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ char	*get_last_redirection(char *command, char c);
 char	**get_gt_files(char **str);
 
 char	**get_lt_hd_files(char **str, char *s);
+
+char	*expander(char **strs);
+
 
 /* --------------------------------------- */
 
