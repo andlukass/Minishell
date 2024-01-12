@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/11 20:06:34 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/12 16:57:45 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,21 @@ static char	*get_sendable(char *str)
 	sendable[j] = '\0';
 	return (sendable);
 }
+
+static int	search_expand_zero(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '$' && str[i + 1] == '0')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 static void	change_str(char **new, char *add, int size)
 {
 	char	*temp;
@@ -68,6 +83,8 @@ static void	change_str(char **new, char *add, int size)
 		return ;
 	while (temp[k] != '$')
 		(*new)[i++] = temp[k++];
+	if (temp[k + 1] >= '0' && temp[k + 1] <= '9')
+		k++;
 	while (add[j])
 		(*new)[i++] = add[j++];
 	k += size + 1;
@@ -83,35 +100,24 @@ char **expander(char **strs)
     char *add;
     char *sendable;
 
-    i = 0;
-    while ((i = find_string(strs)) != -1)
-    {
-        sendable = get_sendable(strs[i]);
-        add = ft_strdup(get_env_value(sendable));
+	i = 0;
+	while ((i = find_string(strs)) != -1)
+	{
+		sendable = get_sendable(strs[i]);
+		add = ft_strdup(get_env_value(sendable));
 		if (add == NULL)
-			add = ft_strdup("");
-        change_str(&strs[i], add, ft_strlen(sendable));
-        free(sendable);
-        free(add);
-    }
-    return (strs);
+		{
+			if (search_expand_zero(strs[i]))
+				add = ft_strdup("minishell");
+			else
+				add = ft_strdup("");
+		}
+		change_str(&strs[i], add, ft_strlen(sendable));
+		free(sendable);
+		free(add);
+	}
+	return (strs);
 }
-
-// char	*expander(char **strs)
-// {
-// 	char	*add;
-// 	char	*sendable;
-// 	int	i;
-
-// 	add = ft_strdup(get_env_value(sendable));
-// 	i = find_string(strs);
-// 	sendable = get_sendable(strs[i]);
-// 	if (i == -1)
-// 		return (NULL);
-// 	change_str(&strs[i], add, ft_strlen(sendable));
-// 	free(sendable);
-// 	return (NULL);
-// }
 
 
 /*
