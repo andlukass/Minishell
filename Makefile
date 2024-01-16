@@ -42,6 +42,7 @@ SRCS = src/main.c                        \
 		src/lexer/seek_errors.c          \
 		src/expander/expander.c          \
 		src/utils/ft_isalpha.c           \
+		src/utils/init_vars.c             \
 
 CFLAGS = -lreadline -g -Wall -Wextra -Werror
 
