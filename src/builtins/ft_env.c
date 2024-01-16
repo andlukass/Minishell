@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:58:58 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/10 19:21:50 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/16 16:15:33 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_env(char **command)
 	if (command[1])
 	{
 		printf("env doesn't take any arguments!\n");
-		return ;
+		ft_exit(NULL, 1);
 	}
 	current = get_data()->env;
 	while (current)
@@ -28,5 +28,5 @@ void	ft_env(char **command)
 			printf("%s\n", current->variable);
 		current = current->next;
 	}
-	ft_exit(NULL);
+	ft_exit(NULL, 0);
 }
