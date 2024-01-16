@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 15:39:20 by user              #+#    #+#             */
-/*   Updated: 2024/01/16 15:07:57 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/16 16:36:11 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,35 @@ static int	check_redirections(char *input, char *new_input, int open_quotes)
 	}
 	return (0);
 }
-	
+
+void	rm_quotes(char *new_input)
+{
+	int	index;
+	char	flag;
+
+	index = 0;
+	flag = 0;
+	while (new_input[index])
+	{
+		if ((new_input[index] == '"' || new_input[index] == '\'') && !flag)
+		{
+			flag = new_input[index];
+			if (new_input[index] == '"')
+				new_input[index] = '\4';
+			else
+				new_input[index] = '\5';
+		}
+		if (new_input[index] == flag)
+		{
+			flag = 0;
+			if (new_input[index] == '"')
+				new_input[index] = '\4';
+			else
+				new_input[index] = '\5';
+		}
+		index++;
+	}
+}
 
 char	*lexer(char *input)
 {
@@ -78,5 +106,5 @@ char	*lexer(char *input)
 	new_input[j] = '\0';
 	if (seek_errors(new_input, single_q + double_q))
 		return (free(new_input), NULL);
-	return (new_input);
+	return (rm_quotes(new_input), new_input);
 }
