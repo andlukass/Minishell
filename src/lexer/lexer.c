@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 15:39:20 by user              #+#    #+#             */
-/*   Updated: 2024/01/05 16:46:37 by user             ###   ########.fr       */
+/*   Updated: 2024/01/16 15:07:57 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,7 @@ static int	check_redirections(char *input, char *new_input, int open_quotes)
 	}
 	return (0);
 }
-
-static void	init_vars(int *a, int *b, int *c, int *d)
-{
-	*a = 0;
-	*b = 0;
-	*c = 0;
-	*d = 0;
-}
+	
 
 char	*lexer(char *input)
 {
