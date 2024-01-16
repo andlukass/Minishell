@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:24:50 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/01 13:37:46 by user             ###   ########.fr       */
+/*   Updated: 2024/01/16 16:39:13 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_exit(char **command, int status)
 		if (command[1] != (void *)0)
 		{
 			printf("exit doesn't take any arguments!\n");
+			get_data()->exit_status = 1;
 			return ;
 		}
 		printf("exit\n");
@@ -27,5 +28,5 @@ void	ft_exit(char **command, int status)
 	if (get_data()->commands)
 		free_commands(get_data()->commands);
 	rl_clear_history();
-	exit(0);
+	exit(status);
 }
