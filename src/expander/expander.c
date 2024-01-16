@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/16 11:07:02 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:15:22 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,10 @@ char **expander(char **strs)
 		add = ft_strdup(get_env_value(sendable));
 		if (add == NULL)
 		{
-			if (search_expand_zero(strs[i]) == 1)
+			if (search_special_expansions(strs[i]) == 1)
 				add = ft_strdup("minishell");
-			else if (search_expand_zero(strs[i]) == 2)
-				add = ft_itoa(get_data()->exit_status);
+			else if (search_special_expansions(strs[i]) == 2)
+				add = ft_itoa(get_data()->exit_status / 256);
 			else
 				add = ft_strdup("");
 		}
