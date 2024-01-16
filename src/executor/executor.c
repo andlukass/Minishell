@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2024/01/08 17:28:56 by user             ###   ########.fr       */
+/*   Updated: 2024/01/16 16:09:23 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	child_routine(t_commands *cur, int *next_fd, int *fd, int **pids)
 		close_fds(fd);
 		close_fds(next_fd);
 		free(*pids);
-		ft_exit(NULL);
+		ft_exit(NULL, 1);
 	}
 	if (next_fd[1] != -1)
 		dup2(next_fd[1], STDOUT_FILENO);

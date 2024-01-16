@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:58:58 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/30 21:21:45 by user             ###   ########.fr       */
+/*   Updated: 2024/01/16 16:09:37 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_echo(char **command)
 			if (ft_strcmp(&command[1][1], "n"))
 			{
 				printf("echo has only the '-n' flag\n");
-				ft_exit(NULL);
+				ft_exit(NULL, 1);
 			}
 		}
 		while (command[i])
@@ -38,5 +38,5 @@ void	ft_echo(char **command)
 	}
 	if (!has_flag)
 		printf("\n");
-	ft_exit(NULL);
+	ft_exit(NULL, 0);
 }

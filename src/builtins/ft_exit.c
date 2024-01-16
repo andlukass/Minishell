@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_exit(char **command)
+void	ft_exit(char **command, int status)
 {
 	if (command)
 	{
