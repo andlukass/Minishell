@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:20:27 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/25 12:10:58 by user             ###   ########.fr       */
+/*   Updated: 2024/01/16 16:15:42 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	ft_export(char **command)
 		export_add(command);
 	free_env(env_copy);
 	if (get_data()->number_of_commands > 1)
-		ft_exit(NULL);
+		ft_exit(NULL, 0);
 	else
 		return ;
 }
