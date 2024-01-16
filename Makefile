@@ -40,8 +40,11 @@ SRCS = src/main.c                        \
 		src/input/handle_input.c         \
 		src/lexer/lexer.c                \
 		src/lexer/seek_errors.c          \
+		src/expander/expander.c          \
+		src/utils/ft_isalpha.c           \
+		src/utils/init_vars.c             \
 
-CFLAGS = -lreadline -g  #-fsanitize=address  -Wall -Wextra -Werror
+CFLAGS = -lreadline -g -Wall -Wextra -Werror
 
 NAME = minishell
 
