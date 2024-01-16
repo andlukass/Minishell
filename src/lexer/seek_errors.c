@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 12:34:52 by user              #+#    #+#             */
-/*   Updated: 2024/01/05 16:47:11 by user             ###   ########.fr       */
+/*   Updated: 2024/01/11 12:36:31 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static int	verify_redirections(char *new_input)
 	splitted = ft_split(new_input, '\2');
 	while (splitted[index])
 	{
-		if (is_redirection(splitted[index]) && \
-			!splitted[index + 1] || \
+		if ((is_redirection(splitted[index]) && \
+			!splitted[index + 1]) || \
 			(is_redirection(splitted[index]) && \
 			is_redirection(splitted[index + 1])))
 			return (free_double_array(splitted), 0);

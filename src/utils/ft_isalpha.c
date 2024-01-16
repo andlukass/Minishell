@@ -1,37 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/24 17:35:06 by user              #+#    #+#             */
-/*   Updated: 2024/01/11 20:01:43 by isbraz-d         ###   ########.fr       */
+/*   Created: 2024/01/09 15:51:48 by isbraz-d          #+#    #+#             */
+/*   Updated: 2024/01/09 15:55:14 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-
-char	*ft_strdup(char const *s1)
+int	ft_isalpha(int c)
 {
-	char	*duplicate;
-	int		index;
-	int		length;
-
-	index = 0;
-	length = 0;
-	if (!s1)
-		return (NULL);
-	while (s1[length])
-		length++;
-	duplicate = malloc(sizeof(char) * (length + 1));
-	if (duplicate == NULL)
-		return (NULL);
-	while (s1[index])
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
 	{
-		duplicate[index] = s1[index];
-		index++;
+		return (1);
 	}
-	duplicate[index] = '\0';
-	return (duplicate);
+	return (0);
 }
