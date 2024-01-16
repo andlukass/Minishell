@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/12 16:57:45 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/16 11:07:02 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,23 @@ static int	find_string(char **strs)
 		i++;
 	}
 	return (-1);
-}	
+}
+
+static int	search_special_expansions(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '$' && str[i + 1] == '0')
+			return (1);
+		if (str[i] == '$' && str[i + 1] == '?')
+			return (2);
+		i++;
+	}
+	return (0);
+}
 
 static char	*get_sendable(char *str)
 {
@@ -52,20 +68,6 @@ static char	*get_sendable(char *str)
 	return (sendable);
 }
 
-static int	search_expand_zero(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '$' && str[i + 1] == '0')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 static void	change_str(char **new, char *add, int size)
 {
 	char	*temp;
@@ -83,7 +85,7 @@ static void	change_str(char **new, char *add, int size)
 		return ;
 	while (temp[k] != '$')
 		(*new)[i++] = temp[k++];
-	if (temp[k + 1] >= '0' && temp[k + 1] <= '9')
+	if ((temp[k + 1] >= '0' && temp[k + 1] <= '9') || temp[k + 1] == '?')
 		k++;
 	while (add[j])
 		(*new)[i++] = add[j++];
@@ -107,8 +109,10 @@ char **expander(char **strs)
 		add = ft_strdup(get_env_value(sendable));
 		if (add == NULL)
 		{
-			if (search_expand_zero(strs[i]))
+			if (search_expand_zero(strs[i]) == 1)
 				add = ft_strdup("minishell");
+			else if (search_expand_zero(strs[i]) == 2)
+				add = ft_itoa(get_data()->exit_status);
 			else
 				add = ft_strdup("");
 		}
@@ -119,10 +123,8 @@ char **expander(char **strs)
 	return (strs);
 }
 
-
 /*
 	$PWD
-	
 	coisas que são aceitas na string com a expansão:
 	letrasantes$PWD
 	$PWD. (pode haver coisas dps do .)
