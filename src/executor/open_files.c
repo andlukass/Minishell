@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2024/01/07 18:28:12 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/08 17:48:31 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,25 +93,27 @@ static int	do_less_than(t_commands *current)
 	int	index;
 	int	file;
 
-	index = 0;
-	file = -1;
+	index = -1;
 	if (!current->less_than)
-		return (file);
+		return (-1);
 	file = do_heredocs(current);
-	if (!ft_strcmp(current->less_than, "<"))
+	if (ft_strcmp(current->less_than, "<"))
+		return (-1);
+	while (current->lt_files[++index] && file != -2)
 	{
-		while (current->lt_files[index])
-		{
-			if (!current->lt_files[index + 1])
-				file = open(current->lt_files[index], O_RDONLY, 0777);
-			index++;
-		}
+		if (file != -1)
+			close(file);
+		file = open(current->lt_files[index], O_RDONLY, 0777);
+		if (file == -1)
+			file = -2;
 	}
-	if (is_builtin(current->command))
+	if (file != -2 && (!current->command || is_builtin(current->command)))
 	{
 		close(file);
 		file = -1;
 	}
+	if (file == -2)
+		printf("%s: no such file or directory\n", current->lt_files[index - 1]);
 	return (file);
 }
 
@@ -130,3 +132,32 @@ void	open_files(t_commands *current, int (*next_fd)[2])
 		(*next_fd)[0] = do_less_than(current);
 	}
 }
+
+// static int	do_less_than(t_commands *current)
+// {
+// 	int	index;
+// 	int	file;
+
+// 	index = -1;
+// 	if (!current->less_than)
+// 		return (-1);
+// 	file = do_heredocs(current);
+// 	if (ft_strcmp(current->less_than, "<"))
+// 		return (-1);
+// 	while (current->lt_files[++index] || file != -2)
+// 	{
+// 		if (file != -1)
+// 			close(file);
+// 		file = open(current->lt_files[index], O_RDONLY, 0777);
+// 		if (file == -1)
+// 			file = -2;
+// 	}
+// 	if (file != -2 && (!current->command || is_builtin(current->command)))
+// 	{
+// 		close(file);
+// 		file = -1;
+// 	}
+// 	if (file == -2)
+// 		printf("%s: no such file or directory\n", current->lt_files[index - 1]);
+// 	return (file);
+// }
