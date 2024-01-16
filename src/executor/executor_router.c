@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_router.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 22:23:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/08 17:29:16 by user             ###   ########.fr       */
+/*   Updated: 2024/01/16 16:10:41 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	do_bultins(char **commands)
 
 	is_builtin = 1;
 	if (!ft_strcmp(commands[0], "exit"))
-		ft_exit(commands);
+		ft_exit(commands, 0);
 	else if (!ft_strcmp(commands[0], "pwd"))
 		ft_pwd(commands);
 	else if (!ft_strcmp(commands[0], "echo"))
@@ -87,7 +87,7 @@ void	executor_router(char **command)
 	char	**env;
 
 	if (!command)
-		ft_exit(NULL);
+		ft_exit(NULL, 1);
 	if (do_bultins(command))
 		return ;
 	if (command[0][0] == '/' || (command[0][0] == '.' && \
@@ -100,12 +100,12 @@ void	executor_router(char **command)
 			printf("%s: command not found :(\n", command[0]);
 	}
 	if (!valid_path)
-		ft_exit(NULL);
+		ft_exit(NULL, 1);
 	env = env_to_array();
 	if (execve(valid_path, command, env))
 	{
 		perror(valid_path);
 		free_double_array(env);
-		ft_exit(NULL);
+		ft_exit(NULL, 1);
 	}
 }
