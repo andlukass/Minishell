@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:14:55 by llopes-d          #+#    #+#             */
-/*   Updated: 2023/12/25 12:11:27 by user             ###   ########.fr       */
+/*   Updated: 2024/01/16 12:35:42 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ static void	go_home(char **old_pwd)
 		ft_exit(NULL);
 }
 
+static int exit_cd(void)
+{
+	if (get_data()->number_of_commands > 1)
+		ft_exit(NULL);
+	else
+		return (1);
+	return (0);
+}
+
 void	ft_cd(char **command)
 {
 	char	directory[4097];
@@ -59,13 +68,12 @@ void	ft_cd(char **command)
 		go_home(&old_pwd);
 	else
 		if (!is_path_valid(&old_pwd, command[1]))
-			ft_exit(NULL);
+			if (exit_cd())
+				return ;
 	getcwd(directory, sizeof(directory));
 	pwd = ft_strjoin("PWD=", directory, NO_FREE);
 	add_next_node(&get_data()->env, pwd);
 	add_next_node(&get_data()->env, old_pwd);
-	if (get_data()->number_of_commands > 1)
-		ft_exit(NULL);
-	else
+	if (exit_cd())
 		return ;
 }
