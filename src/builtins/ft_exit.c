@@ -6,13 +6,13 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:24:50 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/17 18:49:59 by user             ###   ########.fr       */
+/*   Updated: 2024/01/17 22:40:28 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int is_str_numeric(char *str)
+static int	is_str_numeric(char *str)
 {
 	int	index;
 
@@ -21,7 +21,7 @@ static int is_str_numeric(char *str)
 		return (1);
 	if (str[index] == '-' || str[index] == '+')
 		index++;
-	while(str[index])
+	while (str[index])
 	{
 		if (str[index] < '0' || str[index] > '9')
 			return (0);
@@ -60,7 +60,7 @@ static int	check_arguments(char **command, long *status)
 void	ft_exit(char **command, long status)
 {
 	int	must_exit;
-	
+
 	must_exit = check_arguments(command, &status);
 	if (!must_exit)
 		return ;
