@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_router.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 22:23:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/16 16:10:41 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:28:05 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	do_bultins(char **commands)
 	if (!ft_strcmp(commands[0], "exit"))
 		ft_exit(commands, 0);
 	else if (!ft_strcmp(commands[0], "pwd"))
-		ft_pwd(commands);
+		ft_pwd();
 	else if (!ft_strcmp(commands[0], "echo"))
 		ft_echo(commands);
 	else if (!ft_strcmp(commands[0], "env"))
