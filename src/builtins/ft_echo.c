@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:58:58 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/17 15:15:38 by user             ###   ########.fr       */
+/*   Updated: 2024/01/17 22:40:59 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	have_flag(char *str)
 	index = 1;
 	if (!str || str[0] != '-')
 		return (0);
-	while(str[index])
+	while (str[index])
 	{
 		if (str[index] != 'n')
 			return (0);
