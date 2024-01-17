@@ -3,30 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:20:27 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/16 16:15:42 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/17 22:28:39 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static t_env	*get_copy(void)
+static void	print_variable(char *variable)
 {
-	t_env	*copy;
-	t_env	*current;
-	char	*variable;
+	char	*value;
+	char	*key;
 
-	current = get_data()->env;
-	copy = (void *)0;
-	while (current)
-	{
-		variable = ft_strdup(current->variable);
-		add_next_node(&copy, variable);
-		current = current->next;
-	}
-	return (copy);
+	key = get_env_key(variable);
+	value = get_env_value(key);
+	if (ft_strchr(variable, '='))
+		printf("declare -x %s=\"%s\"\n", key, value);
+	else
+		printf("declare -x %s\n", variable);
+	free(key);
 }
 
 static void	print_export(t_env *env_copy)
@@ -49,13 +46,31 @@ static void	print_export(t_env *env_copy)
 	}
 	while (env_copy)
 	{
-		if (ft_strchr(env_copy->variable, '=') \
-				&& !(*(ft_strchr(env_copy->variable, '=') + 1)))
-			printf("declare -x %s''\n", env_copy->variable);
-		else
-			printf("declare -x %s\n", env_copy->variable);
+		print_variable(env_copy->variable);
 		env_copy = env_copy->next;
 	}
+}
+
+static int	is_valid_identifier(char *str)
+{
+	int	size;
+	int	i;
+
+	i = 0;
+	if (ft_strchr(str, '='))
+		size = ft_strchr(str, '=') - str;
+	else
+		size = ft_strlen(str);
+	if ((str[i] > '0' && str[i] < '9') || str[i] == '=')
+		return (0);
+	while (str[i] && i < size)
+	{
+		if (!ft_isalpha(str[i]) && str[i] != '_'\
+			&& !(str[i] > '0' && str[i] < '9'))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 static void	export_add(char **command)
@@ -67,8 +82,11 @@ static void	export_add(char **command)
 	while (command[index])
 	{
 		argument = command[index++];
-		if (*argument >= '0' && *argument <= '9')
-			printf("'%c' identifier can't start with numbers\n", *argument);
+		if (!is_valid_identifier(argument))
+		{
+			get_data()->exit_status = 256;
+			printf("'%s': dont have a valid identifier\n", argument);
+		}
 		else
 		{
 			argument = ft_strdup(argument);
@@ -80,8 +98,15 @@ static void	export_add(char **command)
 void	ft_export(char **command)
 {
 	t_env	*env_copy;
+	t_env	*current;
 
-	env_copy = get_copy();
+	env_copy = NULL;
+	current = get_data()->env;
+	while (current)
+	{
+		add_next_node(&env_copy, ft_strdup(current->variable));
+		current = current->next;
+	}
 	if (!command[1])
 		print_export(env_copy);
 	else
