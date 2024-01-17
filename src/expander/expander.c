@@ -6,11 +6,30 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/16 12:15:22 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/17 19:40:54 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static int	is_quoted(char *str, int pos_expand)
+{
+	int	q;
+	int	i;
+
+	i = 0;
+	q = 0;
+	while (str[i] != str[pos_expand])
+	{
+		if (str[i] == '\5')
+			q++;
+		i++;
+	}
+	if (q == 1)
+		return (1);
+	return (0);
+}
+
 
 static int	find_string(char **strs)
 {
@@ -23,8 +42,11 @@ static int	find_string(char **strs)
 		j = 0;
 		while (strs[i][j])
 		{
-			if (strs[i][j] == '$' && strs[i][j + 1] != '\0')
+			if (strs[i][j] == '$' && strs[i][j + 1] != '\0' \
+				&& !is_quoted(strs[i], j))
+			{
 				return (i);
+			}
 			j++;
 		}
 		i++;
@@ -59,7 +81,7 @@ static char	*get_sendable(char *str)
 	sendable = malloc(sizeof(char) * ft_strlen(str));
 	if (!sendable)
 		return (NULL);
-	while (str[i] != '$') 
+	while (str[i] != '$')  
 		i++;
 	i++;
 	while (str[i] && (ft_isalpha(str[i]) || str[i] == '_'))
@@ -75,15 +97,13 @@ static void	change_str(char **new, char *add, int size)
 	int	j;
 	int	k;
 
-	i = 0;
-	j = 0;
-	k = 0;
+	init_vars(&i, &j, &k, NULL);
 	temp = ft_strdup(*new);
 	free(*new);
 	*new = malloc(sizeof(char) * (ft_strlen(temp) + ft_strlen(add) + 1));
 	if (!*new)
 		return ;
-	while (temp[k] != '$')
+	while (temp[k] != '$' && temp[k] != '\5')
 		(*new)[i++] = temp[k++];
 	if ((temp[k + 1] >= '0' && temp[k + 1] <= '9') || temp[k + 1] == '?')
 		k++;
@@ -107,7 +127,7 @@ char **expander(char **strs)
 	{
 		sendable = get_sendable(strs[i]);
 		add = ft_strdup(get_env_value(sendable));
-		if (add == NULL)
+		if (add == NULL )
 		{
 			if (search_special_expansions(strs[i]) == 1)
 				add = ft_strdup("minishell");
@@ -123,7 +143,12 @@ char **expander(char **strs)
 	return (strs);
 }
 
+
 /*
+
+STR[I] == \5
+	echo \5$PWD\5$home
+
 	$PWD
 	coisas que são aceitas na string com a expansão:
 	letrasantes$PWD
