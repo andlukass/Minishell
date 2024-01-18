@@ -6,30 +6,32 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/17 19:40:54 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:23:56 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	is_quoted(char *str, int pos_expand)
+static int	handle_quoted_expansion(char *str)
 {
-	int	q;
 	int	i;
 
 	i = 0;
-	q = 0;
-	while (str[i] != str[pos_expand])
+	while (str[i])
 	{
-		if (str[i] == '\5')
-			q++;
+		if (str[i++] == '\5' && str[i])
+		{
+			while (str[i] && str[i] != '\5')
+			{
+				if (str[i] == '$')
+					str[i] = '\6';
+				i++;
+			}
+		}
 		i++;
 	}
-	if (q == 1)
-		return (1);
 	return (0);
 }
-
 
 static int	find_string(char **strs)
 {
@@ -42,11 +44,10 @@ static int	find_string(char **strs)
 		j = 0;
 		while (strs[i][j])
 		{
-			if (strs[i][j] == '$' && strs[i][j + 1] != '\0' \
-				&& !is_quoted(strs[i], j))
-			{
+			if (strs[i][j] == '$' && strs[i][j + 1] != '\0')
+				handle_quoted_expansion(strs[i]);
+			if (strs[i][j] == '$' && strs[i][j + 1] != '\0')
 				return (i);
-			}
 			j++;
 		}
 		i++;
@@ -103,7 +104,7 @@ static void	change_str(char **new, char *add, int size)
 	*new = malloc(sizeof(char) * (ft_strlen(temp) + ft_strlen(add) + 1));
 	if (!*new)
 		return ;
-	while (temp[k] != '$' && temp[k] != '\5')
+	while (temp[k] != '$')
 		(*new)[i++] = temp[k++];
 	if ((temp[k + 1] >= '0' && temp[k + 1] <= '9') || temp[k + 1] == '?')
 		k++;
@@ -140,6 +141,7 @@ char **expander(char **strs)
 		free(sendable);
 		free(add);
 	}
+	rm_quotes(strs);
 	return (strs);
 }
 
