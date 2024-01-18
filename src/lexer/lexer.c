@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 15:39:20 by user              #+#    #+#             */
-/*   Updated: 2024/01/16 16:36:11 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/18 10:33:48 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	check_redirections(char *input, char *new_input, int open_quotes)
 	return (0);
 }
 
-void	rm_quotes(char *new_input)
+static void	change_quotes(char *new_input)
 {
 	int	index;
 	char	flag;
@@ -106,5 +106,5 @@ char	*lexer(char *input)
 	new_input[j] = '\0';
 	if (seek_errors(new_input, single_q + double_q))
 		return (free(new_input), NULL);
-	return (rm_quotes(new_input), new_input);
+	return (change_quotes(new_input), new_input);
 }
