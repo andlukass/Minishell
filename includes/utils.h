@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 16:59:14 by user              #+#    #+#             */
-/*   Updated: 2024/01/16 15:12:46 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/18 10:52:44 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int		ft_strncmp(const char *s1, const char *s2, unsigned int n);
  */
 int		ft_strcmp(const char *s1, const char *s2);
 
-int	ft_isalpha(int c);
+int		ft_isalpha(int c);
 
 void	init_vars(int *a, int *b, int *c, int *d);
 

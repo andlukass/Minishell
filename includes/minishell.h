@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/01 13:32:56 by user             ###   ########.fr       */
+/*   Updated: 2024/01/18 12:09:40 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 
 # include <sys/wait.h>
 # include <fcntl.h>
+
+# include <sys/stat.h>
 
 # include <signal.h>
 
