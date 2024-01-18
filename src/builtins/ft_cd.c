@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:14:55 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/16 16:12:27 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/17 22:37:51 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int exit_cd(void)
+static int	exit_cd(void)
 {
 	if (get_data()->number_of_commands > 1)
 		ft_exit(NULL, 0);
 	else
 	{
-		get_data()->exit_status = 1;
+		get_data()->exit_status = 256;
 		return (1);
 	}
 	return (0);
@@ -69,12 +69,10 @@ void	ft_cd(char **command)
 	getcwd(directory, sizeof(directory));
 	old_pwd = ft_strjoin("OLDPWD=", directory, NO_FREE);
 	if (!command[1] || !ft_strcmp(command[1], "~"))
-	{
 		if (!go_home(&old_pwd))
 			if (exit_cd())
 				return ;
-	}
-	else
+	if (command[1] && ft_strcmp(command[1], "~"))
 		if (!is_path_valid(&old_pwd, command[1]))
 			if (exit_cd())
 				return ;

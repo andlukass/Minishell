@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_router.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 22:23:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/16 16:10:41 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/18 12:10:38 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	do_bultins(char **commands)
 	if (!ft_strcmp(commands[0], "exit"))
 		ft_exit(commands, 0);
 	else if (!ft_strcmp(commands[0], "pwd"))
-		ft_pwd(commands);
+		ft_pwd();
 	else if (!ft_strcmp(commands[0], "echo"))
 		ft_echo(commands);
 	else if (!ft_strcmp(commands[0], "env"))
@@ -81,31 +81,45 @@ static int	do_bultins(char **commands)
 	return (is_builtin);
 }
 
+static char	*check_file(char *name)
+{
+	struct stat info;
+
+	if (stat(name, &info) == 0)
+		return (name);
+	else
+		return (NULL);
+}
+
 void	executor_router(char **command)
 {
 	char	*valid_path;
 	char	**env;
 
 	if (!command)
-		ft_exit(NULL, 1);
+		ft_exit(NULL, 0);
 	if (do_bultins(command))
 		return ;
 	if (command[0][0] == '/' || (command[0][0] == '.' && \
 		(command[0][1] == '/' || command[0][1] == '.')))
-		valid_path = command[0];
+		valid_path = check_file(command[0]);
 	else
-	{
 		valid_path = search_on_env_path(command[0]);
-		if (!valid_path)
-			printf("%s: command not found :(\n", command[0]);
-	}
 	if (!valid_path)
-		ft_exit(NULL, 1);
+	{
+		printf("%s: not found :(\n", command[0]);
+		ft_exit(NULL, 127);
+	}
 	env = env_to_array();
 	if (execve(valid_path, command, env))
 	{
 		perror(valid_path);
 		free_double_array(env);
-		ft_exit(NULL, 1);
+		ft_exit(NULL, 126);
 	}
 }
+
+/*
+	sem permissão: 126
+	nao existe: 127
+*/
