@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:02:26 by user              #+#    #+#             */
-/*   Updated: 2024/01/18 10:52:58 by user             ###   ########.fr       */
+/*   Updated: 2024/01/18 16:34:55 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ char	**get_gt_files(char **str);
 char	**get_lt_hd_files(char **str, char *s);
 
 char	**expander(char **strs);
+
+char	**rm_quotes(char **strs);
 
 /* --------------------------------------- */
 
