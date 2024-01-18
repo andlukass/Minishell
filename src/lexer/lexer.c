@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 15:39:20 by user              #+#    #+#             */
-/*   Updated: 2024/01/18 10:33:48 by user             ###   ########.fr       */
+/*   Updated: 2024/01/18 10:54:20 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	check_redirections(char *input, char *new_input, int open_quotes)
 
 static void	change_quotes(char *new_input)
 {
-	int	index;
+	int		index;
 	char	flag;
 
 	index = 0;
