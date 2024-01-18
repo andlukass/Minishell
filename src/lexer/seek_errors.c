@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   seek_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 12:34:52 by user              #+#    #+#             */
-/*   Updated: 2024/01/11 12:36:31 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/18 10:31:36 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,5 @@ int	seek_errors(char *new_input, int open_quotes)
 		return (printf("pipe syntax error.\n"));
 	if (!verify_redirections(new_input))
 		return (printf("redirection syntax error.\n"));
-	if (ft_strchr(new_input, ';'))
-		return (printf("not interpreted character: ';'.\n"));
 	return (0);
 }
