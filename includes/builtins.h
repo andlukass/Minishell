@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 16:59:28 by user              #+#    #+#             */
-/*   Updated: 2024/01/16 12:46:47 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/17 16:31:12 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@
 
 /**
  * @brief	Prints the current directory.
- * @param command a command formed from an array of tokens.
  */
-void	ft_pwd(char **command);
+void	ft_pwd(void);
 
 /**
  * @brief	Prints the system environment.
@@ -44,7 +43,7 @@ void	ft_unset(char **command);
  * @brief	Prints exit message, free what is needed and exit program.
  * @param command a command formed from an array of tokens.
  */
-void	ft_exit(char **command, int status);
+void	ft_exit(char **command, long status);
 
 /**
  * @brief	Prints whats was the input.
