@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env_value.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:21:22 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/01 16:31:55 by user             ###   ########.fr       */
+/*   Updated: 2024/01/21 14:22:48 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char	*get_env_value(char *key)
 			if (!ft_strcmp(env_key, key))
 			{
 				free(env_key);
+				if (!ft_strchr(current->variable, '='))
+					return ((void *)0);
 				return (ft_strchr(current->variable, '=') + 1);
 			}
 			free(env_key);
