@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2024/01/17 22:52:55 by user             ###   ########.fr       */
+/*   Updated: 2024/01/21 18:43:19 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static int	do_heredocs(t_commands *current)
 		temp_file = open(".temp.txt", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		text = NULL;
 		text = get_heredoc_input(current, index);
+		//expandir heredoc(se for expandivel)
 		write(temp_file, text, ft_strlen(text));
 		free(text);
 		index++;
