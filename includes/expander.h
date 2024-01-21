@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 14:46:45 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/21 15:54:39 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/21 23:18:17 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,9 @@ char	**rm_quotes(char **strs);
 char	*get_sendable(char *str);
 
 int		find_string(char **strs);
+
+int	there_is_expansion(char *str);
+
+void	expander_heredoc(char **str, char *sendable);
 
 #endif

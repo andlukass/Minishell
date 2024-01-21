@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2024/01/21 18:43:19 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/21 23:15:57 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ static int	do_heredocs(t_commands *current)
 		temp_file = open(".temp.txt", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		text = NULL;
 		text = get_heredoc_input(current, index);
-		//expandir heredoc(se for expandivel)
+		if (there_is_expansion(text))
+			expander_heredoc(&text, get_sendable(text));
 		write(temp_file, text, ft_strlen(text));
 		free(text);
 		index++;
