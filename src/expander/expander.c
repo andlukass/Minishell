@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/21 16:31:17 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/21 23:22:22 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,16 @@ int	get_process(void)
 	if (pid == 0)
 		exit(0);
 	return (pid - 1);
+}
+
+void	expander_heredoc(char **str, char *sendable)
+{
+	char	*add;
+
+	add = ft_strdup(get_env_value(sendable));
+	manipulate_str(str, add, ft_strlen(sendable));
+	free(add);
+	free(sendable);
 }
 
 char **expander(char **strs)

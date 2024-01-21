@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 15:46:01 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/21 15:46:48 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/21 20:11:17 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,20 @@ static int	handle_quoted_expansion(char *str)
 				i++;
 			}
 		}
+		i++;
+	}
+	return (0);
+}
+
+int	there_is_expansion(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '$' && str[i + 1] != '\0')
+			return (1);
 		i++;
 	}
 	return (0);
