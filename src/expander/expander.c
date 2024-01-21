@@ -6,55 +6,11 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/21 13:59:24 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/21 23:22:22 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	handle_quoted_expansion(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\5' && str[i])
-		{
-			i++;
-			while (str[i] && str[i] != '\5')
-			{
-				if (str[i] == '$')
-					str[i] = '\6';
-				i++;
-			}
-		}
-		i++;
-	}
-	return (0);
-}
-
-static int	find_string(char **strs)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (strs[i])
-	{
-		j = 0;
-		while (strs[i][j])
-		{
-			if (strs[i][j] == '$' && strs[i][j + 1] != '\0')
-				handle_quoted_expansion(strs[i]);
-			if (strs[i][j] == '$' && strs[i][j + 1] != '\0')
-				return (i);
-			j++;
-		}
-		i++;
-	}
-	return (-1);
-}
 
 static int	search_special_expansions(char *str)
 {
@@ -67,55 +23,31 @@ static int	search_special_expansions(char *str)
 			return (1);
 		if (str[i] == '$' && str[i + 1] == '?')
 			return (2);
+		if (str[i] == '$' && str[i + 1] == '$')
+			return (3);
 		i++;
 	}
 	return (0);
 }
 
-static char	*get_sendable(char *str)
+int	get_process(void)
 {
-	char	*sendable;
-	int	i;
-	int	j;
+	int	pid;
 
-	i = 0;
-	j = 0;
-	sendable = malloc(sizeof(char) * ft_strlen(str));
-	if (!sendable)
-		return (NULL);
-	while (str[i] != '$')  
-		i++;
-	i++;
-	while (str[i] && (ft_isalpha(str[i]) || str[i] == '_'))
-		sendable[j++] = str[i++];
-	sendable[j] = '\0';
-	return (sendable);
+	pid = fork();
+	if (pid == 0)
+		exit(0);
+	return (pid - 1);
 }
 
-static void	change_str(char **new, char *add, int size)
+void	expander_heredoc(char **str, char *sendable)
 {
-	char	*temp;
-	int	i;
-	int	j;
-	int	k;
+	char	*add;
 
-	init_vars(&i, &j, &k, NULL);
-	temp = ft_strdup(*new);
-	free(*new);
-	*new = malloc(sizeof(char) * (ft_strlen(temp) + ft_strlen(add) + 1));
-	if (!*new)
-		return ;
-	while (temp[k] != '$')
-		(*new)[i++] = temp[k++];
-	if ((temp[k + 1] >= '0' && temp[k + 1] <= '9') || temp[k + 1] == '?')
-		k++;
-	while (add[j])
-		(*new)[i++] = add[j++];
-	k += size + 1;
-	while (temp[k])
-		(*new)[i++] = temp[k++];
-	(*new)[i] = '\0';
-	free(temp);
+	add = ft_strdup(get_env_value(sendable));
+	manipulate_str(str, add, ft_strlen(sendable));
+	free(add);
+	free(sendable);
 }
 
 char **expander(char **strs)
@@ -137,15 +69,16 @@ char **expander(char **strs)
 				add = ft_strdup("minishell");
 			else if (search_special_expansions(strs[i]) == 2)
 				add = ft_itoa(get_data()->exit_status / 256);
+			else if (search_special_expansions(strs[i]) == 3)
+				add = ft_itoa(get_data()->pid);
 			else
 				add = ft_strdup("");
 		}
-		change_str(&strs[i], add, ft_strlen(sendable));
+		manipulate_str(&strs[i], add, ft_strlen(sendable));
 		free(sendable);
 		free(add);
 	}
-	rm_quotes(strs);
-	return (strs);
+	return (rm_quotes(strs), strs);
 }
 
 /*
