@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/18 17:23:56 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/21 13:59:24 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ static int	handle_quoted_expansion(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i++] == '\5' && str[i])
+		if (str[i] == '\5' && str[i])
 		{
+			i++;
 			while (str[i] && str[i] != '\5')
 			{
 				if (str[i] == '$')
@@ -126,9 +127,11 @@ char **expander(char **strs)
 	i = 0;
 	while ((i = find_string(strs)) != -1)
 	{
+		if (i != 0 && ft_strcmp(strs[i - 1], "<<") == 0)
+			break;
 		sendable = get_sendable(strs[i]);
 		add = ft_strdup(get_env_value(sendable));
-		if (add == NULL )
+		if (add == NULL)
 		{
 			if (search_special_expansions(strs[i]) == 1)
 				add = ft_strdup("minishell");
@@ -144,7 +147,6 @@ char **expander(char **strs)
 	rm_quotes(strs);
 	return (strs);
 }
-
 
 /*
 
