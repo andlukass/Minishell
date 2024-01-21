@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/16 12:49:36 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/21 16:17:59 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int argc, char *argv[], char *env[])
 	char	*input;
 	char	*prompt;
 
+	get_data()->pid = get_process();
 	(void)argv;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, signal_handler);
