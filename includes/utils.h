@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 16:59:14 by user              #+#    #+#             */
-/*   Updated: 2024/01/18 10:52:44 by user             ###   ########.fr       */
+/*   Updated: 2024/01/22 11:53:22 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int		ft_strcmp(const char *s1, const char *s2);
 int		ft_isalpha(int c);
 
 void	init_vars(int *a, int *b, int *c, int *d);
+
+int		get_process(void);
 
 /* --------------------------------------- */
 

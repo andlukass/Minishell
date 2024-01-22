@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/22 09:54:50 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/22 11:52:14 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,6 @@ static int	search_special_expansions(char *str)
 		i++;
 	}
 	return (0);
-}
-
-int	get_process(void)
-{
-	int	pid;
-
-	pid = fork();
-	if (pid == 0)
-		exit(0);
-	return (pid - 1);
 }
 
 void	expander_heredoc(char **str)
