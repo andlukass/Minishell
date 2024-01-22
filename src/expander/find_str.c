@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 15:46:01 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/21 20:11:17 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/22 14:53:15 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	there_is_expansion(char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i])
 	{
 		if (str[i] == '$' && str[i + 1] != '\0')
