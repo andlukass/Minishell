@@ -42,6 +42,7 @@ SRCS = src/main.c                        \
 		src/lexer/seek_errors.c          \
 		src/utils/ft_isalpha.c           \
 		src/utils/init_vars.c            \
+		src/utils/get_process.c          \
 		src/expander/expander.c          \
 		src/expander/rm_quotes.c         \
 		src/expander/find_str.c          \
@@ -67,6 +68,6 @@ fclean:	clean
 re:		fclean all
 
 v: $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --suppressions=readline.supp ./$(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes --suppressions=readline.supp ./$(NAME)
 
 .PHONY:	all clean fclean re
