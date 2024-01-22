@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:07:23 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/18 17:21:00 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:14:34 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ static void	edit_str(char **str)
 	{
 		if (temp[j] == '\4' || temp[j] == '\5')
 			j++;
-		if (temp[j] == '\6')
-			temp[j] = '$'; 
-		(*str)[i++] = temp[j++];
+		else if (temp[j] == '\6')
+			temp[j] = '$';
+		if (temp[j] != '\4' && temp[j] != '\5')
+			(*str)[i++] = temp[j];
+		j++;
 	}
 	(*str)[i] = '\0';
 	free(temp);
@@ -47,9 +49,3 @@ char	**rm_quotes(char **strs)
 	}
 	return (strs);
 }
-
-
-/*	
-	remove: \4, \5;
-	replace : \6 = $;
-*/
