@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.h                                         :+:      :+:    :+:   */
+/*   get_process.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/21 14:46:45 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/22 09:41:28 by isbraz-d         ###   ########.fr       */
+/*   Created: 2024/01/22 11:52:28 by isbraz-d          #+#    #+#             */
+/*   Updated: 2024/01/22 11:52:46 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPANDER_H
-# define EXPANDER_H
+#include "../../includes/minishell.h"
 
-# include "minishell.h"
+int	get_process(void)
+{
+	int	pid;
 
-char	**expander(char **strs);
-
-void	manipulate_str(char **new_str, char *add, int size);
-
-char	**rm_quotes(char **strs);
-
-char	*get_sendable(char *str);
-
-int		find_string(char **strs);
-
-int	there_is_expansion(char *str);
-
-void	expander_heredoc(char **str);
-
-#endif
+	pid = fork();
+	if (pid == 0)
+		exit(0);
+	return (pid - 1);
+}
