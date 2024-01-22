@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/21 23:22:22 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/22 09:54:50 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,30 @@ int	get_process(void)
 	return (pid - 1);
 }
 
-void	expander_heredoc(char **str, char *sendable)
+void	expander_heredoc(char **str)
 {
 	char	*add;
+	char	*sendable;
 
-	add = ft_strdup(get_env_value(sendable));
-	manipulate_str(str, add, ft_strlen(sendable));
-	free(add);
-	free(sendable);
+	while (there_is_expansion(*str))
+	{
+		sendable = get_sendable(*str);
+		add = ft_strdup(get_env_value(sendable));
+		if (add == NULL)
+		{
+			if (search_special_expansions(*str) == 1)
+				add = ft_strdup("minishell");
+			else if (search_special_expansions(*str) == 2)
+				add = ft_itoa(get_data()->exit_status / 256);
+			else if (search_special_expansions(*str) == 3)
+				add = ft_itoa(get_data()->pid);
+			else
+				add = ft_strdup("");
+		}
+		manipulate_str(str, add, ft_strlen(sendable));
+		free(add);
+		free(sendable);
+	}
 }
 
 char **expander(char **strs)
@@ -82,23 +98,5 @@ char **expander(char **strs)
 }
 
 /*
-
-STR[I] == \5
-	echo \5$PWD\5$home
-
-	$PWD
-	coisas que são aceitas na string com a expansão:
-	letrasantes$PWD
-	$PWD. (pode haver coisas dps do .)
-	$PWD, (pode haver coisas dps da ,)
-	$PWD- (pode haver coisas dps da -)
-	coisas não aceitas na expansão:
-	$PWD_
-	$PWDletrasdepois
-	
-	aspas :
-	echo "$PW"D ----> se o que estiver nas aspas nao estiver no env,
-	ignora e printa o que estiver dps caso contrario:
-	echo "$PWD"D
 	 
 */
