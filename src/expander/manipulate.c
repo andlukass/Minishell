@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 15:35:38 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/21 18:25:22 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/24 18:20:25 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	manipulate_str(char **new_str, char *add, int size)
 
 	init_vars(&i, &j, &k, NULL);
 	temp = ft_strdup(*new_str);
+	// malloc protection
 	free(*new_str);
 	*new_str = malloc(sizeof(char) * (ft_strlen(temp) + ft_strlen(add) + 1));
 	if (!*new_str)

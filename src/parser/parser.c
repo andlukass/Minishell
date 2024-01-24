@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:09:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/18 10:53:54 by user             ###   ########.fr       */
+/*   Updated: 2024/01/24 19:09:14 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static t_commands	*create_new_command(char *command)
 	if (!new)
 		return ((void *)0);
 	splitted = ft_split(command, '\2');
-	expander(splitted);
+	splitted = expander(splitted);
 	new->greater_than = get_last_redirection(command, '>');
 	new->less_than = get_last_redirection(command, '<');
 	new->gt_files = get_gt_files(splitted);

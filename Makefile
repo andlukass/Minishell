@@ -50,7 +50,7 @@ SRCS = src/main.c                        \
 		src/expander/manipulate.c        \
 		src/expander/manipulate_array.c  \
 
-CFLAGS = -lreadline -g -Wall -Wextra -Werror
+CFLAGS = -lreadline -g -Wall -Wextra -Werror #-fsanitize=address,undefined
 
 NAME = minishell
 
