@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/25 11:50:13 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:02:19 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	expander_heredoc(char **str)
 	char	*add;
 	char	*sendable;
 
+	if (!there_is_expansion(*str))
+		return ;
 	while (there_is_expansion(*str))
 	{
 		sendable = get_sendable(*str);
