@@ -6,11 +6,17 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/25 16:22:01 by user             ###   ########.fr       */
+/*   Updated: 2024/01/25 22:35:37 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	print_error(char *value, char *message)
+{
+	write(STDERR_FILENO, value, ft_strlen(value));
+	write(STDERR_FILENO, message, ft_strlen(message));
+}
 
 t_data	*get_data(void)
 {

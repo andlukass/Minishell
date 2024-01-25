@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/25 16:32:38 by user             ###   ########.fr       */
+/*   Updated: 2024/01/25 22:37:50 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,7 @@ void	signal_handler_main(int sig);
  * ending capture processes
  */
 void	signal_handler_heredoc(int sig);
+
+void	print_error(char *value, char *message);
 
 #endif
