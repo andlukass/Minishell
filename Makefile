@@ -31,6 +31,7 @@ SRCS = src/main.c                        \
 		src/executor/executor.c          \
 		src/executor/open_files.c        \
 		src/executor/close_fds.c         \
+		src/executor/exit_executor.c     \
 		src/executor/executor_router.c   \
 		src/parser/parser.c              \
 		src/parser/get_last_redirection.c        \
@@ -50,7 +51,7 @@ SRCS = src/main.c                        \
 		src/expander/manipulate.c        \
 		src/expander/manipulate_array.c  \
 
-CFLAGS = -lreadline -g -Wall -Wextra -Werror -fsanitize=address,undefined
+CFLAGS = -lreadline -g -Wall -Wextra -Werror # -fsanitize=address,undefined
 
 NAME = minishell
 

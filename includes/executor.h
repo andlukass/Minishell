@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:03:10 by user              #+#    #+#             */
-/*   Updated: 2023/12/30 22:26:28 by user             ###   ########.fr       */
+/*   Updated: 2024/01/25 15:53:16 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "minishell.h"
 
 typedef struct s_commands	t_commands;
+
+typedef struct s_exec	t_exec;
 
 /* ---------------EXECUTOR---------------- */
 
@@ -36,7 +38,7 @@ void	executor(t_commands **commands);
  * @return the fd of the last opened file. If command donst have 
  * redirects, return -1.
  */
-void	open_files(t_commands *current, int (*next_fd)[2]);
+void	open_files(t_commands *current, t_exec *exec);
 
 /**
  * @brief	Send the execution to the right executable / builtin.
@@ -49,6 +51,8 @@ void	executor_router(char **command);
  * @param fd fd[2] with two file descriptors.
  */
 void	close_fds(int *fd);
+
+void	exit_executor(t_exec *exec, int exit_status);
 /* --------------------------------------- */
 
 #endif

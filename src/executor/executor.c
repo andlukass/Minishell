@@ -3,19 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2024/01/16 16:09:23 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/25 15:43:40 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	do_multable_builtin(t_commands *current)
+static int	do_multable_builtin(t_commands *current, t_exec *exec)
 {
-	int	empty_fd[2];
-
 	if (!current->command)
 		return (0);
 	if (!current->next && \
@@ -24,7 +22,7 @@ static int	do_multable_builtin(t_commands *current)
 		!ft_strcmp(current->command[0], "unset") || \
 		!ft_strcmp(current->command[0], "cd")))
 	{
-		open_files(current, &empty_fd);
+		open_files(current, exec);
 		executor_router(current->command);
 		return (1);
 	}
@@ -32,78 +30,72 @@ static int	do_multable_builtin(t_commands *current)
 		return (0);
 }
 
-static void	child_routine(t_commands *cur, int *next_fd, int *fd, int **pids)
+static void	child_routine(t_commands *cur, t_exec *exec)
 {
-	if (next_fd[0] == -2)
-	{
-		close_fds(fd);
-		close_fds(next_fd);
-		free(*pids);
-		ft_exit(NULL, 1);
-	}
-	if (next_fd[1] != -1)
-		dup2(next_fd[1], STDOUT_FILENO);
-	if (fd[0] != -1)
-		dup2(fd[0], STDIN_FILENO);
-	if (next_fd[0] != -1 && cur->less_than)
-		dup2(next_fd[0], STDIN_FILENO);
-	close_fds(fd);
-	close_fds(next_fd);
-	free(*pids);
+	if (exec->files[0] == -2)
+		exit_executor(exec, 1);
+	if (exec->next_fd[1] != -1)
+		dup2(exec->next_fd[1], STDOUT_FILENO);
+	if (exec->fd[0] != -1)
+		dup2(exec->fd[0], STDIN_FILENO);
+	if (exec->files[0] != -1)
+		dup2(exec->files[0], STDIN_FILENO);
+	if (exec->files[1] != -1)
+		dup2(exec->files[1], STDOUT_FILENO);
+	exit_executor(exec, -1);
 	executor_router(cur->command);
 }
-/*
-IFS:
-	1º cancelar o proprio stdout ex: echo teste | cat ou echo teste > teste.txt
-	2º cancelar o proprio stdin | ex: echo teste | cat
-	3º cancelar o proprio stdin | ex: cat < teste.txt
-*/
 
-static void	do_commands(t_commands *current, int **pids, int (*fd)[2])
+static int	do_commands(t_commands *current, t_exec *exec)
 {
-	int	next_fd[2];
 	int	index;
 
 	index = 0;
 	while (current)
 	{
-		next_fd[0] = -1;
-		next_fd[1] = -1;
+		exec->next_fd[0] = -1;
+		exec->next_fd[1] = -1;
+		exec->files[0] = -1;
+		exec->files[1] = -1;
 		if (current->next)
-			if (pipe(next_fd) < 0)
-				exit(0);
-		open_files(current, &next_fd);
-		(*pids)[index] = fork();
-		if ((*pids)[index] < 0)
-			exit(0);
-		if ((*pids)[index++] == 0)
-			child_routine(current, next_fd, *fd, pids);
-		close_fds(*fd);
-		(*fd)[0] = next_fd[0];
-		(*fd)[1] = next_fd[1];
+			if (pipe(exec->next_fd) < 0)
+				exit_executor(exec, 1);
+		open_files(current, exec);
+		if (get_data()->quit)
+			return (exit_executor(exec, -1), 0);
+		exec->pids[index] = fork();
+		if (exec->pids[index] < 0)
+			exit_executor(exec, 1);
+		if (exec->pids[index++] == 0)
+			child_routine(current, exec);
+		close_fds(exec->fd);
+		close_fds(exec->files);
+		exec->fd[0] = exec->next_fd[0];
+		exec->fd[1] = exec->next_fd[1];
 		current = current->next;
 	}
-	close_fds(next_fd);
+	close_fds(exec->next_fd);
+	return (1);
 }
 
 void	executor(t_commands **commands)
 {
 	t_commands	*current;
-	int			fd[2];
+	t_exec		exec;
 	int			index;
-	int			*pids;
 	int			number_of_pids;
 
 	number_of_pids = get_data()->number_of_commands;
 	current = *commands;
-	if (do_multable_builtin(current))
+	if (do_multable_builtin(current, &exec))
 		return ;
-	pids = malloc(sizeof(int) * number_of_pids);
-	fd[0] = -1;
-	fd[1] = -1;
-	do_commands(current, &pids, &fd);
+	exec.pids = malloc(sizeof(int) * number_of_pids);
+	exec.fd[0] = -1;
+	exec.fd[1] = -1;
+	if (!do_commands(current, &exec))
+		return ;
 	index = 0;
 	while (index < number_of_pids)
-		waitpid(pids[index++], &get_data()->exit_status, 0);
-	free(pids);
+		waitpid(exec.pids[index++], &get_data()->exit_status, 0);
+	free(exec.pids);
 }
