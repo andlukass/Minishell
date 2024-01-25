@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 22:23:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/25 17:36:43 by user             ###   ########.fr       */
+/*   Updated: 2024/01/25 21:57:17 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*check_valid_command(char *command, t_exec *exec)
 		(command[1] == '/' || command[1] == '.')))
 	{
 		if (stat(command, &info) == 0)
-			valid_path = command;
+			valid_path = ft_strdup(command);
 	}
 	else
 		valid_path = search_on_env_path(command);
@@ -117,6 +117,7 @@ void	executor_router(char **command, t_exec *exec)
 	if (execve(valid_path, command, env))
 	{
 		perror(valid_path);
+		free(valid_path);
 		free_double_array(env);
 		ft_exit(NULL, 126);
 	}
