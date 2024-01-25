@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2024/01/25 17:26:54 by user             ###   ########.fr       */
+/*   Updated: 2024/01/25 22:39:17 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ int	do_less_than(t_commands *current, t_exec *exec)
 			red_fd = -2;
 	}
 	if (red_fd == -2)
-		printf("%s: no such file or directory\n", current->lt_files[index - 1]);
+		print_error(current->lt_files[index - 1], \
+			": No such file or directory\n");
 	if (!ft_strcmp(current->less_than, "<<") && red_fd != -2)
 		return (close_fd(red_fd), heredoc_fd);
 	return (close_fd(heredoc_fd), red_fd);

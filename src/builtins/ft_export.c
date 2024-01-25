@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:20:27 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/17 22:28:39 by user             ###   ########.fr       */
+/*   Updated: 2024/01/25 22:36:16 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void	export_add(char **command)
 		if (!is_valid_identifier(argument))
 		{
 			get_data()->exit_status = 256;
-			printf("'%s': dont have a valid identifier\n", argument);
+			print_error(argument, ": dont have a valid identifier\n");
 		}
 		else
 		{

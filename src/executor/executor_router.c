@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 22:23:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/25 21:57:17 by user             ###   ########.fr       */
+/*   Updated: 2024/01/25 22:36:12 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	*check_valid_command(char *command, t_exec *exec)
 		valid_path = search_on_env_path(command);
 	if (!valid_path)
 	{
-		printf("%s: not found :(\n", command);
+		print_error(command, ": not found :(\n");
 		exit_executor(exec, 127);
 	}
 	return (valid_path);
