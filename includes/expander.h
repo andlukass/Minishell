@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 14:46:45 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/24 15:21:04 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/25 11:27:34 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 char	**expander(char **strs);
 
-void	manipulate_str(char **new_str, char *add, int size);
+char	*manipulate_str(char **new_str, char *add, int size);
 
 char	**rm_quotes(char **strs);
 

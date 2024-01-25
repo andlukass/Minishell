@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 11:11:10 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/24 19:16:02 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/25 11:30:50 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,11 @@ static char	**ft_cp_double_str(char **strs)
 	{
 		cp[i] = strs[i];
 		strs[i] = NULL;
-		//malloc prtocetion e free
 		i++;
 	}
 	cp[i] = NULL; 
 	return (cp);
 }
-
-// void	print_array(char **array)
-// {
-// 	printf("[");
-// 	while (array && *array)
-// 	{
-// 		if (!*(array + 1))
-// 			printf("%s", *array++);
-// 		else
-// 			printf("%s, ", *array++);
-// 	}
-// 	printf("]\n");
-// }
 
 char	**manipulate_array(char **strs, int index)
 {
@@ -63,9 +49,7 @@ char	**manipulate_array(char **strs, int index)
 	int	j;
 	int	k;
 
-	i = 0;
-	k = 0;
-	j = 0;
+	init_vars(&i, &j, &k, NULL);
 	aux = ft_cp_double_str(strs);
 	add = ft_split(aux[index], 32);
 	free(strs);
@@ -74,22 +58,19 @@ char	**manipulate_array(char **strs, int index)
 		return (NULL);
 	while (i != index)
 	{
-		strs[k++] = aux[i];
-		aux[i] = NULL;
-		i++;
+		strs[k++] = aux[i++];
+		// aux[i++] = NULL;
 	}
 	while (add[j])
 	{
-		strs[k++] = add[j];
-		add[j] = NULL;
-		j++;
+		strs[k++] = add[j++];
+		// add[j++] = NULL;
 	}
 	i++;
 	while (aux[i])
 	{
-		strs[k++] = aux[i];
-		aux[i] = NULL;
-		i++;
+		strs[k++] = aux[i++];
+		// aux[i] = NULL;
 	}
 	strs[k] = NULL;
 	free(aux);
