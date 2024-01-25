@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 22:23:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/18 12:10:38 by user             ###   ########.fr       */
+/*   Updated: 2024/01/25 17:36:43 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,17 +81,29 @@ static int	do_bultins(char **commands)
 	return (is_builtin);
 }
 
-static char	*check_file(char *name)
+char	*check_valid_command(char *command, t_exec *exec)
 {
-	struct stat info;
+	char		*valid_path;
+	struct stat	info;
 
-	if (stat(name, &info) == 0)
-		return (name);
+	valid_path = NULL;
+	if (command[0] == '/' || (command[0] == '.' && \
+		(command[1] == '/' || command[1] == '.')))
+	{
+		if (stat(command, &info) == 0)
+			valid_path = command;
+	}
 	else
-		return (NULL);
+		valid_path = search_on_env_path(command);
+	if (!valid_path)
+	{
+		printf("%s: not found :(\n", command);
+		exit_executor(exec, 127);
+	}
+	return (valid_path);
 }
 
-void	executor_router(char **command)
+void	executor_router(char **command, t_exec *exec)
 {
 	char	*valid_path;
 	char	**env;
@@ -100,16 +112,7 @@ void	executor_router(char **command)
 		ft_exit(NULL, 0);
 	if (do_bultins(command))
 		return ;
-	if (command[0][0] == '/' || (command[0][0] == '.' && \
-		(command[0][1] == '/' || command[0][1] == '.')))
-		valid_path = check_file(command[0]);
-	else
-		valid_path = search_on_env_path(command[0]);
-	if (!valid_path)
-	{
-		printf("%s: not found :(\n", command[0]);
-		ft_exit(NULL, 127);
-	}
+	valid_path = check_valid_command(command[0], exec);
 	env = env_to_array();
 	if (execve(valid_path, command, env))
 	{

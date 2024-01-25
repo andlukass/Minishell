@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2024/01/25 16:33:14 by user             ###   ########.fr       */
+/*   Updated: 2024/01/25 17:38:44 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,26 @@ static int	do_multable_builtin(t_commands *current, t_exec *exec)
 	{
 		exec->files[0] = do_less_than(current, exec);
 		exec->files[1] = do_greater_than(current);
-		executor_router(current->command);
+		executor_router(current->command, exec);
 		return (1);
 	}
 	else
 		return (0);
 }
 
-static void	child_routine(t_commands *cur, t_exec *exec)
+static void	child_routine(t_commands *current, t_exec *exec)
 {
+	char	*valid_path;
+
 	if (exec->files[0] == -2)
 		exit_executor(exec, 1);
+	if (current->command)
+	{
+		valid_path = check_valid_command(current->command[0], exec);
+		if (!valid_path)
+			exit_executor(exec, 127);
+		free(valid_path);
+	}
 	if (exec->next_fd[1] != -1)
 		dup2(exec->next_fd[1], STDOUT_FILENO);
 	if (exec->fd[0] != -1)
@@ -44,7 +53,7 @@ static void	child_routine(t_commands *cur, t_exec *exec)
 	if (exec->files[1] != -1)
 		dup2(exec->files[1], STDOUT_FILENO);
 	exit_executor(exec, -1);
-	executor_router(cur->command);
+	executor_router(current->command, exec);
 }
 
 static int	do_commands(t_commands *current, t_exec *exec)
@@ -54,10 +63,7 @@ static int	do_commands(t_commands *current, t_exec *exec)
 	index = 0;
 	while (current)
 	{
-		exec->next_fd[0] = -1;
-		exec->next_fd[1] = -1;
-		exec->files[0] = -1;
-		exec->files[1] = -1;
+		init_fds(&exec->next_fd, &exec->files);
 		if (current->next)
 			if (pipe(exec->next_fd) < 0)
 				exit_executor(exec, 1);
@@ -76,8 +82,7 @@ static int	do_commands(t_commands *current, t_exec *exec)
 		exec->fd[1] = exec->next_fd[1];
 		current = current->next;
 	}
-	close_fds(exec->next_fd);
-	return (1);
+	return (close_fds(exec->next_fd), 1);
 }
 
 void	executor(t_commands **commands)
@@ -92,8 +97,7 @@ void	executor(t_commands **commands)
 	if (do_multable_builtin(current, &exec))
 		return ;
 	exec.pids = malloc(sizeof(int) * number_of_pids);
-	exec.fd[0] = -1;
-	exec.fd[1] = -1;
+	init_fds(&exec.fd, NULL);
 	if (!do_commands(current, &exec))
 		return ;
 	index = 0;

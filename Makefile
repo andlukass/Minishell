@@ -31,7 +31,7 @@ SRCS = src/main.c                        \
 		src/env/env_to_array.c           \
 		src/executor/executor.c          \
 		src/executor/open_files.c        \
-		src/executor/close_fds.c         \
+		src/executor/exec_fds.c          \
 		src/executor/exit_executor.c     \
 		src/executor/executor_router.c   \
 		src/parser/parser.c              \
