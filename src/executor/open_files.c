@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2024/01/25 16:04:05 by user             ###   ########.fr       */
+/*   Updated: 2024/01/25 17:01:17 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,22 @@ static char	*get_heredoc_input(t_commands *current, int index)
 	return (text);
 }
 
-void	teste(int sig)
+static void	create_temp_file(t_commands *current, t_exec *exec, int index)
 {
-	if (sig == SIGINT)
-	{
-		close(0);
-		printf("\n");
-		get_data()->quit = 1;
-	}
+	char	*text;
+	int		fd;
+
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, signal_handler_heredoc);
+	fd = open(".temp.txt", O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	text = get_heredoc_input(current, index);
+	expander_heredoc(&text);
+	write(fd, text, ft_strlen(text));
+	close(fd);
+	free(text);
+	if (get_data()->quit)
+		exit_executor(exec, 1);
+	exit_executor(exec, 0);
 }
 
 static int	do_heredocs(t_commands *current, t_exec *exec)
@@ -55,32 +63,15 @@ static int	do_heredocs(t_commands *current, t_exec *exec)
 	int		temp_file;
 	int		pid;
 	int		index;
-	char	*text;
 
 	index = 0;
 	temp_file = -1;
-	while (current->heredocs && current->heredocs[index])
+	while (current->heredocs && current->heredocs[index] && !get_data()->quit)
 	{
 		pid = fork();
 		if (pid == 0)
-		{
-			signal(SIGQUIT, SIG_IGN);
-			signal(SIGINT, teste);
-			if (temp_file != -1)
-				close(temp_file);
-			temp_file = open(".temp.txt", O_WRONLY | O_CREAT | O_TRUNC, 0777);
-			text = get_heredoc_input(current, index);
-			expander_heredoc(&text);
-			write(temp_file, text, ft_strlen(text));
-			close(temp_file);
-			free(text);
-			if (get_data()->quit)
-				exit_executor(exec, 1);
-			exit_executor(exec, 0);
-		}
+			create_temp_file(current, exec, index);
 		waitpid(pid, &get_data()->quit, 0);
-		if (get_data()->quit)
-			break ;
 		index++;
 	}
 	if (!get_data()->quit)
@@ -88,7 +79,34 @@ static int	do_heredocs(t_commands *current, t_exec *exec)
 	return (temp_file);
 }
 
-static int	do_greater_than(t_commands *current)
+int	do_less_than(t_commands *current, t_exec *exec)
+{
+	int	index;
+	int	red_fd;
+	int	heredoc_fd;
+
+	index = -1;
+	red_fd = -1;
+	if (!current->less_than)
+		return (-1);
+	heredoc_fd = do_heredocs(current, exec);
+	if (get_data()->quit)
+		return (-1);
+	while (current->lt_files && current->lt_files[++index] && red_fd != -2)
+	{
+		close_fd(red_fd);
+		red_fd = open(current->lt_files[index], O_RDONLY, 0777);
+		if (red_fd == -1)
+			red_fd = -2;
+	}
+	if (red_fd == -2)
+		printf("%s: no such file or directory\n", current->lt_files[index - 1]);
+	if (!ft_strcmp(current->less_than, "<<") && red_fd != -2)
+		return (close_fd(red_fd), heredoc_fd);
+	return (close_fd(heredoc_fd), red_fd);
+}
+
+int	do_greater_than(t_commands *current)
 {
 	int		index;
 	int		fd;
@@ -109,51 +127,4 @@ static int	do_greater_than(t_commands *current)
 			close(fd);
 	}
 	return (fd);
-}
-
-static int	do_less_than(t_commands *current, t_exec *exec)
-{
-	int	index;
-	int	red_fd;
-	int heredoc_fd;
-
-	index = -1;
-	red_fd = -1;
-	if (!current->less_than)
-		return (-1);
-	heredoc_fd = do_heredocs(current, exec);
-	if (get_data()->quit)
-		return (-1);
-	while (current->lt_files && current->lt_files[++index] && red_fd != -2)
-	{
-		if (red_fd != -1)
-			close(red_fd);
-		red_fd = open(current->lt_files[index], O_RDONLY, 0777);
-		if (red_fd == -1)
-			red_fd = -2;
-	}
-	if (red_fd != -2 && (!current->command || is_builtin(current->command)))
-	{
-		close(red_fd);
-		red_fd = -1;
-	}
-	if (red_fd == -2)
-		printf("%s: no such file or directory\n", current->lt_files[index - 1]);
-	if (!ft_strcmp(current->less_than, "<<") && red_fd != -2)
-	{
-		if (red_fd != -1)
-			close(red_fd);
-		return (heredoc_fd);
-	}
-	if (heredoc_fd != -1)
-		close(heredoc_fd);
-	return (red_fd);
-}
-
-void	open_files(t_commands *current, t_exec *exec)
-{
-	if (current->less_than)
-		exec->files[0] = do_less_than(current, exec);
-	if (current->greater_than)
-		exec->files[1] = do_greater_than(current);
 }

@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2024/01/25 15:43:40 by user             ###   ########.fr       */
+/*   Updated: 2024/01/25 16:33:14 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static int	do_multable_builtin(t_commands *current, t_exec *exec)
 		!ft_strcmp(current->command[0], "unset") || \
 		!ft_strcmp(current->command[0], "cd")))
 	{
-		open_files(current, exec);
+		exec->files[0] = do_less_than(current, exec);
+		exec->files[1] = do_greater_than(current);
 		executor_router(current->command);
 		return (1);
 	}
@@ -60,7 +61,8 @@ static int	do_commands(t_commands *current, t_exec *exec)
 		if (current->next)
 			if (pipe(exec->next_fd) < 0)
 				exit_executor(exec, 1);
-		open_files(current, exec);
+		exec->files[0] = do_less_than(current, exec);
+		exec->files[1] = do_greater_than(current);
 		if (get_data()->quit)
 			return (exit_executor(exec, -1), 0);
 		exec->pids[index] = fork();

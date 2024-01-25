@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/25 13:25:40 by user             ###   ########.fr       */
+/*   Updated: 2024/01/25 16:32:38 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,16 @@ typedef struct s_data{
  * @return	the adress of the static struct.
  */
 t_data	*get_data(void);
+
+/**
+ * @brief	Capture CTRL C command and give the prompt back
+ */
+void	signal_handler_main(int sig);
+
+/**
+ * @brief	Capture CTRL C command and close standard input
+ * ending capture processes
+ */
+void	signal_handler_heredoc(int sig);
 
 #endif

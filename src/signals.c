@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_fds.c                                        :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/30 18:01:21 by user              #+#    #+#             */
-/*   Updated: 2024/01/25 17:00:53 by user             ###   ########.fr       */
+/*   Created: 2024/01/25 16:17:48 by user              #+#    #+#             */
+/*   Updated: 2024/01/25 16:30:08 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
-void	close_fds(int *fd)
+void	signal_handler_main(int sig)
 {
-	if (fd)
+	if (sig == SIGINT && get_data()->interactive)
 	{
-		if (fd && fd[0] != -1 && fd[0] != -2)
-			close(fd[0]);
-		if (fd && fd[1] != -1 && fd[1] != -2)
-			close(fd[1]);
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
 }
 
-void	close_fd(int fd)
+void	signal_handler_heredoc(int sig)
 {
-	if (fd != -1)
-		close(fd);
+	if (sig == SIGINT)
+	{
+		close(0);
+		printf("\n");
+		get_data()->quit = 1;
+	}
 }
