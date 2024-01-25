@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/21 16:17:59 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:22:01 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,6 @@ t_data	*get_data(void)
 	return (&data);
 }
 
-/**
- * @brief	Capture CTRL C command and give the prompt back
- */
-void	signal_handler(int sig)
-{
-	if (sig == SIGINT && get_data()->interactive)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
-
 int	main(int argc, char *argv[], char *env[])
 {
 	char	*input;
@@ -41,7 +27,7 @@ int	main(int argc, char *argv[], char *env[])
 	get_data()->pid = get_process();
 	(void)argv;
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, signal_handler);
+	signal(SIGINT, signal_handler_main);
 	if (argc != 1)
 		return (write(1, "too many arguments\n", 19));
 	get_env(env);

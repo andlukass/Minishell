@@ -3,6 +3,7 @@ RED := \033[31m
 END := \033[0m
 
 SRCS = src/main.c                        \
+		src/signals.c                    \
 		src/utils/ft_strjoin.c           \
 		src/utils/ft_strlen.c            \
 		src/utils/ft_itoa.c              \
