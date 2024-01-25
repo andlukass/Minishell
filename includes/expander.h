@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 14:46:45 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/22 09:41:28 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/25 11:27:34 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 char	**expander(char **strs);
 
-void	manipulate_str(char **new_str, char *add, int size);
+char	*manipulate_str(char **new_str, char *add, int size);
 
 char	**rm_quotes(char **strs);
 
@@ -28,5 +28,11 @@ int		find_string(char **strs);
 int	there_is_expansion(char *str);
 
 void	expander_heredoc(char **str);
+
+char	**manipulate_array(char **strs, int index);
+
+int	count_strs(char **strs);
+
+int	check_str(char *str);
 
 #endif

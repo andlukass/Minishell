@@ -48,8 +48,9 @@ SRCS = src/main.c                        \
 		src/expander/find_str.c          \
 		src/expander/get_sendable.c      \
 		src/expander/manipulate.c        \
+		src/expander/manipulate_array.c  \
 
-CFLAGS = -lreadline -g -Wall -Wextra -Werror
+CFLAGS = -lreadline -g -Wall -Wextra -Werror -fsanitize=address,undefined
 
 NAME = minishell
 
@@ -68,6 +69,6 @@ fclean:	clean
 re:		fclean all
 
 v: $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes --suppressions=readline.supp ./$(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --suppressions=readline.supp ./$(NAME)
 
 .PHONY:	all clean fclean re

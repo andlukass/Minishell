@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/23 13:27:52 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/25 11:50:13 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void	expander_heredoc(char **str)
 
 char **expander(char **strs)
 {
-    int i;
-    char *add;
     char *sendable;
+    char *add;
+    int i;
 
 	i = 0;
 	while ((i = find_string(strs)) != -1)
@@ -74,7 +74,9 @@ char **expander(char **strs)
 		add = ft_strdup(get_env_value(sendable));
 		if (add == NULL)
 			handle_add_null(&add, strs[i]);
-		manipulate_str(&strs[i], add, ft_strlen(sendable));
+		strs[i] = manipulate_str(&strs[i], add, ft_strlen(sendable));
+		if (check_str(strs[i]))
+			strs = manipulate_array(strs, i);
 		free(sendable);
 		free(add);
 	}
