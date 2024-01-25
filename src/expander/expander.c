@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/24 19:15:19 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/25 11:50:13 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char **expander(char **strs)
 		add = ft_strdup(get_env_value(sendable));
 		if (add == NULL)
 			handle_add_null(&add, strs[i]);
-		manipulate_str(&strs[i], add, ft_strlen(sendable));
+		strs[i] = manipulate_str(&strs[i], add, ft_strlen(sendable));
 		if (check_str(strs[i]))
 			strs = manipulate_array(strs, i);
 		free(sendable);
