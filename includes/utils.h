@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 16:59:14 by user              #+#    #+#             */
-/*   Updated: 2024/01/22 11:53:22 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/26 12:37:12 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,16 @@ void	free_double_array(char **array);
  * freed afer use.
  */
 char	*ft_strdup(char const *s1);
+
+/**
+ * @brief	Copy a string to a new dinamic allocated string
+ * until the size 'n'.
+ * @param	s1 the string to be copied.
+ * @param	n size of the new string.
+ * @return	the new dinamic allocated string, which should be
+ * freed afer use.
+ */
+char	*ft_strndup(char const *s1, unsigned int n);
 
 /**
  * @brief	Compare 2 strings until the limit 'n'.
