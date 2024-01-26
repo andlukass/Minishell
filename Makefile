@@ -71,7 +71,10 @@ fclean:	clean
 
 re:		fclean all
 
-v: $(NAME)
+readline.supp:
+		@curl -O https://lucasandrade.dev/readline.supp
+
+v: $(NAME) readline.supp
 	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --suppressions=readline.supp ./$(NAME)
 
 .PHONY:	all clean fclean re
