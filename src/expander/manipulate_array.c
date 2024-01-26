@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 11:11:10 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/25 11:30:50 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/25 14:39:42 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char	**manipulate_array(char **strs, int index)
 		strs[k++] = aux[i++];
 		// aux[i++] = NULL;
 	}
+	free(aux[i]);
 	while (add[j])
 	{
 		strs[k++] = add[j++];
