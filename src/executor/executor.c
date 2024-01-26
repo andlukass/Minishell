@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2024/01/26 11:38:31 by user             ###   ########.fr       */
+/*   Updated: 2024/01/26 12:09:13 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	child_routine(t_commands *current, t_exec *exec)
 
 	if (exec->files[0] == -2 || exec->files[1] == -2)
 		exit_executor(exec, 1);
-	if (current->command)
+	if (current->command && !is_builtin(current->command))
 	{
 		valid_path = check_valid_command(current->command[0], exec);
 		if (!valid_path)

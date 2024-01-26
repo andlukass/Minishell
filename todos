@@ -2,5 +2,3 @@
 CLEANLY EXIT ON EXECUTOR (PIPE & FORK ERRORS)
 strndup - getenvkey
 strndup/atoi - getenv
-
-multables com pipe estao com erro
