@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 22:23:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/25 22:36:12 by user             ###   ########.fr       */
+/*   Updated: 2024/01/26 12:06:19 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ static char	*search_on_env_path(char *command)
 	char			**directories;
 	int				index;
 
+	valid_path = NULL;
+	if (!get_env_value("PATH"))
+		return (valid_path);
 	directories = ft_split(get_env_value("PATH"), ':');
 	index = 0;
-	valid_path = NULL;
 	while (directories[index])
 	{
 		valid_path = check_directory(directories[index], command);
