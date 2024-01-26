@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 14:46:45 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/25 11:27:34 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/26 12:43:35 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ char	*get_sendable(char *str);
 
 int		find_string(char **strs);
 
-int	there_is_expansion(char *str);
+int		there_is_expansion(char *str);
 
 void	expander_heredoc(char **str);
 
 char	**manipulate_array(char **strs, int index);
 
-int	count_strs(char **strs);
+int		count_strs(char **strs);
 
-int	check_str(char *str);
+int		check_str(char *str);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_files.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 15:04:26 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/07 16:24:32 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/26 12:43:08 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 char	**get_lt_hd_files(char **str, char *s)
 {
 	char	**file;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -44,8 +44,8 @@ char	**get_lt_hd_files(char **str, char *s)
 char	**get_gt_files(char **str)
 {
 	char	**file;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
