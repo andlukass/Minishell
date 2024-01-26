@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2024/01/25 22:39:17 by user             ###   ########.fr       */
+/*   Updated: 2024/01/26 11:37:25 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,25 +107,31 @@ int	do_less_than(t_commands *current, t_exec *exec)
 	return (close_fd(heredoc_fd), red_fd);
 }
 
-int	do_greater_than(t_commands *current)
+int	do_greater_than(t_commands *current, t_exec *exec)
 {
 	int		index;
 	int		fd;
 	int		flag;
 
-	if (!current->greater_than)
+	if (!current->greater_than || exec->files[0] == -2)
 		return (-1);
+	flag = O_APPEND;
+	index = 0;
+	fd = -1;
 	if (!ft_strcmp(current->greater_than, ">"))
 		flag = O_TRUNC;
-	else
-		flag = O_APPEND;
-	index = 0;
 	while (current->gt_files[index])
 	{
+		close_fd(fd);
 		fd = open(current->gt_files[index], O_WRONLY | O_CREAT | flag, 0777);
+		if (fd == -1)
+		{
+			fd = -2;
+			break ;
+		}
 		index++;
-		if (current->gt_files[index])
-			close(fd);
 	}
+	if (fd == -2)
+		print_error(current->gt_files[index], ": No such file or directory\n");
 	return (fd);
 }
