@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:03:10 by user              #+#    #+#             */
-/*   Updated: 2024/01/25 17:37:23 by user             ###   ########.fr       */
+/*   Updated: 2024/01/26 11:38:06 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*check_valid_command(char *command, t_exec *exec);
 
 int		do_less_than(t_commands *current, t_exec *exec);
 
-int		do_greater_than(t_commands *current);
+int		do_greater_than(t_commands *current, t_exec *exec);
 
 /**
  * @brief	Close a fd[2] checking if each value is different from '-1'.

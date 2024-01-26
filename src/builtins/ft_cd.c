@@ -6,19 +6,19 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:14:55 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/17 22:37:51 by user             ###   ########.fr       */
+/*   Updated: 2024/01/26 11:34:12 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	exit_cd(void)
+static int	exit_cd(int exit_status)
 {
 	if (get_data()->number_of_commands > 1)
 		ft_exit(NULL, 0);
 	else
 	{
-		get_data()->exit_status = 256;
+		get_data()->exit_status = exit_status * 256;
 		return (1);
 	}
 	return (0);
@@ -39,7 +39,7 @@ static int	have_env(char **old_pwd)
 {
 	if (!get_env_value("HOME"))
 	{
-		printf("HOME is not set!\n");
+		print_error("", "HOME is not set!\n");
 		free(*old_pwd);
 		return (0);
 	}
@@ -63,23 +63,23 @@ void	ft_cd(char **command)
 
 	if (command[1] && command[2])
 	{
-		printf("cd only takes one argument!\n");
+		print_error("", "cd only takes one argument!\n");
 		ft_exit(NULL, 1);
 	}
 	getcwd(directory, sizeof(directory));
 	old_pwd = ft_strjoin("OLDPWD=", directory, NO_FREE);
 	if (!command[1] || !ft_strcmp(command[1], "~"))
 		if (!go_home(&old_pwd))
-			if (exit_cd())
+			if (exit_cd(1))
 				return ;
 	if (command[1] && ft_strcmp(command[1], "~"))
 		if (!is_path_valid(&old_pwd, command[1]))
-			if (exit_cd())
+			if (exit_cd(1))
 				return ;
 	getcwd(directory, sizeof(directory));
 	pwd = ft_strjoin("PWD=", directory, NO_FREE);
 	add_next_node(&get_data()->env, pwd);
 	add_next_node(&get_data()->env, old_pwd);
-	if (exit_cd())
+	if (exit_cd(0))
 		return ;
 }

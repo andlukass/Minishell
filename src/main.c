@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/25 22:35:37 by user             ###   ########.fr       */
+/*   Updated: 2024/01/26 11:30:59 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,5 @@ int	main(int argc, char *argv[], char *env[])
 		if (*input)
 			handle_input(input);
 	}
-	return (0);
+	exit(0);
 }

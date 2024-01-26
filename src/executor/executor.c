@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2024/01/25 17:38:44 by user             ###   ########.fr       */
+/*   Updated: 2024/01/26 11:38:31 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	do_multable_builtin(t_commands *current, t_exec *exec)
 		!ft_strcmp(current->command[0], "cd")))
 	{
 		exec->files[0] = do_less_than(current, exec);
-		exec->files[1] = do_greater_than(current);
+		exec->files[1] = do_greater_than(current, exec);
 		executor_router(current->command, exec);
 		return (1);
 	}
@@ -35,7 +35,7 @@ static void	child_routine(t_commands *current, t_exec *exec)
 {
 	char	*valid_path;
 
-	if (exec->files[0] == -2)
+	if (exec->files[0] == -2 || exec->files[1] == -2)
 		exit_executor(exec, 1);
 	if (current->command)
 	{
@@ -68,7 +68,7 @@ static int	do_commands(t_commands *current, t_exec *exec)
 			if (pipe(exec->next_fd) < 0)
 				exit_executor(exec, 1);
 		exec->files[0] = do_less_than(current, exec);
-		exec->files[1] = do_greater_than(current);
+		exec->files[1] = do_greater_than(current, exec);
 		if (get_data()->quit)
 			return (exit_executor(exec, -1), 0);
 		exec->pids[index] = fork();
