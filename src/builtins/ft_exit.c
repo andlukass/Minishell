@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:24:50 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/17 22:40:28 by user             ###   ########.fr       */
+/*   Updated: 2024/01/26 10:45:11 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ static int	check_arguments(char **command, long *status)
 	if (ft_strlen(command[1]) > 19 || !is_str_numeric(command[1]))
 	{
 		get_data()->exit_status = 512;
-		printf("exit: numeric argument required\n");
+		print_error("exit",": numeric argument required\n");
 		return (0);
 	}
 	else if (command[1] && command[2])
 	{
 		get_data()->exit_status = 256;
-		printf("exit: too many arguments\n");
+		print_error("exit",": too many argument\n");
 		return (0);
 	}
 	else
