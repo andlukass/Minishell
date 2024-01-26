@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_env.c                                          :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/28 20:21:22 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/26 12:35:52 by user             ###   ########.fr       */
+/*   Created: 2024/01/26 12:33:16 by user              #+#    #+#             */
+/*   Updated: 2024/01/26 12:39:00 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	get_env(char *env[])
+char	*ft_strndup(char const *s1, unsigned int n)
 {
-	int		index;
-	char	*variable;
-	char	*level;
+	char			*duplicate;
+	unsigned int	index;
 
 	index = 0;
-	while (env[index])
+	if (!s1 || n == 0)
+		return (NULL);
+	duplicate = malloc(sizeof(char) * (n + 1));
+	if (duplicate == NULL)
+		return (NULL);
+	while (s1[index] && index < n)
 	{
-		if (!ft_strncmp(env[index], "SHLVL", 5))
-		{
-			level = ft_itoa(atoi(&env[index][6]) + 1);
-			variable = ft_strjoin("SHLVL=", level, NO_FREE);
-			free(level);
-		}
-		else
-			variable = ft_strndup(env[index], ft_strlen(env[index]));
-		add_next_node(&get_data()->env, variable);
+		duplicate[index] = s1[index];
 		index++;
 	}
+	duplicate[index] = '\0';
+	return (duplicate);
 }
