@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/25 16:02:19 by user             ###   ########.fr       */
+/*   Updated: 2024/01/28 16:15:08 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,10 @@ char **expander(char **strs)
     char *sendable;
     char *add;
     int i;
+	int	f;
 
 	i = 0;
+	f = 0;
 	while ((i = find_string(strs)) != -1)
 	{
 		if (i != 0 && ft_strcmp(strs[i - 1], "<<") == 0)
@@ -81,10 +83,9 @@ char **expander(char **strs)
 			strs = manipulate_array(strs, i);
 		free(sendable);
 		free(add);
+		f++;
 	}
+	if (f > 0)
+		strs = edit_array(strs);
 	return (rm_quotes(strs), strs);
 }
-
-/*
-	 
-*/
