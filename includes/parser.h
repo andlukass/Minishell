@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:02:26 by user              #+#    #+#             */
-/*   Updated: 2024/01/21 15:34:18 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/28 18:31:06 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ char	*get_prompt(void);
 void	handle_input(char *input);
 
 char	*lexer(char *input);
-int		seek_errors(char *new_input, int open_quotes);
+int		seek_errors(char *new_input);
 char	**get_command(char **command);
 
 void	parser(char *input);
 
 void	free_commands(t_commands *stack);
 
-char	*get_last_redirection(char *command, char c);
+char	*get_last_redirection(char **command, char c);
 
 char	**get_gt_files(char **str);
 

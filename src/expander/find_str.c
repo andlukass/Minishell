@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_str.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 15:46:01 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/27 19:30:59 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/28 19:34:44 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	handle_quoted_expansion(char *str)
 			while (str[i] && str[i] != '\5')
 			{
 				if (str[i] == '$')
-					str[i] = '\6';
+					str[i] = '\1';
 				i++;
 			}
 		}

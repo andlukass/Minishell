@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   seek_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 12:34:52 by user              #+#    #+#             */
-/*   Updated: 2024/01/18 10:31:36 by user             ###   ########.fr       */
+/*   Updated: 2024/01/28 19:44:33 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static int	is_redirection(char *str)
 {
-	if (!ft_strcmp(str, ">") || \
-		!ft_strcmp(str, ">>") || \
-		!ft_strcmp(str, "<") || \
-		!ft_strcmp(str, "<<"))
+	if (!ft_strcmp(str, "\6") || \
+		!ft_strcmp(str, "\6\6") || \
+		!ft_strcmp(str, "\7") || \
+		!ft_strcmp(str, "\7\7"))
 		return (1);
 	return (0);
 }
@@ -41,7 +41,7 @@ static int	verify_redirections(char *new_input)
 	return (free_double_array(splitted), 1);
 }
 
-static int	verify_pipes(char *input)
+static int	verify_pipes(char *new_input)
 {
 	char	**splitted;
 	int		index;
@@ -50,7 +50,7 @@ static int	verify_pipes(char *input)
 
 	index = -1;
 	result = 1;
-	splitted = ft_split(input, '\2');
+	splitted = ft_split(new_input, '\2');
 	while (splitted[++index])
 	{
 		i = -1;
@@ -70,9 +70,37 @@ static int	verify_pipes(char *input)
 	return (free_double_array(splitted), result);
 }
 
-int	seek_errors(char *new_input, int open_quotes)
+static int	open_quotes(char *new_input)
 {
-	if (open_quotes)
+	int	index;
+	int	counter;
+
+	index = 0;
+	counter = 0;
+	while (new_input[index])
+	{
+		if (new_input[index] == '\4')
+			counter++;
+		index++;
+	}
+	if (counter % 2 != 0)
+		return (1);
+	counter = 0;
+	index = 0;
+	while (new_input[index])
+	{
+		if (new_input[index] == '\5')
+			counter++;
+		index++;
+	}
+	if (counter % 2 != 0)
+		return (1);
+	return (0);
+}
+
+int	seek_errors(char *new_input)
+{
+	if (open_quotes(new_input))
 		return (printf("there are unclosed quotes.\n"));
 	if (!verify_pipes(new_input))
 		return (printf("pipe syntax error.\n"));
