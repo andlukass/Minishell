@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 15:46:01 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/24 15:20:50 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/27 19:30:59 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int	find_string(char **strs)
 		j = 0;
 		while (strs[i][j])
 		{
+			if (strs[i][j] == '$' && strs[i][j + 1] == '\4')
+				j++;
 			if (strs[i][j] == '$' && strs[i][j + 1] != '\0')
 				handle_quoted_expansion(strs[i]);
 			if (strs[i][j] == '$' && strs[i][j + 1] != '\0')
