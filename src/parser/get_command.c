@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:09:43 by user              #+#    #+#             */
-/*   Updated: 2024/01/07 19:45:25 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/28 18:12:35 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static int	is_redirection(char *str)
 {
-	if (!ft_strcmp(str, ">") || \
-		!ft_strcmp(str, ">>") || \
-		!ft_strcmp(str, "<") || \
-		!ft_strcmp(str, "<<"))
+	if (!ft_strcmp(str, "\6") || \
+		!ft_strcmp(str, "\6\6") || \
+		!ft_strcmp(str, "\7") || \
+		!ft_strcmp(str, "\7\7"))
 		return (1);
 	return (0);
 }

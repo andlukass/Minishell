@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2024/01/26 11:37:25 by user             ###   ########.fr       */
+/*   Updated: 2024/01/28 18:14:12 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	do_less_than(t_commands *current, t_exec *exec)
 	if (red_fd == -2)
 		print_error(current->lt_files[index - 1], \
 			": No such file or directory\n");
-	if (!ft_strcmp(current->less_than, "<<") && red_fd != -2)
+	if (!ft_strcmp(current->less_than, "\7\7") && red_fd != -2)
 		return (close_fd(red_fd), heredoc_fd);
 	return (close_fd(heredoc_fd), red_fd);
 }
@@ -118,7 +118,7 @@ int	do_greater_than(t_commands *current, t_exec *exec)
 	flag = O_APPEND;
 	index = 0;
 	fd = -1;
-	if (!ft_strcmp(current->greater_than, ">"))
+	if (!ft_strcmp(current->greater_than, "\6"))
 		flag = O_TRUNC;
 	while (current->gt_files[index])
 	{

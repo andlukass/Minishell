@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:09:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/24 19:09:14 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/28 19:29:31 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ static t_commands	*create_new_command(char *command)
 		return ((void *)0);
 	splitted = ft_split(command, '\2');
 	splitted = expander(splitted);
-	new->greater_than = get_last_redirection(command, '>');
-	new->less_than = get_last_redirection(command, '<');
+	new->greater_than = get_last_redirection(splitted, '\6');
+	new->less_than = get_last_redirection(splitted, '\7');
 	new->gt_files = get_gt_files(splitted);
-	new->lt_files = get_lt_hd_files(splitted, "<");
-	new->heredocs = get_lt_hd_files(splitted, "<<");
+	new->lt_files = get_lt_hd_files(splitted, "\7");
+	new->heredocs = get_lt_hd_files(splitted, "\7\7");
 	new->command = get_command(splitted);
 	new->next = (void *)0;
 	free_double_array(splitted);

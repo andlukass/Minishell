@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rm_quotes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:07:23 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/24 16:49:02 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/28 19:34:00 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	edit_str(char **str)
 			j++;
 			continue;
 		}
-		else if (temp[j] == '\6')
+		else if (temp[j] == '\1')
 			temp[j] = '$';
 		if (temp[j] != '\4' && temp[j] != '\5')
 			(*str)[i++] = temp[j];

@@ -3,108 +3,108 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 15:39:20 by user              #+#    #+#             */
-/*   Updated: 2024/01/18 10:54:20 by user             ###   ########.fr       */
+/*   Updated: 2024/01/28 19:41:48 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-#define RED "<>"
 
-static void	check_quotes(char c, int *double_q, int *single_q)
-{
-	if (c == '\"' && *double_q == 0 && *single_q == 0)
-		*double_q = 1;
-	else if (c == '\"' && *double_q == 1 && *single_q == 0)
-		*double_q = 0;
-	if (c == '\'' && *single_q == 0 && *double_q == 0)
-		*single_q = 1;
-	else if (c == '\'' && *single_q == 1 && *double_q == 0)
-		*single_q = 0;
-}
-
-static int	check_redirections(char *input, char *new_input, int open_quotes)
-{
-	int	i;
-
-	i = -1;
-	if (open_quotes)
-		return (0);
-	while (RED[++i])
-	{
-		if (input[0] != RED[i] && input[1] == RED[i] && input[0] != ' ')
-		{
-			new_input[0] = input[0];
-			new_input[1] = '\2';
-			return (1);
-		}
-		if (input[0] == RED[i] && input[1] != RED[i] && input[1] != ' ')
-		{
-			new_input[0] = input[0];
-			new_input[1] = '\2';
-			return (1);
-		}
-	}
-	return (0);
-}
-
-static void	change_quotes(char *new_input)
+static void	change_quotes(char *input)
 {
 	int		index;
 	char	flag;
 
 	index = 0;
 	flag = 0;
-	while (new_input[index])
+	while (input[index])
 	{
-		if ((new_input[index] == '"' || new_input[index] == '\'') && !flag)
+		if ((input[index] == '"' || input[index] == '\'') && !flag)
 		{
-			flag = new_input[index];
-			if (new_input[index] == '"')
-				new_input[index] = '\4';
+			flag = input[index];
+			if (input[index] == '"')
+				input[index] = '\4';
 			else
-				new_input[index] = '\5';
+				input[index] = '\5';
 		}
-		if (new_input[index] == flag)
+		if (input[index] == flag)
 		{
 			flag = 0;
-			if (new_input[index] == '"')
-				new_input[index] = '\4';
+			if (input[index] == '"')
+				input[index] = '\4';
 			else
-				new_input[index] = '\5';
+				input[index] = '\5';
 		}
 		index++;
 	}
 }
 
+static void	change_specials(char *input)
+{
+	int		index;
+	char	flag;
+
+	index = 0;
+	while (input[index])
+	{
+		if (input[index] == '\4' || input[index] == '\5')
+		{
+			flag = input[index++];
+			while (input[index] && input[index] != flag)
+				index++;
+		}
+		if (input[index++] == '\0')
+			break ;
+		if (input[index] == ' ')
+			input[index] = '\2';
+		else if (input[index] == '|')
+			input[index] = '\3';
+		else if (input[index] == '>')
+			input[index] = '\6';
+		else if (input[index] == '<')
+			input[index] = '\7';
+	}
+}
+
+static char	*put_spaces(char *input)
+{
+	char	*new_input;
+	int		index;
+	int		j;
+
+	j = 0;
+	index = 0;
+	new_input = malloc(sizeof(char) * ft_strlen(input) * 2);
+	while (input[index])
+	{
+		new_input[j++] = input[index];
+		if (input[index] == '\6' && input[index+1] && input[index + 1] == '\6')
+		{
+			new_input[j++] = input[index++];
+			new_input[j++] = '\2';
+		}
+		else if (input[index] == '\7' && input[index+1] && input[index + 1] == '\7')
+		{
+			new_input[j++] = input[index++];
+			new_input[j++] = '\2';
+		}
+		index++;
+	}
+	new_input[j] = '\0';
+	return (new_input);
+}
+
 char	*lexer(char *input)
 {
 	char	*new_input;
-	int		i;
-	int		j;
-	int		double_q;
-	int		single_q;
 
-	init_vars(&i, &j, &double_q, &single_q);
-	new_input = malloc(sizeof(char) * (ft_strlen(input) * 2) + 1);
-	while (input[i])
-	{
-		if (check_redirections(&input[i], &new_input[j], double_q + single_q))
-			j++;
-		else if (input[i] == ' ' && (double_q == 0 && single_q == 0))
-			new_input[j] = '\2';
-		else if (input[i] == '|' && (double_q == 0 && single_q == 0))
-			new_input[j] = '\3';
-		else
-			new_input[j] = input[i];
-		check_quotes(input[i++], &double_q, &single_q);
-		j++;
-	}
-	new_input[j] = '\0';
-	if (seek_errors(new_input, single_q + double_q))
+	change_quotes(input);
+	change_specials(input);
+	new_input = put_spaces(input);
+	if (seek_errors(new_input))
 		return (free(new_input), NULL);
-	return (change_quotes(new_input), new_input);
+	return (new_input);
 }

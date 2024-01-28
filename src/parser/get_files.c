@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_files.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 15:04:26 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/26 12:43:08 by user             ###   ########.fr       */
+/*   Updated: 2024/01/28 18:13:57 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	**get_gt_files(char **str)
 		return (NULL);
 	while (str[i])
 	{
-		if (ft_strcmp(str[i], ">") == 0 || ft_strcmp(str[i], ">>") == 0)
+		if (ft_strcmp(str[i], "\6") == 0 || ft_strcmp(str[i], "\6\6") == 0)
 		{
 			file[j] = ft_strdup(str[i + 1]);
 			j++;
