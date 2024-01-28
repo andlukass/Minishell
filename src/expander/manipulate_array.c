@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 11:11:10 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/26 14:56:36 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/28 16:17:17 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,34 @@ static char	**ft_cp_double_str(char **strs)
 	}
 	cp[i] = NULL; 
 	return (cp);
+}
+
+char	**edit_array(char **strs)
+{
+	char	**temp;
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	temp = ft_cp_double_str(strs);
+	free(strs);
+	strs = (char **)malloc(sizeof(char *) * (count_strs(temp) + 1));
+	if (!strs)
+		return (NULL);
+	while (temp[i])
+	{
+		if (ft_strcmp(temp[i], "") != 0)
+			strs[j++] = temp[i++];
+		else
+		{
+			free(temp[i]);
+			i++;
+		}
+	}
+	strs[j] = NULL;
+	free(temp);
+	return (strs);
 }
 
 char	**manipulate_array(char **strs, int index)
