@@ -6,12 +6,19 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2024/01/29 09:02:05 by user             ###   ########.fr       */
+/*   Updated: 2024/01/29 15:26:13 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/**
+ * @brief	Use readline to get the user input until hit the
+ * terminator.
+ * @param current structure with all the command data.
+ * @param index value corresponding to which heredoc to get.
+ * @return user input
+ */
 static char	*get_heredoc_input(t_commands *current, int index)
 {
 	char	*text;
@@ -40,6 +47,12 @@ static char	*get_heredoc_input(t_commands *current, int index)
 	return (text);
 }
 
+/**
+ * @brief	Create the file with the user input, watching to CTRL C.
+ * @param current structure with all the command data.
+ * @param exec structure with all the variables used by the executer.
+ * @param index value corresponding to which heredoc to get.
+ */
 static void	create_temp_file(t_commands *current, t_exec *exec, int index)
 {
 	char	*text;
@@ -58,6 +71,13 @@ static void	create_temp_file(t_commands *current, t_exec *exec, int index)
 	exit_executor(exec, 0);
 }
 
+/**
+ * @brief	Opens all heredocs, and handle signals inside the interactive mode
+ * of readline. (set quit to 1 if CTRL C was pressed).
+ * @param current structure with all the command data.
+ * @param exec structure with all the variables used by the executer.
+ * @return the opened file descriptor, -1 if none was open.
+ */
 static int	do_heredocs(t_commands *current, t_exec *exec)
 {
 	int		temp_file;
