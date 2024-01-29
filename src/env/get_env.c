@@ -6,11 +6,24 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:21:22 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/26 12:35:52 by user             ###   ########.fr       */
+/*   Updated: 2024/01/29 13:20:51 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	handle_empty_env(int index)
+{
+	char	directory[4097];
+	char	*var;
+
+	if (index != 0)
+		return ;
+	var = ft_strjoin("PWD=", getcwd(directory, sizeof(directory)), NO_FREE);
+	add_next_node(&get_data()->env, ft_strdup("SHLVL=1"));
+	add_next_node(&get_data()->env, ft_strdup("OLDPWD"));
+	add_next_node(&get_data()->env, var);
+}
 
 void	get_env(char *env[])
 {
@@ -32,4 +45,5 @@ void	get_env(char *env[])
 		add_next_node(&get_data()->env, variable);
 		index++;
 	}
+	handle_empty_env(index);
 }
