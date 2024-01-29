@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 16:59:14 by user              #+#    #+#             */
-/*   Updated: 2024/01/29 15:43:49 by user             ###   ########.fr       */
+/*   Updated: 2024/01/29 16:26:17 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	init_vars(int *a, int *b, int *c, int *d);
 
 int		get_process(void);
 
-int	is_redirection(char *str);
+int		is_redirection(char *str);
 /* --------------------------------------- */
 
 #endif
