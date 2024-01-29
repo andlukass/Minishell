@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/28 18:14:18 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:02:13 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,19 @@ void	expander_heredoc(char **str)
 	}
 }
 
-char **expander(char **strs)
+char	**expander(char **strs)
 {
-    char *sendable;
-    char *add;
-    int i;
-	int	f;
+	char	*sendable;
+	char	*add;
+	int		i;
+	int		f;
 
 	i = 0;
 	f = 0;
 	while ((i = find_string(strs)) != -1)
 	{
 		if (i != 0 && ft_strcmp(strs[i - 1], "\7\7") == 0)
-			break;
+			break ;
 		sendable = get_sendable(strs[i]);
 		add = ft_strdup(get_env_value(sendable));
 		if (add == NULL)
