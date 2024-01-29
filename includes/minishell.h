@@ -6,12 +6,19 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/29 09:03:07 by user             ###   ########.fr       */
+/*   Updated: 2024/01/29 18:42:46 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# define BLUE "\001\033[1;94m\002-> \001\033[0m\002\001\033[104m\002 "
+# define GREEN "\001\033[1;92m\002-> \001\033[0m\002\001\033[30;102m\002 "
+# define PINK "\001\033[1;95m\002-> \001\033[0m\002\001\033[105m\002 "
+# define YELLOW "\001\033[1;93m\002-> \001\033[0m\002\001\033[30;103m\002 "
+# define RED "\001\033[1;91m\002-> \001\033[0m\002\001\033[101m\002 "
+# define WHITE "\001\033[1m\002-> \001\033[0m\002\001\033[30;107m\002 "
 
 /* ---------------HEADERS--------------- */
 # include <stdio.h>
@@ -61,6 +68,7 @@ typedef struct s_exec{
 }	t_exec;
 
 typedef struct s_data{
+	char		*prompt_color;
 	int			number_of_commands;
 	int			interactive;
 	int			exit_status;

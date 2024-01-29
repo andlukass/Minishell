@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:24:50 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/26 12:42:44 by user             ###   ########.fr       */
+/*   Updated: 2024/01/29 18:39:30 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	ft_exit(char **command, long status)
 	free_env(get_data()->env);
 	if (get_data()->commands)
 		free_commands(get_data()->commands);
+	free(get_data()->prompt_color);
 	rl_clear_history();
 	exit(status);
 }

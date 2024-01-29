@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/26 11:30:59 by user             ###   ########.fr       */
+/*   Updated: 2024/01/29 18:47:28 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@ int	main(int argc, char *argv[], char *env[])
 	char	*prompt;
 
 	get_data()->pid = get_process();
-	(void)argv;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, signal_handler_main);
-	if (argc != 1)
-		return (write(1, "too many arguments\n", 19));
+	if (argc != 1 && argc != 3)
+		return (write(1, "wrong arguments\n", 17));
+	get_prompt_color(argc, argv);
+	if (!get_data()->prompt_color)
+		get_data()->prompt_color = ft_strdup(WHITE);
 	get_env(env);
 	get_data()->exit_status = 0;
 	while (1)
@@ -50,5 +52,4 @@ int	main(int argc, char *argv[], char *env[])
 		if (*input)
 			handle_input(input);
 	}
-	exit(0);
 }

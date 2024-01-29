@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:02:26 by user              #+#    #+#             */
-/*   Updated: 2024/01/29 16:26:12 by user             ###   ########.fr       */
+/*   Updated: 2024/01/29 18:46:25 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ typedef struct s_commands	t_commands;
  */
 char	*get_prompt(void);
 
+/**
+ * @brief	Check if has been choose a color and set it.
+ * @param argc number of arguments the program received.
+ * @param argv argumets of the program.
+ */
+void	get_prompt_color(int argc, char *argv[]);
 /**
  * @brief	Handle the user input and route it to the executer.
  * @param input the user input.

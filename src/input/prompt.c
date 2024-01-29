@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:22:42 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/29 16:18:26 by user             ###   ########.fr       */
+/*   Updated: 2024/01/29 18:44:39 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,32 +44,42 @@ static char	*get_dir(void)
 	return (dir);
 }
 
-static char	*get_username(void)
+void	get_prompt_color(int argc, char *argv[])
 {
-	char	*username;
-	char	*env_user;
-
-	env_user = get_env_value("USER");
-	if (!env_user)
-		env_user = get_env_value("HOSTNAME");
-	if (!env_user)
-		username = ft_strdup("\033[1;96muser");
+	get_data()->prompt_color = NULL;
+	if (argc == 1)
+		return ;
+	if (ft_strcmp(argv[1], "--color"))
+	{
+		print_error(argv[1], ": no such argument\n");
+		exit(1);
+	}
+	if (!ft_strcmp(argv[2], "blue"))
+		get_data()->prompt_color = ft_strdup(BLUE);
+	else if (!ft_strcmp(argv[2], "green"))
+		get_data()->prompt_color = ft_strdup(GREEN);
+	else if (!ft_strcmp(argv[2], "pink"))
+		get_data()->prompt_color = ft_strdup(PINK);
+	else if (!ft_strcmp(argv[2], "yellow"))
+		get_data()->prompt_color = ft_strdup(YELLOW);
+	else if (!ft_strcmp(argv[2], "red"))
+		get_data()->prompt_color = ft_strdup(RED);
 	else
-		username = ft_strjoin("\033[1;96m", env_user, NO_FREE);
-	username = ft_strjoin(username, "\033[0m in \033[1;93m[ ", DO_FREE);
-	return (username);
+	{
+		print_error("wrong color\ndisponible: 'blue', 'green', ", \
+						"'pink', 'yellow', 'red' and 'purple'\n");
+		exit(1);
+	}
 }
 
 char	*get_prompt(void)
 {
 	char	*prompt;
-	char	*username;
 	char	*dir;
 
-	username = get_username();
 	dir = get_dir();
-	prompt = ft_strjoin(username, dir, DO_FREE);
-	prompt = ft_strjoin(prompt, " ]\033[0m ", DO_FREE);
+	prompt = ft_strjoin(get_data()->prompt_color, dir, NO_FREE);
+	prompt = ft_strjoin(prompt, " \001\033[0m\002 ", DO_FREE);
 	free(dir);
 	return (prompt);
 }
