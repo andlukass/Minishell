@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:09:32 by user              #+#    #+#             */
-/*   Updated: 2024/01/06 12:01:01 by user             ###   ########.fr       */
+/*   Updated: 2024/01/29 09:11:51 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_commands(t_commands *stack)
 		if (current->greater_than)
 		{
 			free_double_array(current->gt_files);
-			free(current->greater_than);
+			free_double_array(current->greater_than);
 		}
 		if (current->less_than)
 		{
