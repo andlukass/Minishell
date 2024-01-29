@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 15:39:20 by user              #+#    #+#             */
-/*   Updated: 2024/01/28 19:41:48 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/29 15:52:33 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-
+/**
+ * @brief	Change all real quotes for \4 and \5.
+ * @param input string with the user input.
+ */
 static void	change_quotes(char *input)
 {
 	int		index;
@@ -42,6 +45,11 @@ static void	change_quotes(char *input)
 	}
 }
 
+/**
+ * @brief	Change all real spaces, pipes and redirections for 
+ * \2, \3, \6 and \7 respectively.
+ * @param input string with the user input.
+ */
 static void	change_specials(char *input)
 {
 	int		index;
@@ -69,6 +77,11 @@ static void	change_specials(char *input)
 	}
 }
 
+/**
+ * @brief	Put spaces('\2') after each redirect it encounters.
+ * @param input string with the user input.
+ * @return the new input after the spaces.
+ */
 static char	*put_spaces(char *input)
 {
 	char	*new_input;

@@ -6,12 +6,17 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:09:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/29 09:14:46 by user             ###   ########.fr       */
+/*   Updated: 2024/01/29 16:18:00 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/**
+ * @brief	Create and allocate the command data.
+ * @param command the user command splitted.
+ * @return the new command struct node.
+ */
 static t_commands	*create_new_command(char *command)
 {
 	char			**splitted;
@@ -33,20 +38,21 @@ static t_commands	*create_new_command(char *command)
 	return (new);
 }
 
-static int	add_next_command(t_commands **list, char *command)
+/**
+ * @brief	Add the command node to the linked list.
+ * @param list the begin of the list.
+ * @param command the command to stract the data.
+ */
+static void	add_next_command(t_commands **list, char *command)
 {
 	t_commands	*current;
 
 	if (!(*(list)))
-	{
 		*(list) = create_new_command(command);
-		return (0);
-	}
 	current = *(list);
 	while (current->next)
 		current = current->next;
 	current->next = create_new_command(command);
-	return (0);
 }
 
 void	parser(char *input)
