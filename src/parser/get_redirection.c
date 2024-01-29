@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 15:04:04 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/29 09:13:44 by user             ###   ########.fr       */
+/*   Updated: 2024/01/29 09:24:41 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,19 @@ char	**get_greater_than(char **command)
 	while (command[index])
 		if (command[index++][0] == '\6')
 			size++;
-	index = 0;
 	if (!size)
 		return (NULL);
 	grater_than = malloc(sizeof(char *) * (size + 1));
 	if (!grater_than)
 		ft_exit(NULL, 0);
 	grater_than[size] = NULL;
-	while (command[--index])
+	size = 0;
+	index = 0;
+	while (command[index])
 	{
 		if (command[index][0] == '\6')
-			grater_than[size--] = ft_strdup(command[index]);
-		index--;
+			grater_than[size++] = ft_strdup(command[index]);
+		index++;
 	}
 	return (grater_than);
 }
