@@ -3,25 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   seek_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 12:34:52 by user              #+#    #+#             */
-/*   Updated: 2024/01/28 19:44:33 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/29 15:57:38 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	is_redirection(char *str)
-{
-	if (!ft_strcmp(str, "\6") || \
-		!ft_strcmp(str, "\6\6") || \
-		!ft_strcmp(str, "\7") || \
-		!ft_strcmp(str, "\7\7"))
-		return (1);
-	return (0);
-}
-
+/**
+ * @brief	Verify if the input have no redirect errors.
+ * @param new_input string with the user input, already changed with the
+ * specials characters.
+ * @return 1 if it have the correct redirections, 0 if doesn't.
+ */
 static int	verify_redirections(char *new_input)
 {
 	int		index;
@@ -41,6 +37,12 @@ static int	verify_redirections(char *new_input)
 	return (free_double_array(splitted), 1);
 }
 
+/**
+ * @brief	Verify if the input have no pipe errors.
+ * @param new_input string with the user input, already changed with the
+ * specials characters.
+ * @return 1 if it have the correct pipes, 0 if doesn't.
+ */
 static int	verify_pipes(char *new_input)
 {
 	char	**splitted;
@@ -70,6 +72,12 @@ static int	verify_pipes(char *new_input)
 	return (free_double_array(splitted), result);
 }
 
+/**
+ * @brief	Verify if the input have open quotes.
+ * @param new_input string with the user input, already changed with the
+ * specials characters.
+ * @return 1 if it have open quotes, 0 it doesn't.
+ */
 static int	open_quotes(char *new_input)
 {
 	int	index;

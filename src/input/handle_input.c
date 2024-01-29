@@ -6,13 +6,13 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 13:57:05 by user              #+#    #+#             */
-/*   Updated: 2024/01/29 09:15:32 by user             ###   ########.fr       */
+/*   Updated: 2024/01/29 15:40:11 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void print_teste()
+/*void print_teste()
 {
 	if (get_data()->commands->command)
 	{
@@ -34,8 +34,14 @@ void print_teste()
 		printf("\n\n");
 	}
 
-	// if (get_data()->commands->greater_than)
-	// 	printf("GREATER_THAN:\n%s\n\n\n", get_data()->commands->greater_than);
+	if (get_data()->commands->greater_than)
+	{
+		int i = 0;
+		printf("GRATER THANS:\n");
+		while (get_data()->commands->greater_than[i])
+			printf("%s\n", get_data()->commands->greater_than[i++]);
+		printf("\n\n");
+	}
 	if (get_data()->commands->gt_files)
 	{
 		int i = 0;
@@ -52,8 +58,8 @@ void print_teste()
 			printf("%s\n", get_data()->commands->heredocs[i++]);
 		printf("\n\n");
 	}
-
 }
+*/
 
 void	handle_input(char *input)
 {
@@ -65,8 +71,6 @@ void	handle_input(char *input)
 		return ;
 	parser(new_input);
 	free(new_input);
-	// print_teste();
-
 	executor(&get_data()->commands);
 	free_commands(get_data()->commands);
 	get_data()->commands = NULL;

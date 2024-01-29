@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:09:43 by user              #+#    #+#             */
-/*   Updated: 2024/01/28 18:12:35 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/29 15:43:05 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	is_redirection(char *str)
-{
-	if (!ft_strcmp(str, "\6") || \
-		!ft_strcmp(str, "\6\6") || \
-		!ft_strcmp(str, "\7") || \
-		!ft_strcmp(str, "\7\7"))
-		return (1);
-	return (0);
-}
 
 char	**get_command(char **command)
 {
