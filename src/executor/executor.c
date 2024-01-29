@@ -6,12 +6,19 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2024/01/26 12:09:13 by user             ###   ########.fr       */
+/*   Updated: 2024/01/29 15:37:33 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/**
+ * @brief	Checks if its a multable builtin and execute it, opening 
+ * all needed redirections.
+ * @param current structure with all the command data.
+ * @param exec structure with all the variables used by the executer.
+ * @return 1 if its a multable builtin, 0 if its not.
+ */
 static int	do_multable_builtin(t_commands *current, t_exec *exec)
 {
 	if (!current->command)
@@ -31,6 +38,11 @@ static int	do_multable_builtin(t_commands *current, t_exec *exec)
 		return (0);
 }
 
+/**
+ * @brief	Handle all pipe dups, and send the command to executor_router.
+ * @param current structure with all the command data.
+ * @param exec structure with all the variables used by the executer.
+ */
 static void	child_routine(t_commands *current, t_exec *exec)
 {
 	char	*valid_path;
@@ -56,6 +68,13 @@ static void	child_routine(t_commands *current, t_exec *exec)
 	executor_router(current->command, exec);
 }
 
+/**
+ * @brief	Pass through all commands, opening the redirections
+ * and next command pipe.
+ * @param current structure with all the command data.
+ * @param exec structure with all the variables used by the executer.
+ * @return 1 if its correct, 0 if it was canceled by CTRL C.
+ */
 static int	do_commands(t_commands *current, t_exec *exec)
 {
 	int	index;

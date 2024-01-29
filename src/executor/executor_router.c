@@ -6,12 +6,19 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 22:23:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/26 12:06:19 by user             ###   ########.fr       */
+/*   Updated: 2024/01/29 15:09:35 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/**
+ * @brief	Checks if the command is inside the directory.
+ * @param command the command
+ * @param path the path in which to search
+ * @return the valid path with command, or NULL if the command 
+ * was not found in this directory.
+ */
 static char	*check_directory(char *path, char *command)
 {
 	char			*valid_path;
@@ -37,6 +44,11 @@ static char	*check_directory(char *path, char *command)
 	return (valid_path);
 }
 
+/**
+ * @brief	Checks if the command is on PATH.
+ * @param command the command
+ * @return the valid path, or NULL if its not on PATH.
+ */
 static char	*search_on_env_path(char *command)
 {
 	char			*valid_path;
@@ -59,6 +71,12 @@ static char	*search_on_env_path(char *command)
 	return (valid_path);
 }
 
+/**
+ * @brief	Checks if the command is a builtin and execute it.
+ * @param commands array os strings with the command and all its
+ * arguments
+ * @return 1 if its a bultin, 0 if not.
+ */
 static int	do_bultins(char **commands)
 {
 	int	is_builtin;
@@ -124,8 +142,3 @@ void	executor_router(char **command, t_exec *exec)
 		ft_exit(NULL, 126);
 	}
 }
-
-/*
-	sem permissão: 126
-	nao existe: 127
-*/
