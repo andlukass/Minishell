@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manipulate_array.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 11:11:10 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/28 16:17:17 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:06:20 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	count_strs(char **strs)
 {
 	int	i;
-	
+
 	i = 0;
 	while (strs[i])
 		i++;
@@ -25,7 +25,7 @@ int	count_strs(char **strs)
 static char	**ft_cp_double_str(char **strs)
 {
 	char	**cp;
-	int	i;
+	int		i;
 
 	cp = (char **)malloc(sizeof(char *) * (count_strs(strs) + 1));
 	if (!cp)
@@ -37,15 +37,15 @@ static char	**ft_cp_double_str(char **strs)
 		strs[i] = NULL;
 		i++;
 	}
-	cp[i] = NULL; 
+	cp[i] = NULL;
 	return (cp);
 }
 
 char	**edit_array(char **strs)
 {
 	char	**temp;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -73,15 +73,15 @@ char	**manipulate_array(char **strs, int index)
 {
 	char	**aux;
 	char	**add;
-	int	i;
-	int	j;
-	int	k;
+	int		i;
+	int		j;
+	int		k;
 
 	init_vars(&i, &j, &k, NULL);
 	aux = ft_cp_double_str(strs);
 	add = ft_split(aux[index], 32);
 	free(strs);
-	strs = (char **)malloc(sizeof(char *) * (count_strs(aux) + count_strs(add) + 1));
+	strs = malloc(sizeof(char *) * (count_strs(aux) + count_strs(add) + 1));
 	if (!strs)
 		return (NULL);
 	while (i != index)
@@ -95,5 +95,5 @@ char	**manipulate_array(char **strs, int index)
 	strs[k] = NULL;
 	free(aux);
 	free(add);
-	return(strs);
+	return (strs);
 }

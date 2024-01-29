@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manipulate.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 15:35:38 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/25 11:46:46 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:06:37 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@
 char	*manipulate_str(char **new_str, char *add, int size)
 {
 	char	*temp;
-	int	i;
-	int	j;
-	int	k;
+	int		i;
+	int		j;
+	int		k;
 
 	init_vars(&i, &j, &k, NULL);
 	temp = *new_str;

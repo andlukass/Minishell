@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rm_quotes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 16:07:23 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/28 19:34:00 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:07:25 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static void	edit_str(char **str)
 {
 	char	*temp;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -28,7 +28,7 @@ static void	edit_str(char **str)
 		if (temp[j] == '\4' || temp[j] == '\5')
 		{
 			j++;
-			continue;
+			continue ;
 		}
 		else if (temp[j] == '\1')
 			temp[j] = '$';
