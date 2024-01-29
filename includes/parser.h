@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:02:26 by user              #+#    #+#             */
-/*   Updated: 2024/01/29 16:14:33 by user             ###   ########.fr       */
+/*   Updated: 2024/01/29 16:26:12 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,10 @@ void	free_commands(t_commands *stack);
 char	**get_greater_than(char **command);
 
 /**
- * @brief	Checks if the command have less_than redirects
+ * @brief	Gets the last less_than redirection.
  * @param command the user command splitted in spaces('\2').
- * @return "<" if the command have less_than redirects, NULL if doesn't.
+ * @return "<", "<<" or NULL if the command dont have 
+ * less_than redirects.
  */
 char	*get_less_than(char **command);
 

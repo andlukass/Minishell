@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 15:39:20 by user              #+#    #+#             */
-/*   Updated: 2024/01/29 15:52:33 by user             ###   ########.fr       */
+/*   Updated: 2024/01/29 16:29:49 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,26 +85,26 @@ static void	change_specials(char *input)
 static char	*put_spaces(char *input)
 {
 	char	*new_input;
-	int		index;
+	int		i;
 	int		j;
 
 	j = 0;
-	index = 0;
+	i = 0;
 	new_input = malloc(sizeof(char) * ft_strlen(input) * 2);
-	while (input[index])
+	while (input[i])
 	{
-		new_input[j++] = input[index];
-		if (input[index] == '\6' && input[index+1] && input[index + 1] == '\6')
+		new_input[j++] = input[i];
+		if (input[i] == '\6' && input[i + 1] && input[i + 1] == '\6')
 		{
-			new_input[j++] = input[index++];
+			new_input[j++] = input[i++];
 			new_input[j++] = '\2';
 		}
-		else if (input[index] == '\7' && input[index+1] && input[index + 1] == '\7')
+		else if (input[i] == '\7' && input[i + 1] && input[i + 1] == '\7')
 		{
-			new_input[j++] = input[index++];
+			new_input[j++] = input[i++];
 			new_input[j++] = '\2';
 		}
-		index++;
+		i++;
 	}
 	new_input[j] = '\0';
 	return (new_input);
