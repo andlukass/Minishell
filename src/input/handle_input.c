@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 13:57:05 by user              #+#    #+#             */
-/*   Updated: 2024/01/11 12:45:16 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/01/29 09:15:32 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void print_teste()
 		printf("\n\n");
 	}
 
-	if (get_data()->commands->greater_than)
-		printf("GREATER_THAN:\n%s\n\n\n", get_data()->commands->greater_than);
+	// if (get_data()->commands->greater_than)
+	// 	printf("GREATER_THAN:\n%s\n\n\n", get_data()->commands->greater_than);
 	if (get_data()->commands->gt_files)
 	{
 		int i = 0;

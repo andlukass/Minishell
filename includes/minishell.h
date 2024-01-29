@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/25 22:37:50 by user             ###   ########.fr       */
+/*   Updated: 2024/01/29 09:03:07 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_env{
 typedef struct s_commands{
 	char				**command;
 	char				**gt_files;
-	char				*greater_than;
+	char				**greater_than;
 	char				**heredocs;
 	char				**lt_files;
 	char				*less_than;

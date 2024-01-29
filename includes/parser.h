@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 17:02:26 by user              #+#    #+#             */
-/*   Updated: 2024/01/28 18:31:06 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/29 09:14:19 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ void	parser(char *input);
 
 void	free_commands(t_commands *stack);
 
-char	*get_last_redirection(char **command, char c);
+char	**get_greater_than(char **command);
+
+char	*get_less_than(char **command);
 
 char	**get_gt_files(char **str);
 

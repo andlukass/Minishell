@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:09:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/28 19:29:31 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/29 09:14:46 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static t_commands	*create_new_command(char *command)
 		return ((void *)0);
 	splitted = ft_split(command, '\2');
 	splitted = expander(splitted);
-	new->greater_than = get_last_redirection(splitted, '\6');
-	new->less_than = get_last_redirection(splitted, '\7');
+	new->greater_than = get_greater_than(splitted);
+	new->less_than = get_less_than(splitted);
 	new->gt_files = get_gt_files(splitted);
 	new->lt_files = get_lt_hd_files(splitted, "\7");
 	new->heredocs = get_lt_hd_files(splitted, "\7\7");

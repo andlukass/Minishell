@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2024/01/28 18:14:12 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/29 09:02:05 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,14 +115,14 @@ int	do_greater_than(t_commands *current, t_exec *exec)
 
 	if (!current->greater_than || exec->files[0] == -2)
 		return (-1);
-	flag = O_APPEND;
 	index = 0;
 	fd = -1;
-	if (!ft_strcmp(current->greater_than, "\6"))
-		flag = O_TRUNC;
 	while (current->gt_files[index])
 	{
 		close_fd(fd);
+		flag = O_APPEND;
+		if (!ft_strcmp(current->greater_than[index], "\6"))
+			flag = O_TRUNC;
 		fd = open(current->gt_files[index], O_WRONLY | O_CREAT | flag, 0777);
 		if (fd == -1)
 		{
