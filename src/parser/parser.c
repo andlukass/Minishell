@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:09:37 by user              #+#    #+#             */
-/*   Updated: 2024/01/29 16:18:00 by user             ###   ########.fr       */
+/*   Updated: 2024/01/29 16:53:30 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ static void	add_next_command(t_commands **list, char *command)
 	t_commands	*current;
 
 	if (!(*(list)))
+	{
 		*(list) = create_new_command(command);
+		return ;
+	}
 	current = *(list);
 	while (current->next)
 		current = current->next;
