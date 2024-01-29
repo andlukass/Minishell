@@ -14,6 +14,7 @@ SRCS = src/main.c                          \
 		src/utils/ft_strcmp.c              \
 		src/utils/ft_strncmp.c             \
 		src/utils/ft_strndup.c             \
+		src/utils/is_redirection.c         \
 		src/input/prompt.c                 \
 		src/builtins/ft_exit.c             \
 		src/builtins/ft_echo.c             \
