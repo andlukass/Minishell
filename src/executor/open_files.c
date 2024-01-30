@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2024/01/29 15:26:13 by user             ###   ########.fr       */
+/*   Updated: 2024/01/30 19:58:30 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static void	create_temp_file(t_commands *current, t_exec *exec, int index)
 	char	*text;
 	int		fd;
 
-	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, signal_handler_heredoc);
 	fd = open(".temp.txt", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	text = get_heredoc_input(current, index);
@@ -86,12 +85,17 @@ static int	do_heredocs(t_commands *current, t_exec *exec)
 
 	index = 0;
 	temp_file = -1;
-	while (current->heredocs && current->heredocs[index] && !get_data()->quit)
+	while (current->heredocs && current->heredocs[index])
 	{
 		pid = fork();
 		if (pid == 0)
 			create_temp_file(current, exec, index);
 		waitpid(pid, &get_data()->quit, 0);
+		if (get_data()->quit)
+		{
+			get_data()->exit_status = 130 * 256;
+			break ;
+		}
 		index++;
 	}
 	if (!get_data()->quit)
