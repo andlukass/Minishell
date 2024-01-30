@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:24:50 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/30 19:50:47 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/30 19:51:54 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,3 @@ void	ft_exit(char **command, long status)
 	rl_clear_history();
 	exit(status);
 }
-
-
-//1o certo e string nao exit, mas escreve ?=1
-//qualquer outro ?=2
