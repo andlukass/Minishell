@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 15:39:20 by user              #+#    #+#             */
-/*   Updated: 2024/01/29 16:29:49 by user             ###   ########.fr       */
+/*   Updated: 2024/01/30 19:09:19 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	change_specials(char *input)
 			while (input[index] && input[index] != flag)
 				index++;
 		}
-		if (input[index++] == '\0')
+		if (input[index] == '\0')
 			break ;
 		if (input[index] == ' ')
 			input[index] = '\2';
@@ -74,6 +74,7 @@ static void	change_specials(char *input)
 			input[index] = '\6';
 		else if (input[index] == '<')
 			input[index] = '\7';
+		index++;
 	}
 }
 
