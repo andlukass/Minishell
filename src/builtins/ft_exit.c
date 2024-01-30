@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:24:50 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/29 18:39:30 by user             ###   ########.fr       */
+/*   Updated: 2024/01/30 19:50:47 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,27 @@ static int	is_str_numeric(char *str)
 	return (1);
 }
 
-static int	check_arguments(char **command, long *status)
+static int	check_arguments(char **cmd, long *status)
 {
-	if (!command)
+	if (!cmd)
 		return (1);
-	if (ft_strlen(command[1]) > 19 || !is_str_numeric(command[1]))
+	printf("exit\n");
+	*status = 2;
+	if ((ft_strlen(cmd[1]) > 19 || !is_str_numeric(cmd[1])))
+		return(print_error("", "numeric argument required\n"), 1);
+	else if (cmd[1] && cmd[2])
 	{
-		get_data()->exit_status = 512;
-		print_error("exit", ": numeric argument required\n");
-		return (0);
-	}
-	else if (command[1] && command[2])
-	{
-		get_data()->exit_status = 256;
-		print_error("exit", ": too many argument\n");
-		return (0);
+		print_error("", "too many arguments\n");
+		if ((ft_strlen(cmd[1]) < 20 && is_str_numeric(cmd[1])))
+			return (0);
+		return (1);
 	}
 	else
 	{
-		if (command[1])
-			*status = atoi(command[1]);
+		if (cmd[1])
+			*status = atoi(cmd[1]);
 		else
 			*status = 0;
-		printf("exit\n");
 		return (1);
 	}
 }
@@ -63,7 +61,10 @@ void	ft_exit(char **command, long status)
 
 	must_exit = check_arguments(command, &status);
 	if (!must_exit)
+	{
+		get_data()->exit_status = 256;
 		return ;
+	}
 	free_env(get_data()->env);
 	if (get_data()->commands)
 		free_commands(get_data()->commands);
@@ -71,3 +72,7 @@ void	ft_exit(char **command, long status)
 	rl_clear_history();
 	exit(status);
 }
+
+
+//1o certo e string nao exit, mas escreve ?=1
+//qualquer outro ?=2
