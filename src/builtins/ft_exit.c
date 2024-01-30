@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:24:50 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/30 19:51:54 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/01/30 19:59:43 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	check_arguments(char **cmd, long *status)
 	printf("exit\n");
 	*status = 2;
 	if ((ft_strlen(cmd[1]) > 19 || !is_str_numeric(cmd[1])))
-		return(print_error("", "numeric argument required\n"), 1);
+		return (print_error("", "numeric argument required\n"), 1);
 	else if (cmd[1] && cmd[2])
 	{
 		print_error("", "too many arguments\n");
