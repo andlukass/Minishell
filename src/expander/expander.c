@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/29 19:02:13 by user             ###   ########.fr       */
+/*   Updated: 2024/01/30 19:11:35 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ char	**expander(char **strs)
 	int		i;
 	int		f;
 
-	i = 0;
-	f = 0;
-	while ((i = find_string(strs)) != -1)
+	init_vars(&i, &f, NULL, NULL);
+	while (find_string(strs) != -1)
 	{
+		i = find_string(strs);
 		if (i != 0 && ft_strcmp(strs[i - 1], "\7\7") == 0)
 			break ;
 		sendable = get_sendable(strs[i]);
