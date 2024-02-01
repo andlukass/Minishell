@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2024/01/30 19:58:30 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:07:51 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,7 @@ int	do_less_than(t_commands *current, t_exec *exec)
 			red_fd = -2;
 	}
 	if (red_fd == -2)
-		print_error(current->lt_files[index - 1], \
-			": No such file or directory\n");
+		redirect_error(current->lt_files[index - 1]);
 	if (!ft_strcmp(current->less_than, "\7\7") && red_fd != -2)
 		return (close_fd(red_fd), heredoc_fd);
 	return (close_fd(heredoc_fd), red_fd);
@@ -141,7 +140,7 @@ int	do_greater_than(t_commands *current, t_exec *exec)
 		return (-1);
 	index = 0;
 	fd = -1;
-	while (current->gt_files[index])
+	while (current->gt_files[index] && fd != -2)
 	{
 		close_fd(fd);
 		flag = O_APPEND;
@@ -149,13 +148,10 @@ int	do_greater_than(t_commands *current, t_exec *exec)
 			flag = O_TRUNC;
 		fd = open(current->gt_files[index], O_WRONLY | O_CREAT | flag, 0777);
 		if (fd == -1)
-		{
 			fd = -2;
-			break ;
-		}
 		index++;
 	}
 	if (fd == -2)
-		print_error(current->gt_files[index], ": No such file or directory\n");
+		redirect_error(current->gt_files[index - 1]);
 	return (fd);
 }
