@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_files.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 15:04:26 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/28 18:13:57 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:09:38 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ char	**get_lt_hd_files(char **str, char *s)
 	while (str[i])
 		i++;
 	file = (char **)malloc(sizeof(char *) * i);
-	i = 0;
+	i = -1;
 	if (!file)
 		return (NULL);
-	while (str[i])
+	while (str[++i])
 	{
 		if (ft_strcmp(str[i], s) == 0)
 		{
 			file[j] = ft_strdup(str[i + 1]);
-			j++;
+			if (!file[j++])
+				file[j - 1] = ft_strdup("./\2/\2");
 		}
-		i++;
 	}
 	file[j] = NULL;
 	if (j == 0)
@@ -52,17 +52,17 @@ char	**get_gt_files(char **str)
 	while (str[i])
 		i++;
 	file = (char **)malloc(sizeof(char *) * i);
-	i = 0;
+	i = -1;
 	if (!file)
 		return (NULL);
-	while (str[i])
+	while (str[++i])
 	{
 		if (ft_strcmp(str[i], "\6") == 0 || ft_strcmp(str[i], "\6\6") == 0)
 		{
 			file[j] = ft_strdup(str[i + 1]);
-			j++;
+			if (!file[j++])
+				file[j - 1] = ft_strdup("./\2/\2");
 		}
-		i++;
 	}
 	file[j] = NULL;
 	if (j == 0)
