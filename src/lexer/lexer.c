@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 15:39:20 by user              #+#    #+#             */
-/*   Updated: 2024/01/30 19:09:19 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/02/02 08:39:34 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,22 +90,23 @@ static char	*put_spaces(char *input)
 	int		j;
 
 	j = 0;
-	i = 0;
+	i = -1;
 	new_input = malloc(sizeof(char) * ft_strlen(input) * 2);
-	while (input[i])
+	while (input[++i])
 	{
 		new_input[j++] = input[i];
-		if (input[i] == '\6' && input[i + 1] && input[i + 1] == '\6')
-		{
-			new_input[j++] = input[i++];
+		if (input[i] != '\7' && input[i] && input[i + 1] == '\7')
 			new_input[j++] = '\2';
-		}
-		else if (input[i] == '\7' && input[i + 1] && input[i + 1] == '\7')
-		{
-			new_input[j++] = input[i++];
+		else if (input[i + 1] == '\7' && input[i] && input[i + 1] != '\7')
 			new_input[j++] = '\2';
-		}
-		i++;
+		else if (input[i] == '\7' && input[i] && input[i + 1] != '\7')
+			new_input[j++] = '\2';
+		else if (input[i] != '\6' && input[i] && input[i + 1] == '\6')
+			new_input[j++] = '\2';
+		else if (input[i + 1] == '\6' && input[i] && input[i + 1] != '\6')
+			new_input[j++] = '\2';
+		else if (input[i] == '\6' && input[i] && input[i + 1] != '\6')
+			new_input[j++] = '\2';
 	}
 	new_input[j] = '\0';
 	return (new_input);
