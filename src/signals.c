@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 16:17:48 by user              #+#    #+#             */
-/*   Updated: 2024/01/25 16:30:08 by user             ###   ########.fr       */
+/*   Updated: 2024/02/06 18:12:32 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	signal_handler_child(int sig)
+{
+	if (sig == SIGINT)
+		get_data()->ctrl = 1;
+	if (sig == SIGQUIT)
+		get_data()->sig_quit = 1;
+}
 
 void	signal_handler_main(int sig)
 {
@@ -20,6 +28,7 @@ void	signal_handler_main(int sig)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		get_data()->exit_status = 256 * 130;
 	}
 }
 

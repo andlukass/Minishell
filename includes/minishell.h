@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:15 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/02/01 16:57:33 by user             ###   ########.fr       */
+/*   Updated: 2024/02/06 18:13:08 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ typedef struct s_data{
 	int			interactive;
 	int			exit_status;
 	int			quit;
+	int			ctrl;
+	int			sig_quit;
 	int			pid;
 	t_commands	*commands;
 	t_env		*env;
@@ -94,6 +96,11 @@ void	signal_handler_main(int sig);
  * ending capture processes
  */
 void	signal_handler_heredoc(int sig);
+
+/**
+ * @brief	Capture CTRL C and \. And set flag variables.
+ */
+void	signal_handler_child(int sig);
 
 void	print_error(char *value, char *message);
 
