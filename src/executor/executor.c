@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2024/01/29 15:37:33 by user             ###   ########.fr       */
+/*   Updated: 2024/02/06 20:19:57 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,21 @@ static void	child_routine(t_commands *current, t_exec *exec)
 }
 
 /**
+ * @brief	Check for errors in executor.
+ * @param exec structure with all the variables used by the executer.
+ * @param index number of process.
+ * @return return ony if error occurred.
+ */
+static int	check_errors(t_exec *exec, int index)
+{
+	if (get_data()->quit)
+		return (exit_executor(exec, -1), 0);
+	exec->pids[index] = fork();
+	if (exec->pids[index] < 0)
+		exit_executor(exec, 1);
+}
+
+/**
  * @brief	Pass through all commands, opening the redirections
  * and next command pipe.
  * @param current structure with all the command data.
@@ -82,17 +97,15 @@ static int	do_commands(t_commands *current, t_exec *exec)
 	index = 0;
 	while (current)
 	{
+		signal(SIGQUIT, signal_handler_child);
+		signal(SIGINT, signal_handler_child);
 		init_fds(&exec->next_fd, &exec->files);
 		if (current->next)
 			if (pipe(exec->next_fd) < 0)
 				exit_executor(exec, 1);
 		exec->files[0] = do_less_than(current, exec);
 		exec->files[1] = do_greater_than(current, exec);
-		if (get_data()->quit)
-			return (exit_executor(exec, -1), 0);
-		exec->pids[index] = fork();
-		if (exec->pids[index] < 0)
-			exit_executor(exec, 1);
+		check_errors(exec, index);
 		if (exec->pids[index++] == 0)
 			child_routine(current, exec);
 		close_fds(exec->fd);
@@ -111,8 +124,8 @@ void	executor(t_commands **commands)
 	int			index;
 	int			number_of_pids;
 
-	number_of_pids = get_data()->number_of_commands;
 	current = *commands;
+	number_of_pids = get_data()->number_of_commands;
 	if (do_multable_builtin(current, &exec))
 		return ;
 	exec.pids = malloc(sizeof(int) * number_of_pids);
@@ -121,6 +134,14 @@ void	executor(t_commands **commands)
 		return ;
 	index = 0;
 	while (index < number_of_pids)
+	{
 		waitpid(exec.pids[index++], &get_data()->exit_status, 0);
+		if (get_data()->ctrl)
+			get_data()->exit_status = 256 * 130;
+		if (get_data()->sig_quit)
+			get_data()->exit_status = 256 * 131;
+		get_data()->ctrl = 0;
+		get_data()->sig_quit = 0;
+	}
 	free(exec.pids);
 }

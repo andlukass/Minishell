@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 18:54:08 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/02/01 16:56:29 by user             ###   ########.fr       */
+/*   Updated: 2024/02/06 14:46:37 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,16 @@ int	main(int argc, char *argv[], char *env[])
 	char	*prompt;
 
 	get_data()->pid = get_process();
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, signal_handler_main);
 	if (argc != 1 && argc != 3)
 		return (write(1, "wrong arguments\n", 17));
 	get_prompt_color(argc, argv);
 	if (!get_data()->prompt_color)
 		get_data()->prompt_color = ft_strdup(WHITE);
 	get_env(env);
-	get_data()->exit_status = 0;
 	while (1)
 	{
+		signal(SIGINT, signal_handler_main);
+		signal(SIGQUIT, SIG_IGN);
 		get_data()->interactive = 1;
 		prompt = get_prompt();
 		input = readline(prompt);
