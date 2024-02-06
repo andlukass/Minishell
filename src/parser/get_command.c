@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 11:09:43 by user              #+#    #+#             */
-/*   Updated: 2024/01/29 15:43:05 by user             ###   ########.fr       */
+/*   Updated: 2024/02/01 17:25:30 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ char	**get_command(char **command)
 	index = 0;
 	while (command[index])
 	{
-		if (is_redirection(command[index]))
+		if (is_redirection(command[index]) && command[index + 1])
 			index = index + 2;
+		else if (is_redirection(command[index]) && !command[index + 1])
+			index++;
 		else
 			new_command[j++] = ft_strdup(command[index++]);
 	}
