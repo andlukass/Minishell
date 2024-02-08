@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 19:14:55 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/26 11:34:12 by user             ###   ########.fr       */
+/*   Updated: 2024/02/08 16:05:44 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	exit_cd(int exit_status)
 {
 	if (get_data()->number_of_commands > 1)
-		ft_exit(NULL, 0);
+		ft_exit(NULL, exit_status);
 	else
 	{
 		get_data()->exit_status = exit_status * 256;
@@ -64,7 +64,8 @@ void	ft_cd(char **command)
 	if (command[1] && command[2])
 	{
 		print_error("", "cd only takes one argument!\n");
-		ft_exit(NULL, 1);
+		if (exit_cd(1))
+			return ;
 	}
 	getcwd(directory, sizeof(directory));
 	old_pwd = ft_strjoin("OLDPWD=", directory, NO_FREE);
@@ -80,6 +81,5 @@ void	ft_cd(char **command)
 	pwd = ft_strjoin("PWD=", directory, NO_FREE);
 	add_next_node(&get_data()->env, pwd);
 	add_next_node(&get_data()->env, old_pwd);
-	if (exit_cd(0))
-		return ;
+	exit_cd(0);
 }
