@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2024/02/06 20:19:57 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/02/08 16:09:26 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	child_routine(t_commands *current, t_exec *exec)
  * @brief	Check for errors in executor.
  * @param exec structure with all the variables used by the executer.
  * @param index number of process.
- * @return return ony if error occurred.
+ * @return return only if error occurred.
  */
 static int	check_errors(t_exec *exec, int index)
 {
@@ -81,6 +81,7 @@ static int	check_errors(t_exec *exec, int index)
 	exec->pids[index] = fork();
 	if (exec->pids[index] < 0)
 		exit_executor(exec, 1);
+	return (0);
 }
 
 /**
