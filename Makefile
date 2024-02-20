@@ -8,6 +8,7 @@ SRCS = src/main.c                          \
 		src/utils/ft_strjoin.c             \
 		src/utils/ft_strlen.c              \
 		src/utils/ft_itoa.c                \
+		src/utils/ft_atoi.c                \
 		src/utils/ft_strchr.c              \
 		src/utils/ft_strdup.c              \
 		src/utils/free_double_array.c      \

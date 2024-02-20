@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 16:59:14 by user              #+#    #+#             */
-/*   Updated: 2024/01/29 16:26:17 by user             ###   ########.fr       */
+/*   Updated: 2024/02/20 15:58:15 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ char	**ft_split(char const *s, char c);
  * @return	the number n, into a dinamic allocated string.
  */
 char	*ft_itoa(int n);
+
+/**
+ * @param	str string to transform into a number.
+ * @return	the string str, into a number.
+ */
+int	ft_atoi(const char *str);
 
 /**
  * @param	s the string in which to search.
