@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:21:22 by llopes-d          #+#    #+#             */
-/*   Updated: 2024/01/29 13:20:51 by user             ###   ########.fr       */
+/*   Updated: 2024/02/20 16:02:25 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	get_env(char *env[])
 	{
 		if (!ft_strncmp(env[index], "SHLVL", 5))
 		{
-			level = ft_itoa(atoi(&env[index][6]) + 1);
+			level = ft_itoa(ft_atoi(&env[index][6]) + 1);
 			variable = ft_strjoin("SHLVL=", level, NO_FREE);
 			free(level);
 		}
