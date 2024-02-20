@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 16:59:14 by user              #+#    #+#             */
-/*   Updated: 2024/02/20 16:07:10 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:33:04 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_itoa(int n);
  * @param	str string to transform into a number.
  * @return	the string str, into a number.
  */
-int	ft_atoi(const char *str);
+int		ft_atoi(const char *str);
 
 /**
  * @param	s the string in which to search.
