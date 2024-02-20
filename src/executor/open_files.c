@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:37:06 by user              #+#    #+#             */
-/*   Updated: 2024/02/01 17:07:51 by user             ###   ########.fr       */
+/*   Updated: 2024/02/20 18:25:58 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ static char	*get_heredoc_input(t_commands *current, int index)
 	{
 		input = readline("> ");
 		if (get_data()->quit)
+		{
+			if (text)
+				free(text);
+			text = NULL;
 			break ;
+		}
 		if (input == NULL)
-		{
-			printf("wanted terminador: '%s'.\n", current->heredocs[index]);
-			break ;
-		}
+			return (printf("wanted terminador: '%s'.\n", \
+				current->heredocs[index]), text);
 		if (!ft_strcmp(input, current->heredocs[index]))
-		{
-			free(input);
-			break ;
-		}
+			return (free(input), text);
 		text = ft_strjoin(text, input, 1);
 		text = ft_strjoin(text, "\n", 1);
 		free(input);
@@ -61,12 +61,15 @@ static void	create_temp_file(t_commands *current, t_exec *exec, int index)
 	signal(SIGINT, signal_handler_heredoc);
 	fd = open(".temp.txt", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	text = get_heredoc_input(current, index);
+	if (get_data()->quit)
+	{
+		close(fd);
+		exit_executor(exec, 1);
+	}
 	expander_heredoc(&text);
 	write(fd, text, ft_strlen(text));
 	close(fd);
 	free(text);
-	if (get_data()->quit)
-		exit_executor(exec, 1);
 	exit_executor(exec, 0);
 }
 
