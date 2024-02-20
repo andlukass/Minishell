@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 14:46:45 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/02/20 11:47:49 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:54:04 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 
 # include "minishell.h"
 
+/* ------------------EXPANDER------------------ */
+
+/**
+ * @brief	This function acts as an environment variable expander, 
+ * updating the provided array of strings with expanded values.
+ * @param	The input splitted by spaces.
+ * @return  Returns the command whit an expansion modified.	
+ */
 char	**expander(char **strs);
 
 char	*manipulate_str(char **new_str, char *add, int size);
