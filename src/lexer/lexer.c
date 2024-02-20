@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 15:39:20 by user              #+#    #+#             */
-/*   Updated: 2024/02/02 08:39:34 by user             ###   ########.fr       */
+/*   Updated: 2024/02/20 18:13:04 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,25 @@ static void	change_specials(char *input)
 	}
 }
 
+static void	change_whitespaces(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\5' || str[i] == '\4')
+		{
+			i++;
+			while (str[i] != '\5' && str[i] != '\4')
+				i++;
+		}
+		if (is_whitespace(str[i]) && str[i] != 32)
+			str[i] = ' ';
+		i++;
+	}
+}
+
 /**
  * @brief	Put spaces('\2') after each redirect it encounters.
  * @param input string with the user input.
@@ -92,7 +111,7 @@ static char	*put_spaces(char *input)
 	j = 0;
 	i = -1;
 	new_input = malloc(sizeof(char) * ft_strlen(input) * 2);
-	while (input[++i])
+	while (new_input && input[++i])
 	{
 		new_input[j++] = input[i];
 		if (input[i] != '\7' && input[i] && input[i + 1] == '\7')
@@ -117,6 +136,7 @@ char	*lexer(char *input)
 	char	*new_input;
 
 	change_quotes(input);
+	change_whitespaces(input);
 	change_specials(input);
 	new_input = put_spaces(input);
 	if (seek_errors(new_input))
