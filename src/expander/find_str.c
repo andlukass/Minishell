@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 15:46:01 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/02/20 12:05:30 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/02/20 15:57:02 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	there_is_expansion(char *str)
 		return (0);
 	while (str[i])
 	{
-		if (str[i] == '$' && (str[i + 1] == '\n' || str[i + 1] == 32))
+		if (str[i] == '$' && is_whitespace(str[i + 1]))
 			str[i] = '\10';
 		if (str[i] == '$' && str[i + 1] != '\n')
 			return (i);
@@ -51,22 +51,6 @@ int	there_is_expansion(char *str)
 	}
 	return (-1);
 }
-
-// int	there_is_expansion(char *str)
-// {
-// 	int	i;
-
-// 	i = 1;
-// 	if (!str)
-// 		return (0);
-// 	while (str[i])
-// 	{
-// 		if (str[i] == '$' && str[i + 1] != '\n')
-// 			return (1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
 
 int	check_str(char *str)
 {

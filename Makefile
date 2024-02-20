@@ -47,6 +47,7 @@ SRCS = src/main.c                          \
 		src/lexer/seek_errors.c            \
 		src/utils/ft_isalpha.c             \
 		src/utils/init_vars.c              \
+		src/utils/is_whitespace.c          \
 		src/utils/get_process.c            \
 		src/expander/expander.c            \
 		src/expander/rm_quotes.c           \

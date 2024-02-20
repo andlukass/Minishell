@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:39:12 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/02/20 12:39:16 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/02/20 15:50:12 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,24 +63,6 @@ void	expander_heredoc(char **str)
 	}
 	manipulate_heredoc(*str);
 }
-
-// void	expander_heredoc(char **str)
-// {
-// 	char	*add;
-// 	char	*sendable;
-// 	if (!there_is_expansion(*str))
-// 		return ;
-// 	while (there_is_expansion(*str))
-// 	{
-// 		sendable = get_sendable(*str); 
-// 		add = ft_strdup(get_env_value(sendable));
-// 		if (add == NULL)
-// 			handle_add_null(&add, *str);
-// 		manipulate_str(str, add, ft_strlen(sendable));
-// 		free(add);
-// 		free(sendable);
-// 	}
-// }
 
 char	**expander(char **strs)
 {
