@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:47:57 by user              #+#    #+#             */
-/*   Updated: 2024/02/08 16:09:26 by user             ###   ########.fr       */
+/*   Updated: 2024/02/20 18:27:00 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	child_routine(t_commands *current, t_exec *exec)
 static int	check_errors(t_exec *exec, int index)
 {
 	if (get_data()->quit)
-		return (exit_executor(exec, -1), 0);
+		return (exit_executor(exec, -1), 1);
 	exec->pids[index] = fork();
 	if (exec->pids[index] < 0)
 		exit_executor(exec, 1);
@@ -98,7 +98,6 @@ static int	do_commands(t_commands *current, t_exec *exec)
 	index = 0;
 	while (current)
 	{
-		signal(SIGQUIT, signal_handler_child);
 		signal(SIGINT, signal_handler_child);
 		init_fds(&exec->next_fd, &exec->files);
 		if (current->next)
@@ -106,7 +105,8 @@ static int	do_commands(t_commands *current, t_exec *exec)
 				exit_executor(exec, 1);
 		exec->files[0] = do_less_than(current, exec);
 		exec->files[1] = do_greater_than(current, exec);
-		check_errors(exec, index);
+		if (check_errors(exec, index))
+			return (0);
 		if (exec->pids[index++] == 0)
 			child_routine(current, exec);
 		close_fds(exec->fd);
