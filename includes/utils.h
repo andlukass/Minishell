@@ -6,7 +6,7 @@
 /*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 16:59:14 by user              #+#    #+#             */
-/*   Updated: 2024/02/20 18:33:04 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:51:46 by llopes-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,14 +106,36 @@ int		ft_strncmp(const char *s1, const char *s2, unsigned int n);
  */
 int		ft_strcmp(const char *s1, const char *s2);
 
+/**
+ * @brief	Checks if the ascii is an alphabetic char.
+ * @param	c the ascii to be checked.
+ * @return	returns 1 if it is an alphabetic char and 0 if its not.
+ */
 int		ft_isalpha(int c);
 
+/**
+ * @brief	Init all variables passed as parameter to 0.
+ */
 void	init_vars(int *a, int *b, int *c, int *d);
 
+/**
+ * @brief	Do a fork to get the value of the actual proccess.
+ * @return	the value of the actual proccess.
+ */
 int		get_process(void);
 
+/**
+ * @brief	Checks if the string is a redirection.
+ * @param	str the string to be checked.
+ * @return	returns 1 if it is a redirection and 0 if its not.
+ */
 int		is_redirection(char *str);
 
+/**
+ * @brief	Checks if the ascii is a whitespace.
+ * @param	c the ascii to be checked.
+ * @return	returns 1 if it is a whitespace and 0 if its not.
+ */
 int		is_whitespace(int c);
 /* --------------------------------------- */
 
