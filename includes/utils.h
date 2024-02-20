@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-d <llopes-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 16:59:14 by user              #+#    #+#             */
-/*   Updated: 2024/02/20 16:02:25 by llopes-d         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:07:10 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ void	init_vars(int *a, int *b, int *c, int *d);
 int		get_process(void);
 
 int		is_redirection(char *str);
+
+int		is_whitespace(int c);
 /* --------------------------------------- */
 
 #endif

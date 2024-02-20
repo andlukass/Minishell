@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 14:46:45 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/28 14:59:00 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/02/20 11:47:49 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ int		count_strs(char **strs);
 int		check_str(char *str);
 
 char	**edit_array(char **strs);
+
+void	manipulate_heredoc(char *str);
 
 #endif

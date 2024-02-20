@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manipulate.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 15:35:38 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/29 19:06:37 by user             ###   ########.fr       */
+/*   Updated: 2024/02/20 12:34:05 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,19 @@
 // 	}
 // 	printf("]\n");
 // }
+
+void	manipulate_heredoc(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\10')
+			str[i] = '$';
+		i++;
+	}
+}
 
 char	*manipulate_str(char **new_str, char *add, int size)
 {

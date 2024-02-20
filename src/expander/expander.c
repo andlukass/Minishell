@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/08 16:59:24 by isbraz-d          #+#    #+#             */
-/*   Updated: 2024/01/30 14:18:58 by isbraz-d         ###   ########.fr       */
+/*   Created: 2024/02/20 12:39:12 by isbraz-d          #+#    #+#             */
+/*   Updated: 2024/02/20 15:50:12 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,22 @@ void	expander_heredoc(char **str)
 {
 	char	*add;
 	char	*sendable;
+	int		i;
 
-	if (!there_is_expansion(*str))
+	if (!*str)
 		return ;
-	while (there_is_expansion(*str))
+	while (there_is_expansion(*str) != -1)
 	{
-		sendable = get_sendable(*str);
+		i = there_is_expansion(*str);
+		sendable = get_sendable((*str + i));
 		add = ft_strdup(get_env_value(sendable));
 		if (add == NULL)
-			handle_add_null(&add, *str);
+			handle_add_null(&add, (*str));
 		manipulate_str(str, add, ft_strlen(sendable));
 		free(add);
 		free(sendable);
 	}
+	manipulate_heredoc(*str);
 }
 
 char	**expander(char **strs)
