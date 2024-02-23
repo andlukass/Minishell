@@ -6,7 +6,7 @@
 /*   By: isbraz-d <isbraz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 15:39:20 by user              #+#    #+#             */
-/*   Updated: 2024/02/20 18:13:04 by isbraz-d         ###   ########.fr       */
+/*   Updated: 2024/02/21 10:57:13 by isbraz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static void	change_whitespaces(char *str)
 		if (str[i] == '\5' || str[i] == '\4')
 		{
 			i++;
-			while (str[i] != '\5' && str[i] != '\4')
+			while (str[i + 1] && str[i] != '\5' && str[i] != '\4')
 				i++;
 		}
 		if (is_whitespace(str[i]) && str[i] != 32)
@@ -110,7 +110,7 @@ static char	*put_spaces(char *input)
 
 	j = 0;
 	i = -1;
-	new_input = malloc(sizeof(char) * ft_strlen(input) * 2);
+	new_input = malloc(sizeof(char) * ft_strlen(input) * 3);
 	while (new_input && input[++i])
 	{
 		new_input[j++] = input[i];
