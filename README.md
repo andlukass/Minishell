@@ -16,3 +16,6 @@ With all the preprocessing done, we proceed to execute our commands. For each co
 
 ### More
 Despite all that, there are a few more things: We have to setup a prompt line, which have a history of the commands already runned; we modified the SIGNAL  handling so that when the user presses CTRL+C, for example, they are prompted again rather than abruptly ending the program; we need to implement our own built-in functions, that should run natively within our shell. For example, we should handle commands like cd and pwd, besides that, all the export and unset calls should be handled within our shell.
+
+### Cool feature
+You can change the color of the prompt by running the program with the flag "--color <color>". You can run it with: pink, green, red, blue, yellow and white, fell free to test it :).
